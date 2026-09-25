@@ -1,0 +1,8 @@
+# large external dataset, kept locally only
+rjdfit_*.csv
+# identifiable resumes stay off GitHub (README: reproducibility plan)
+data/resumes/*.txt
+data/resumes/*.pdf
+data/resumes/*.docx
+.env
+__pycache__/
