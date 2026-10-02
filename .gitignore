@@ -6,3 +6,5 @@ data/resumes/*.pdf
 data/resumes/*.docx
 .env
 __pycache__/
+# Raw model responses and extracted resume facts can identify resume owners.
+results/

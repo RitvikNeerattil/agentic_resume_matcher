@@ -5,7 +5,31 @@ CSCE 585: Machine Learning Systems | Fall 2026
 
 This project compares two ways to match a resume with job postings: a single LLM call and a workflow with specialized workers. We will measure whether splitting up the work improves recommendations enough to justify the additional latency and token cost.
 
-**Status:** Project proposal. The implementation and experiments described below are planned work.
+**Status:** Kevin’s orchestration workflow and experiment tooling are implemented and verified offline. Real pilot/evaluation results are pending consented resumes, completed human labels, and model/API configuration. See [Kevin’s workflow and run commands](orchestrator/README.md).
+
+This implementation covers Kevin’s role. Aidan owns the single-agent baseline;
+it is not implemented here. The runner handles the orchestrator’s 48 main runs
+and six reuse runs. The 96-run comparison below remains the team’s full plan.
+
+## Repository Layout
+
+| Location | Purpose |
+|---|---|
+| [`orchestrator/`](orchestrator/) | Kevin’s three-worker workflow, extraction validation, worker prompts, and instructions. |
+| [`shared/`](shared/) | Common API code, ranking prompt, experiment settings, data/labeling tools, experiment runner, summary tool, and one test file. |
+| [`data/`](data/) | Job snapshots, resumes, human labels, and the labeling rubric. |
+
+The shared components live together in `shared/`; there are no separate top-level
+`scripts/`, `tests/`, `config/`, `prompts/`, or `labels/` folders.
+Run these commands from the repository root:
+
+```sh
+python3 -m unittest shared.test_workflow -v
+python3 -m shared.run_experiment --phase pilot
+```
+
+The second command prints the plan and missing inputs. Full execution commands
+are in [the orchestrator instructions](orchestrator/README.md).
 
 ## Team and Responsibilities
 

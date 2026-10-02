@@ -5,9 +5,9 @@ Expects data/resumes/resumes.csv with columns:
   pref_locations, pref_role_level, needs_sponsorship (yes/no), other_constraints
 
 Writes:
-  labels/primary_labels.csv   every eval resume x all 50 jobs (8 x 50 = 400 rows)
-  labels/second_review.csv    stratified 20% overlap sample (same pairs, blank labels)
-Labelers fill `relevant` (1/0) and `reason_code`; see LABELING_RUBRIC.md.
+  data/labels/primary_labels.csv   every eval resume x all 50 jobs (8 x 50 = 400 rows)
+  data/labels/second_review.csv    stratified 20% overlap sample (same pairs, blank labels)
+Labelers fill `relevant` (1/0) and `reason_code`; see data/LABELING_RUBRIC.md.
 Do this BEFORE looking at any matcher output.
 """
 import csv
@@ -31,8 +31,10 @@ def main():
             rows.append({"pair_id": f"{rid}__{j['job_id']}", "resume_id": rid, "job_id": j["job_id"],
                          "company": j["company"], "title": j["title"], "location": j["location"],
                          "relevant": "", "reason_code": "", "notes": "", "labeler": ""})
-    out = ROOT / "labels"
+    out = ROOT / "data/labels"
     out.mkdir(exist_ok=True)
+    if any((out / name).exists() for name in ("primary_labels.csv", "second_review.csv")):
+        raise SystemExit("Label sheets already exist; not overwriting either sheet")
     for name, data in [("primary_labels.csv", rows)]:
         if (out / name).exists():
             raise SystemExit(f"{name} already exists; not overwriting labels")

@@ -21,7 +21,7 @@
 
 1. **Index.** Active postings in [SimplifyJobs/New-Grad-Positions](https://github.com/SimplifyJobs/New-Grad-Positions) `listings.json` (commit `929e0b0`) with a Greenhouse or Lever URL, in the Software or AI/ML/Data categories. AI-training gig boards were left out (Innodata, TSMG, Prolific, Welo). At most 2 postings per employer. That gave 223 candidates, saved in `raw/simplify_index.json`.
 2. **Fetch.** Each posting's full record came from the public GET endpoints on 2026-09-24 (`boards-api.greenhouse.io/v1/boards/{board}/jobs/{id}` and `api.lever.co/v0/postings/{company}/{id}`). 219 returned OK and 4 returned 404. The HTML was converted to plain text. Raw copy: `raw/job_snapshot_raw_2026-09-24.json`.
-3. **Select.** Run `python scripts/build_job_snapshot.py`. It's deterministic (seed 585). The rules are in the script docstring: early-career only, a software or data title, US location, at least 1,000 characters of description, no duplicate titles, max 2 per employer, and 25 per source with the categories alternated.
+3. **Select.** From the repository root, run `python3 -m shared.build_job_snapshot`. It's deterministic (seed 585). The rules are in the script docstring: early-career only, a software or data title, US location, at least 1,000 characters of description, no duplicate titles, max 2 per employer, and 25 per source with the categories alternated.
 
 Rerunning step 3 always gives the same 50. Rerunning step 2 won't, since postings close. The raw file is the frozen snapshot.
 
@@ -29,13 +29,13 @@ Rerunning step 3 always gives the same 50. Rerunning step 2 won't, since posting
 
 `resumes.csv` lists the 10 resumes (R01 and R02 for dev, R03 to R10 for eval) and each person's stated preferences. Put the cleaned text for each at `data/resumes/R0X.txt`. Those `.txt` files are git-ignored so identifiable resumes stay off GitHub.
 
-## Labels (`labels/`)
+## Labels (`data/labels/`)
 
-See `LABELING_RUBRIC.md`. Once the resumes are in:
+See [LABELING_RUBRIC.md](LABELING_RUBRIC.md). Blank sheets for 400 primary pairs and 80 independent review pairs are prepared in `data/labels/`. Fill them with human judgments after resume consent and calibration, before inspecting evaluation predictions. The agreement script refuses incomplete labels or reviews. Run commands from the repository root. To create sheets in a fresh checkout only:
 
 ```
-python scripts/make_label_sheets.py   # 400 primary pairs + 80 second-review pairs
-python scripts/label_agreement.py     # agreement, kappa, disagreements -> reference_labels.csv
+python3 -m shared.make_label_sheets   # 400 primary pairs + 80 second-review pairs
+python3 -m shared.label_agreement    # agreement, kappa, disagreements -> reference_labels.csv
 ```
 
 ## Not used

@@ -1,0 +1,10 @@
+{
+  "model": "",
+  "temperature": 0,
+  "output_limits": {"resume": 2000, "requirements": 14000, "rank": 2000},
+  "prices_per_million": {"input": null, "cached_input": null, "output": null},
+  "price_date": "",
+  "price_source": "",
+  "seed": 585,
+  "budget_usd": 20
+}

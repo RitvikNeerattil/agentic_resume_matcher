@@ -41,7 +41,7 @@ For a relevant pair, `reason_code` can stay blank.
 2. For each job, skim the requirements section first, then the rest if needed.
 3. Fill in `relevant`, `reason_code`, `notes` if it was close, and your name in `labeler`.
 4. A second person labels `second_review.csv` (a 20% sample, stratified by resume) without looking at the primary labels.
-5. Run `python scripts/label_agreement.py`, talk through each disagreement, fill `resolved`, and rerun to produce `reference_labels.csv`.
+5. From the repository root, run `python3 -m shared.label_agreement`, talk through each disagreement in `data/labels/disagreements.csv`, fill `resolved`, and rerun to produce `data/labels/reference_labels.csv`.
 6. If kappa comes in under about 0.6, tighten this rubric using the disagreements, bump the version, and relabel the affected pairs.
 
 ## Calibration (do this first)
