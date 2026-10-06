@@ -43,3 +43,12 @@ python3 -m shared.label_agreement    # agreement, kappa, disagreements -> refere
 ## Not used
 
 `rjdfit_train.csv` / `rjdfit_test.csv` ([cnamuangtoun/resume-job-description-fit](https://huggingface.co/datasets/cnamuangtoun/resume-job-description-fit)) have about 8k synthetic-style resume/JD pairs with fit labels. They aren't part of the planned workload. They're kept locally in case we want extra examples for calibrating the rubric, and are git-ignored because of their size.
+
+## Measured reports (`data/reports/`)
+
+[Pipeline comparison PDF](reports/pipeline_comparison.pdf) contains actual local
+run timings, token usage, API fees, and saved top-five output excerpts. The
+folder also contains three PNG charts and exact CSV/JSON summaries. It covers
+eight development attempts: six succeeded; the two R02 orchestrator attempts
+failed resume-evidence validation. Quality evaluation still requires human labels.
+Raw responses and failed development probes remain under git-ignored `results/`.

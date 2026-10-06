@@ -142,6 +142,7 @@ def summarize(manifest, runs):
         durations = [r['seconds'] for r in group]
         succeeded = [r['seconds'] for r in group if r['status'] == 'ok']
         failed = [r for r in group if r['status'] == 'failed']
+        failed_usage = [usage(call) for run in failed for call in run['calls']]
         success_calls = [call for run in group if run['status'] == 'ok' for call in run['calls']]
         success_usage = [usage(call) for call in success_calls]
         complete_usage = bool(succeeded) and all(value is not None for value in success_usage)
@@ -168,7 +169,8 @@ def summarize(manifest, runs):
             'mean_success_cost_usd': sum(call['cost_usd'] for call in success_calls) / len(succeeded)
                 if succeeded and all(number(call.get('cost_usd')) for call in success_calls) else None,
             'failed_seconds': sum(run['seconds'] for run in failed),
-            'failed_tokens': sum(sum(value[:2]) for run in failed for call in run['calls'] if (value := usage(call)) is not None),
+            'failed_tokens': sum(sum(value[:2]) for value in failed_usage)
+                if all(value is not None for value in failed_usage) else None,
             'total_matcher_seconds': total_seconds,
             'successful_runs_per_minute': len(succeeded) * 60 / total_seconds if total_seconds else None,
             'total_input_tokens': None if unknown_usage else known_input,
