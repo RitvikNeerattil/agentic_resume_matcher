@@ -50,5 +50,5 @@ python3 -m shared.label_agreement    # agreement, kappa, disagreements -> refere
 run timings, token usage, API fees, and saved top-five output excerpts. The
 folder also contains three PNG charts and exact CSV/JSON summaries. It covers
 eight development attempts: six succeeded; the two R02 orchestrator attempts
-failed resume-evidence validation. Quality evaluation still requires human labels.
+failed resume-evidence validation. Quality evaluation still needs the second label review and the full run.
 Raw responses and failed development probes remain under git-ignored `results/`.

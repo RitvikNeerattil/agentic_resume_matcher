@@ -53,10 +53,10 @@ Both R02 orchestrator runs failed resume-evidence validation after one retry.
 The [measured PDF](../data/reports/pipeline_comparison.pdf) includes successful
 end-to-end times, token usage, actual outputs, and failed-attempt accounting.
 R01 completed both 20- and 50-job orchestrator runs. A fully successful pilot
-still requires resolving the R02 parser failures. Human relevance judgments and quality
-claims remain pending. The blank sheets are preparation, not completed labels.
+still requires resolving the R02 parser failures. Quality claims remain pending. The 400 primary labels are done (by the team);
+the 80-pair second review is still blank.
 Offline fake responses only verify control flow. Full weeks 5–6 quality evaluation
-requires the completed human labels and successful pilot.
+requires the second label review and a successful pilot.
 
 ## Run
 
