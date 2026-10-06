@@ -1,6 +1,11 @@
 """Evidence and complete-job coverage checks for extraction workers."""
 
 
+def supported(quote, source):
+    """Keep exact words, allowing only line-break and spacing differences."""
+    return isinstance(quote, str) and bool(quote.strip()) and ' '.join(quote.split()) in ' '.join(source.split())
+
+
 def validate(worker, value, data):
     if not isinstance(value, dict):
         raise ValueError('Expected a JSON object')
@@ -12,10 +17,10 @@ def validate(worker, value, data):
             if not isinstance(skill, dict) or not isinstance(skill.get('name'), str) or not skill['name']:
                 raise ValueError('Invalid skill')
             quote = skill.get('evidence')
-            if not isinstance(quote, str) or not quote or quote not in data['resume']:
+            if not supported(quote, data['resume']):
                 raise ValueError('Unsupported resume evidence')
         for quote in value['education'] + value['experience']:
-            if not isinstance(quote, str) or not quote or quote not in data['resume']:
+            if not supported(quote, data['resume']):
                 raise ValueError('Unsupported resume evidence')
     elif worker == 'requirements':
         jobs = {j['job_id']: j for j in data['jobs']}
@@ -28,7 +33,7 @@ def validate(worker, value, data):
                 if not isinstance(row.get(field), list):
                     raise ValueError('Missing requirements field: ' + field)
                 for quote in row[field]:
-                    if not isinstance(quote, str) or not quote or quote not in jobs[row['job_id']]['description']:
+                    if not supported(quote, jobs[row['job_id']]['description']):
                         raise ValueError('Unsupported job evidence')
     else:
         raise ValueError("Unknown extraction worker: " + worker)

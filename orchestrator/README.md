@@ -11,9 +11,15 @@
 The orchestrator imports [`shared/common.py`](../shared/common.py) for the API
 client, retries, usage/cost logging, cleanup, and output contract, and uses
 [`shared/rank.txt`](../shared/rank.txt) for ranking instructions. These components
-are available for Aidan's later baseline integration. The baseline is Aidan's
-responsibility and is not implemented here. Shared tools, settings, and tests live
-in [`shared/`](../shared/); inputs and labels live in [`data/`](../data/).
+are also used by the one-call baseline in [`single_agent/`](../single_agent/),
+added for the requested measured comparison. Shared tools, settings, and tests
+live in [`shared/`](../shared/); inputs and labels live in [`data/`](../data/).
+
+The requirement worker selects numbered lines from each complete posting. The
+controller restores the original quotes before validation and ranking, avoiding
+paraphrased evidence without adding another LLM call. Evidence checks ignore
+whitespace differences while preserving the original words. Local requests
+disable input truncation and context shifting.
 
 Ritvik can call `orchestrator.match(client, resume, preferences, jobs)` from the
 team's evaluation harness. It returns `{"matches": [{"job_id": "J001",
@@ -30,49 +36,77 @@ Completed:
 - Added comparison tables, paired resume differences, and the project decision rule.
 - Created 400 primary and 80 independent-review label rows.
 - Prevented unfinished labels from becoming reference labels.
-- Verified the pipeline offline with eight contract tests.
+- Verified the pipelines and runner offline with 12 contract tests.
 
-Still requires the team and API access:
+Still requires the team:
 
 - ~~Add ten anonymized resumes~~ Done: R01–R10 are in `data/resumes/` (preferences assigned by the team).
 - Calibrate labels on two development resumes; finish human evaluation labels.
-- Select a fixed model version, record dated provider prices, and run the pilot.
+- Review the completed development measurements and run a successful pilot.
 - Freeze the successful pilot, run evaluation and reuse, and produce real tables.
 
-No API experiments, human relevance judgments, or quality claims have been fabricated.
-The blank sheets are preparation, not completed labels. Offline fake responses only
-verify control flow. Weeks 5–6 cannot be empirically completed without these inputs.
+The local development benchmark is running; its comparison report will use the
+saved measurements after completion. Human relevance judgments and quality
+claims remain pending. The blank sheets are preparation, not completed labels.
+Offline fake responses only verify control flow. Full weeks 5–6 quality evaluation
+requires the completed human labels and successful pilot.
 
 ## Run
 
-Run all commands from the repository root. Python 3.10 or newer is sufficient;
-there are no third-party package dependencies.
+Run all commands from the repository root. Python 3.10 or newer is sufficient
+for the matchers and runner. PDF/chart generation uses Matplotlib, already
+available through `/opt/anaconda3/bin/python` in this environment.
 
 ```sh
 python3 -m unittest shared.test_workflow -v
 python3 -m shared.run_experiment --phase pilot
 ```
 
-The default command prints the schedule and missing inputs without API calls.
-Add `data/resumes/R01.txt` through `R10.txt` and update `resumes.csv` preferences.
-Fill `shared/experiment.json`: a fixed model snapshot supporting Chat Completions,
-JSON mode, temperature and the specified output limits; all prices in USD per
-million tokens; price date and official source URL. The example config intentionally
-has no guessed model or prices. Set `OPENAI_API_KEY` in your shell; do not commit it.
-API usage and response formats follow the
-[official API reference](https://developers.openai.com/api/reference/resources/chat).
+The default command prints the schedule and missing inputs without making model
+requests. Resumes R01–R10 and assigned preferences are already present.
+
+Choose the provider using `--config`:
+
+- `shared/local_experiment.json` runs the downloaded
+  `qwen3:4b-instruct-2507-q4_K_M` model through Ollama 0.35.0 on
+  `http://127.0.0.1:11434`. No API key is required. The model supports a native
+  262,144-token context; the config uses 131,072. API token charges are $0;
+  hardware/electricity costs are unmeasured.
+- `shared/experiment.json` selects OpenAI's fixed
+  `gpt-4.1-mini-2025-04-14` snapshot and requires `OPENAI_API_KEY`. Its prices,
+  dated October 6, 2026, are $0.40 input, $0.10 cached input, and $1.60 output
+  per million tokens. [Official model/pricing documentation](https://developers.openai.com/api/docs/models/gpt-4.1-mini).
+
+Measure development cost and end-to-end speed for both pipelines, then create
+the PDF/charts:
 
 ```sh
-python3 -m shared.run_experiment --phase pilot --output results/pilot --execute
+python3 -m shared.run_experiment --phase benchmark --architectures both --repetitions 1 --config shared/local_experiment.json --output results/local_benchmark --execute
+/opt/anaconda3/bin/python -m shared.make_pipeline_report results/local_benchmark --output data/reports
 ```
 
-The pilot is two dev resumes × two sizes = four orchestrator runs. Inspect
-explanations, context/output limits, token usage, costs and failures. Estimate the
-orchestrator main cost from pilot averages: 24 times the sum of the two size mean costs,
-plus six reuse runs and one preparation. Confirm it fits the proposed $20 total
-budget. If tuning is needed, adjust prompts/config and run a new pilot in a new
-directory. Successful pilot prompts/config/jobs must match evaluation exactly.
-Main runs recompute both intermediate extractions on every repetition.
+This makes eight matching runs: two development resumes × two job sizes × two
+architectures. Omitting `--repetitions 1` gives three repetitions and 24 runs.
+Both receive the same original inputs, shared cleanup, model, ranking prompt,
+and final output contract. Each run's time includes retries and validation.
+Human labels are not required for this development benchmark, and no
+Precision@5 or accuracy conclusion follows from it.
+
+For a paired pilot that can be frozen for quality evaluation:
+
+```sh
+python3 -m shared.run_experiment --phase pilot --architectures both --config shared/local_experiment.json --output results/paired_pilot --execute
+```
+
+The paired pilot has eight runs. All must succeed before the 96-run paired main
+experiment can freeze them. Without `--architectures both`, the default pilot
+contains four orchestrator runs and supports the default 48-run orchestrator
+main experiment. Inspect explanations, context/output limits, tokens, costs,
+and failures. Estimate cloud evaluation spending from the pilot before making
+paid requests; the proposed combined budget is $20. If tuning is needed,
+adjust prompts/config and run a new pilot in a new directory. Successful pilot
+prompts/config/jobs must match evaluation exactly. Main runs recompute both
+intermediate extractions on every repetition.
 
 Label sheets have already been created. Do not regenerate over human work.
 Follow [`data/LABELING_RUBRIC.md`](../data/LABELING_RUBRIC.md) before looking at any eval predictions. Then:
@@ -80,18 +114,22 @@ Follow [`data/LABELING_RUBRIC.md`](../data/LABELING_RUBRIC.md) before looking at
 ```sh
 python3 -m shared.label_agreement
 # If disagreements exist, resolve them in data/labels/disagreements.csv and rerun.
-python3 -m shared.run_experiment --phase main --pilot-dir results/pilot --output results/main --execute
+python3 -m shared.run_experiment --phase main --architectures both --config shared/local_experiment.json --pilot-dir results/paired_pilot --output results/main --execute
 python3 -m shared.summarize_results results/main
-python3 -m shared.run_experiment --phase reuse --pilot-dir results/pilot --output results/reuse --execute
+python3 -m shared.run_experiment --phase reuse --config shared/local_experiment.json --pilot-dir results/paired_pilot --output results/reuse --execute
 python3 -m shared.summarize_results results/reuse
 ```
 
-`--execute` is the explicit paid execution switch. Each output directory is new;
+Main/reuse require exactly 400 complete human reference labels. They retain the
+pilot checks; the development benchmark bypasses those quality prerequisites.
+`--execute` starts inference with the selected provider; cloud execution incurs
+API charges. Each output directory is new;
 existing logs are never overwritten. Runs execute one resume at a time. Job-order
-seeds are saved for pairing with Aidan's baseline later. Every call gets at most
+seeds are paired across architectures, and method order alternates. Every call gets at most
 one retry. Invalid evidence,
 incomplete extraction, truncated output and invalid rankings count as failures.
-The HTTP timeout is 120 seconds per attempt. Any unknown billed usage is preserved
+The cloud HTTP timeout is 120 seconds per attempt; the local config allows 1,800
+seconds per attempt. Any unknown token usage is preserved
 and stops further spending until reviewed. The $20 limit is per invocation and
 checked between matching runs, so a run can cross it; monitor combined pilot,
 main and ablation spending. This is a guard, not a guaranteed provider spending cap.
@@ -104,11 +142,13 @@ twice. Cached input is billed separately using metadata. Missing usage is unknow
 never reported as free. Actual cached usage is logged; provider-cache disabling
 is not assumed.
 
-`comparison.csv` reports orchestrator Precision@5, repetition SD, latency median/range, mean
+`comparison.csv` reports each included architecture's Precision@5, repetition SD, latency median/range, mean
 cost, known input/output tokens, failures and condition throughput. Failed runs
-score zero. The summary tool can compute paired differences when the team provides
-baseline logs. `decision.json` marks schedule completion; its comparison criterion
-stays unknown without baseline results. Partial tables are marked incomplete.
+score zero. The summary tool computes paired differences when both architectures
+are included. `decision.json` marks schedule completion; its quality criterion
+stays unknown without baseline results and completed labels. Partial tables are
+marked incomplete. Use `shared.make_pipeline_report` for development cost/speed
+and output comparisons without requiring relevance labels.
 Condition throughput uses summed matcher time; `batch.json` also records full batch
 wall time. Reuse saves one prepared 50-job extraction, runs R03/R04 three times each,
 and writes preparation and amortized costs separately. Ranking retains original

@@ -5,18 +5,19 @@ CSCE 585: Machine Learning Systems | Fall 2026
 
 This project compares two ways to match a resume with job postings: a single LLM call and a workflow with specialized workers. We will measure whether splitting up the work improves recommendations enough to justify the additional latency and token cost.
 
-**Status:** The 50-job snapshot and 10 anonymized resumes are in place. Kevin’s orchestration workflow and experiment tooling are implemented and verified offline. Real pilot/evaluation results are pending completed human labels, the single-agent baseline, and model/API configuration. The latest progress slides are in [`progress_update_2026-10.pptx`](progress_update_2026-10.pptx). See [Kevin’s workflow and run commands](orchestrator/README.md).
+**Status:** The 50-job snapshot and 10 anonymized resumes are in place. Kevin’s orchestration workflow and a separate single-agent baseline are implemented, with 12 offline tests. The baseline was added for the requested measured cost/speed comparison; the team responsibilities below remain the project plan. A local benchmark is running, and its PDF/charts will be generated from the saved measurements. Human relevance labels and the full evaluation remain pending. The latest progress slides are in [`progress_update_2026-10.pptx`](progress_update_2026-10.pptx). See [Kevin’s workflow and run commands](orchestrator/README.md).
 
-This implementation covers Kevin’s role. Aidan owns the single-agent baseline;
-it is not implemented here. The runner handles the orchestrator’s 48 main runs
-and six reuse runs. The 96-run comparison below remains the team’s full plan.
+The runner supports both architectures. Its default remains four orchestrator
+pilot runs, 48 main runs, and six reuse runs. Selecting `--architectures both`
+produces eight paired pilot runs or the planned 96-run main comparison.
 
 ## Repository Layout
 
 | Location | Purpose |
 |---|---|
 | [`orchestrator/`](orchestrator/) | Kevin’s three-worker workflow, extraction validation, worker prompts, and instructions. |
-| [`shared/`](shared/) | Common API code, ranking prompt, experiment settings, data/labeling tools, experiment runner, summary tool, and one test file. |
+| [`single_agent/`](single_agent/) | One-call baseline for the measured pipeline comparison. |
+| [`shared/`](shared/) | Common API code, ranking prompt, cloud/local settings, data/labeling tools, experiment runner, report/summary tools, and tests. |
 | [`data/`](data/) | Job snapshots, resumes, human labels, and the labeling rubric. |
 | [`progress_update_2026-10.pptx`](progress_update_2026-10.pptx) | October progress update slides for the professor. |
 
@@ -31,6 +32,46 @@ python3 -m shared.run_experiment --phase pilot
 
 The second command prints the plan and missing inputs. Full execution commands
 are in [the orchestrator instructions](orchestrator/README.md).
+
+## Measured cost and speed comparison
+
+Both pipelines use the same cleaned data, model, shared client, ranking prompt,
+and final output contract. The development benchmark measures R01/R02 against
+20 and 50 jobs without requiring human relevance labels. One repetition gives
+eight matching runs; the default three repetitions give 24. Each run records
+actual token counters, end-to-end wall time including retries, and its output.
+The benchmark does not establish ranking accuracy or Precision@5.
+
+The local model is `qwen3:4b-instruct-2507-q4_K_M`, already downloaded for Ollama
+0.35.0 at `http://127.0.0.1:11434`. Its native context capacity is 262,144 tokens;
+[`shared/local_experiment.json`](shared/local_experiment.json) configures 131,072.
+No API key is needed. Local inference has **$0 API token charges**; hardware and
+electricity costs are unmeasured.
+
+From the repository root, run the eight-measurement comparison and generate its
+PDF/charts from the completed logs:
+
+```sh
+python3 -m shared.run_experiment --phase benchmark --architectures both --repetitions 1 --config shared/local_experiment.json --output results/local_benchmark --execute
+/opt/anaconda3/bin/python -m shared.make_pipeline_report results/local_benchmark --output data/reports
+```
+
+Use a new results directory for each execution. The report command uses
+Matplotlib, available in this Anaconda environment; the matcher itself uses only
+the Python standard library. The comparison reports measured latency and token
+usage, rather than the illustrative token counts in the proposal below.
+
+For optional cloud execution, choose `--config shared/experiment.json` and set
+`OPENAI_API_KEY`. That config selects `gpt-4.1-mini-2025-04-14` and prices dated
+October 6, 2026: $0.40 input, $0.10 cached input, and $1.60 output per million
+tokens. [Official model and pricing documentation](https://developers.openai.com/api/docs/models/gpt-4.1-mini).
+Cloud timings and costs must be measured separately from the local benchmark.
+
+Full quality evaluation requires 400 completed human labels and a successful
+paired eight-run pilot with the same model, prompts, and workload. Then
+`--phase main --architectures both --pilot-dir <paired-pilot-directory>` runs
+the planned 96 comparisons. Main/reuse retain their label and pilot checks;
+development cost/speed benchmarks can run before labeling is finished.
 
 ## Team and Responsibilities
 

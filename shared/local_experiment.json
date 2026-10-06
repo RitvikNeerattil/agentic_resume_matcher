@@ -1,0 +1,23 @@
+{
+  "model": "qwen3:4b-instruct-2507-q4_K_M",
+  "temperature": 0,
+  "output_limits": {
+    "resume": 2000,
+    "requirements": 14000,
+    "rank": 2000,
+    "baseline": 2000
+  },
+  "prices_per_million": {
+    "input": 0,
+    "cached_input": 0,
+    "output": 0
+  },
+  "price_date": "2026-10-06",
+  "price_source": "Local Ollama inference: no API token billing; hardware/electricity costs unmeasured",
+  "seed": 585,
+  "budget_usd": 20,
+  "provider": "ollama",
+  "base_url": "http://127.0.0.1:11434",
+  "context_tokens": 131072,
+  "timeout_seconds": 1800
+}

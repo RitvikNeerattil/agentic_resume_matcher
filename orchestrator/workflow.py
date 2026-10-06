@@ -13,11 +13,78 @@ def parse_resume(client, resume):
                        validator=lambda value, data: validate('resume', value, data))
 
 
+def requirements_schema(numbered_jobs, provider='ollama'):
+    """Require every job key and constrain selections to that job's source IDs."""
+    fields = ('required', 'preferred', 'constraints')
+    properties = {}
+    for job in numbered_jobs:
+        evidence_ids = [line['evidence_id'] for line in job['description_lines']]
+        # OpenAI limits schemas to 1,000 enum values; membership is still
+        # checked against this job's source lines by decode_requirements.
+        item = ({'type': 'string', 'enum': evidence_ids} if provider == 'ollama'
+                else {'type': 'string', 'pattern': '^E[0-9]{3,}$'})
+        selection = {'type': 'array', 'items': item}
+        properties[job['job_id']] = {
+            'type': 'object',
+            'properties': {field: selection for field in fields},
+            'required': list(fields),
+            'additionalProperties': False,
+        }
+    return {
+        'type': 'object',
+        'properties': {
+            'jobs': {
+                'type': 'object',
+                'properties': properties,
+                'required': list(properties),
+                'additionalProperties': False,
+            },
+        },
+        'required': ['jobs'],
+        'additionalProperties': False,
+    }
+
+
+def decode_requirements(value, data, original_jobs):
+    """Resolve selected source IDs to quotes before checking evidence/coverage."""
+    if not isinstance(value, dict) or set(value) != {'jobs'} or not isinstance(value['jobs'], dict):
+        raise ValueError('Return a JSON object with jobs keyed by supplied job IDs')
+    sources = {j['job_id']: {line['evidence_id']: line['text'] for line in j['description_lines']}
+               for j in data['jobs']}
+    rows = value['jobs']
+    if set(rows) != set(sources):
+        raise ValueError('Extraction must cover every supplied job exactly once')
+    decoded = []
+    for job in data['jobs']:
+        job_id = job['job_id']
+        row = rows[job_id]
+        if not isinstance(row, dict) or set(row) != {'required', 'preferred', 'constraints'}:
+            raise ValueError('Each job must contain only required, preferred, and constraints arrays')
+        result = {'job_id': job_id}
+        for field in ('required', 'preferred', 'constraints'):
+            selected = row.get(field)
+            if not isinstance(selected, list) or any(not isinstance(i, str) for i in selected):
+                raise ValueError(field + ' must be a list of evidence IDs; use [] when absent')
+            if any(i not in sources[job_id] for i in selected):
+                raise ValueError('Unknown evidence ID; use only IDs listed for that job')
+            result[field] = [sources[job_id][i] for i in selected]
+        decoded.append(result)
+    return validate('requirements', {'jobs': decoded}, {'jobs': original_jobs})
+
+
 def extract_requirements(client, jobs):
-    data = {'jobs': [{**j, 'description': clean(j['description'])} for j in jobs]}
+    original_jobs = [{**j, 'description': clean(j['description'])} for j in jobs]
+    numbered = []
+    for job in original_jobs:
+        lines = [line.strip() for line in job['description'].splitlines() if line.strip()]
+        numbered.append({**{k: v for k, v in job.items() if k != 'description'},
+                         'description_lines': [{'evidence_id': f'E{i:03}', 'text': line}
+                                               for i, line in enumerate(lines, 1)]})
+    data = {'jobs': numbered}
     return client.call('requirements', data,
                        prompt=(PROMPTS / 'requirements.txt').read_text(),
-                       validator=lambda value, data: validate('requirements', value, data))
+                       schema=requirements_schema(numbered, client.config.get('provider', 'openai')),
+                       validator=lambda value, data: decode_requirements(value, data, original_jobs))
 
 
 def rank_jobs(client, parsed, preferences, jobs, requirements):

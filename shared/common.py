@@ -9,6 +9,20 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def load_api_key():
+    """Read only OPENAI_API_KEY from the git-ignored .env, without executing it."""
+    if os.environ.get('OPENAI_API_KEY'):
+        return
+    path = ROOT / '.env'
+    if path.exists():
+        for line in path.read_text().splitlines():
+            name, separator, value = line.partition('=')
+            if separator and name.strip() == 'OPENAI_API_KEY':
+                value = value.strip().strip('\"\'')
+                if value:
+                    os.environ['OPENAI_API_KEY'] = value
+
+
 def digest(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
 
@@ -42,6 +56,28 @@ class Client:
         self.calls = []
 
     def request(self, payload):
+        if self.config.get('provider') == 'ollama':
+            body = {'model': payload['model'], 'messages': payload['messages'],
+                    'format': payload['response_format'].get('json_schema', {}).get('schema', 'json'),
+                    'stream': False, 'keep_alive': '30m',
+                    'truncate': False, 'shift': False,
+                    'options': {'temperature': payload['temperature'],
+                                'num_ctx': self.config['context_tokens'],
+                                'num_predict': payload['max_completion_tokens'],
+                                'seed': self.config['seed']}}
+            request = urllib.request.Request(self.config['base_url'].rstrip('/') + '/api/chat',
+                data=json.dumps(body).encode(), headers={'Content-Type': 'application/json'})
+            with urllib.request.urlopen(request, timeout=self.config.get('timeout_seconds', 1800)) as response:
+                raw = json.load(response)
+            # Normalize the response while preserving the original server counters.
+            usage = None
+            if 'prompt_eval_count' in raw and 'eval_count' in raw:
+                usage = {'prompt_tokens': raw['prompt_eval_count'], 'completion_tokens': raw['eval_count'],
+                         'prompt_tokens_details': {'cached_tokens': raw.get('prompt_eval_cached_count', 0)}}
+            return {'model': raw['model'], 'usage': usage,
+                    'choices': [{'finish_reason': raw.get('done_reason'), 'message': raw['message']}],
+                    'ollama_response': raw}
+        load_api_key()
         key = os.environ.get('OPENAI_API_KEY')
         if not key:
             raise ValueError('Set OPENAI_API_KEY before live execution')
@@ -50,9 +86,10 @@ class Client:
         with urllib.request.urlopen(request, timeout=120) as response:
             return json.load(response)
 
-    def call(self, worker, data, *, prompt=None, validator=validate_rank):
+    def call(self, worker, data, *, prompt=None, validator=validate_rank, schema=None):
         if prompt is None:
             prompt = (ROOT / 'shared/rank.txt').read_text()
+        retry_hint = ''
         for attempt in range(2):
             start = time.perf_counter()
             log = {'worker': worker, 'retry': attempt, 'model': self.config['model'],
@@ -60,8 +97,11 @@ class Client:
             try:
                 response = self.transport({'model': self.config['model'], 'temperature': self.config['temperature'],
                     'max_completion_tokens': self.config['output_limits'][worker], 'store': False,
-                    'response_format': {'type': 'json_object'},
-                    'messages': [{'role': 'system', 'content': prompt}, {'role': 'user', 'content': json.dumps(data)}]})
+                    'service_tier': 'default',
+                    'response_format': ({'type': 'json_schema', 'json_schema': {
+                        'name': worker, 'strict': True, 'schema': schema}}
+                        if schema is not None else {'type': 'json_object'}),
+                    'messages': [{'role': 'system', 'content': prompt + retry_hint}, {'role': 'user', 'content': json.dumps(data)}]})
                 log['raw_response'] = response
                 usage = response.get('usage')
                 log['usage'] = usage
@@ -79,9 +119,13 @@ class Client:
                 # HTTP error bodies can contain sensitive request data; retain only type.
                 log['status'] = 'failed'
                 log['error'] = type(exc).__name__
+                if isinstance(exc, ValueError):
+                    log['error_detail'] = str(exc)
+                    retry_hint = '\nPrevious output failed validation: ' + str(exc) + '. Correct the JSON using only the supplied input.'
+                if hasattr(exc, 'code'):
+                    log['http_status'] = exc.code
                 if attempt == 1:
                     raise
             finally:
                 log['seconds'] = time.perf_counter() - start
                 self.calls.append(log)
-

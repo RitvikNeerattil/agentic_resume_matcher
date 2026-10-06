@@ -1,10 +1,20 @@
 {
-  "model": "",
+  "model": "gpt-4.1-mini-2025-04-14",
   "temperature": 0,
-  "output_limits": {"resume": 2000, "requirements": 14000, "rank": 2000},
-  "prices_per_million": {"input": null, "cached_input": null, "output": null},
-  "price_date": "",
-  "price_source": "",
+  "output_limits": {
+    "resume": 2000,
+    "requirements": 14000,
+    "rank": 2000,
+    "baseline": 2000
+  },
+  "prices_per_million": {
+    "input": 0.4,
+    "cached_input": 0.1,
+    "output": 1.6
+  },
+  "price_date": "2026-10-06",
+  "price_source": "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
   "seed": 585,
-  "budget_usd": 20
+  "budget_usd": 20,
+  "provider": "openai"
 }
