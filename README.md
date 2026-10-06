@@ -64,6 +64,23 @@ took 39.44 minutes in one local server session; cache/model state was not reset.
 These are development measurements: the 96-run quality evaluation remains
 pending (the 400 relevance labels are done; the second review is not).
 
+**Accuracy evaluation — October 6, 2026:** after the resume-parser fix, the
+paired pilot passed 8/8 and the 96-run main experiment completed with no
+failures (Qwen3 4B through Ollama on a Colab A100, `colab/run_accuracy_eval.ipynb`).
+Precision@5 uses the 400 primary team labels; the 80-pair second review is
+still pending. Summaries are in [`data/reports/accuracy/`](data/reports/accuracy/).
+
+| Jobs | Single P@5 | Multi P@5 | Single median time | Multi median time | Single tokens/run | Multi tokens/run |
+|---|---:|---:|---:|---:|---:|---:|
+| 20 | 0.433 | 0.383 | 13.4s | 51.9s | 32,676 | 90,944 |
+| 50 | 0.317 | 0.317 | 33.4s | 197.6s | 76,572 | 214,775 |
+
+Multi-agent was no more accurate at either size and was 4–6x slower with
+about 2.8x the tokens, so the decision rule (+5 points, at most 2x cost and
+time) is not met. At 50 jobs it beat the baseline on 1 of 8 resumes, lost on 2,
+and tied on 5. These timings come from an A100 and are not comparable to the
+Mac benchmark above.
+
 From the repository root, run the eight-measurement comparison and generate its
 PDF/charts from the completed logs:
 
