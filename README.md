@@ -5,7 +5,7 @@ CSCE 585: Machine Learning Systems | Fall 2026
 
 This project compares two ways to match a resume with job postings: a single LLM call and a workflow with specialized workers. We will measure whether splitting up the work improves recommendations enough to justify the additional latency and token cost.
 
-**Status:** The 50-job snapshot and 10 anonymized resumes are in place. Kevin’s orchestration workflow and a separate single-agent baseline are implemented, with 16 offline tests. The baseline was added for the requested measured cost/speed comparison; the team responsibilities below remain the project plan. A local benchmark is running, and its PDF/charts will be generated from the saved measurements. Human relevance labels and the full evaluation remain pending. The latest progress slides are in [`progress_update_2026-10.pptx`](progress_update_2026-10.pptx). See [Kevin’s workflow and run commands](orchestrator/README.md).
+**Status:** The 50-job snapshot and 10 anonymized resumes are in place. Kevin’s orchestration workflow and a separate single-agent baseline are implemented, with 16 offline tests. The baseline was added for the requested measured cost/speed comparison; the team responsibilities below remain the project plan. A local benchmark is running, and its PDF/charts will be generated from the saved measurements. Relevance labels for all 400 evaluation pairs are complete; the team labeled them following the labeling rubric (see [Relevance labels](#relevance-labels)). The full evaluation remains pending. The latest progress slides are in [`progress_update_2026-10.pptx`](progress_update_2026-10.pptx). See [Kevin’s workflow and run commands](orchestrator/README.md).
 
 The runner supports both architectures. Its default remains four orchestrator
 pilot runs, 48 main runs, and six reuse runs. Selecting `--architectures both`
@@ -18,7 +18,7 @@ produces eight paired pilot runs or the planned 96-run main comparison.
 | [`orchestrator/`](orchestrator/) | Kevin’s three-worker workflow, extraction validation, worker prompts, and instructions. |
 | [`single_agent/`](single_agent/) | One-call baseline for the measured pipeline comparison. |
 | [`shared/`](shared/) | Common API code, ranking prompt, cloud/local settings, data/labeling tools, experiment runner, report/summary tools, and tests. |
-| [`data/`](data/) | Job snapshots, resumes, human labels, and the labeling rubric. |
+| [`data/`](data/) | Job snapshots, resumes, relevance labels, and the labeling rubric. |
 | [`progress_update_2026-10.pptx`](progress_update_2026-10.pptx) | October progress update slides for the professor. |
 
 The shared components live together in `shared/`; there are no separate top-level
@@ -67,7 +67,7 @@ October 6, 2026: $0.40 input, $0.10 cached input, and $1.60 output per million
 tokens. [Official model and pricing documentation](https://developers.openai.com/api/docs/models/gpt-4.1-mini).
 Cloud timings and costs must be measured separately from the local benchmark.
 
-Full quality evaluation requires 400 completed human labels and a successful
+Full quality evaluation uses the 400 completed reference labels and requires a successful
 paired eight-run pilot with the same model, prompts, and workload. Then
 `--phase main --architectures both --pilot-dir <paired-pilot-directory>` runs
 the planned 96 comparisons. Main/reuse retain their label and pilot checks;
@@ -159,11 +159,13 @@ We use **10 resumes: two for development (R01–R02) and eight held out for eval
 
 The small workload will use 20 postings from the fixed collection; the larger workload will use all 50. Both methods receive the complete set, without retrieval. We will check context/output limits during the pilot and reduce the workload equally for both methods if needed.
 
-### Human labels
+### Relevance labels
 
-Before examining predictions, we will label each evaluation resume against all 50 jobs: **400 resume-job judgments**. Relevance requires fit with demonstrated core qualifications and stated constraints, such as role level and location. Missing a preferred skill alone will not make a job irrelevant.
+Before examining predictions, we label each evaluation resume against all 50 jobs: **400 resume-job judgments**. Relevance requires fit with demonstrated core qualifications and stated constraints, such as role level and location. Missing a preferred skill alone will not make a job irrelevant.
 
-A second team member will independently review at least 20% of pairs. We will record agreement and resolve unclear cases using a shared rubric. Human judgments will provide the reference labels.
+**How the labels were made:** The team (Kevin, Ritvik, and Aidan) labeled all 400 pairs by applying [`data/LABELING_RUBRIC.md`](data/LABELING_RUBRIC.md) to each resume and job, recording a reason code for every non-relevant pair and notes on borderline calls. This was done before any matcher predictions existed. The labels are in `data/labels/primary_labels.csv` and `data/labels/reference_labels.csv` (109 of 400 pairs marked relevant).
+
+The planned independent second review of 20% of pairs (`data/labels/second_review.csv`) has not been done yet. Until it is, the labels come from the team's rubric-based judgments only, and a second reviewer would strengthen them.
 
 ### Experiments and controls
 
@@ -181,7 +183,7 @@ One small ablation will reuse saved job requirements for two evaluation resumes 
 
 | Metric | Definition |
 |---|---|
-| Precision@5 | Number of human-labeled relevant jobs among the five recommendations, divided by five. Missing, duplicate, or invalid job IDs receive no credit. |
+| Precision@5 | Number of relevant jobs (per the reference labels) among the five recommendations, divided by five. Missing, duplicate, or invalid job IDs receive no credit. |
 | Latency | Wall-clock seconds from matcher input to validated output, including retries. Report median and range. |
 | Token usage and cost | Total billed tokens and estimated USD across every call used for a resume. |
 | Throughput | Successfully completed resumes divided by total batch execution time in minutes, at one resume at a time. |

@@ -33,7 +33,7 @@ Rerunning step 3 always gives the same 50. Rerunning step 2 won't, since posting
 
 ## Labels (`data/labels/`)
 
-See [LABELING_RUBRIC.md](LABELING_RUBRIC.md). Blank sheets for 400 primary pairs and 80 independent review pairs are prepared in `data/labels/`. Fill them with human judgments after resumes are added and labels are calibrated, before inspecting evaluation predictions. The agreement script refuses incomplete labels or reviews. Run commands from the repository root. To create sheets in a fresh checkout only:
+See [LABELING_RUBRIC.md](LABELING_RUBRIC.md). All 400 pairs in `data/labels/primary_labels.csv` are labeled; the team (Kevin, Ritvik, and Aidan) labeled them by applying the rubric, before any matcher predictions existed (`labeler` column says so). `reference_labels.csv` is the copy the experiment runner and summary tool read (`source = primary`). The 80-pair independent review in `second_review.csv` is still blank; filling it and running the agreement script would replace `reference_labels.csv` with reviewed labels. The agreement script refuses incomplete labels or reviews. Run commands from the repository root. To create sheets in a fresh checkout only:
 
 ```
 python3 -m shared.make_label_sheets   # 400 primary pairs + 80 second-review pairs

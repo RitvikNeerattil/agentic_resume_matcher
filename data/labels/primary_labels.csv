@@ -1,401 +1,401 @@
 pair_id,resume_id,job_id,company,title,location,relevant,reason_code,notes,labeler
-R03__J001,R03,J001,Bracebridge Capital,Machine Learning Analyst ,"Boston, MA",,,,
-R03__J002,R03,J002,Klaviyo,AI Engineer I,"Boston, MA",,,,
-R03__J003,R03,J003,CHAOS Industries,Applied AI Engineer,"San Francisco, California, United States",,,,
-R03__J004,R03,J004,SpaceX,"New Graduate Engineer, Software (Starship)","Hawthorne, CA",,,,
-R03__J005,R03,J005,The Brattle Group,Data and AI Engineer,"Boston, Massachusetts, United States",,,,
-R03__J006,R03,J006,Tebra,Software Engineer I,United States - Remote,,,,
-R03__J007,R03,J007,Major League Baseball,Data Scientist,"Cleveland, Ohio, United States",,,,
-R03__J008,R03,J008,Man Group,Technology Rotational Program - Associate Engineer,Massachusetts,,,,
-R03__J009,R03,J009,Xaira Therapeutics,AI in Residence,"South San Francisco, California, United States",,,,
-R03__J010,R03,J010,True Anomaly,"Software Engineer I, Elixir (New Grad)","Denver, CO or Long Beach, CA ",,,,
-R03__J011,R03,J011,Schonfeld,Market Data Analyst,"New York, New York, United States",,,,
-R03__J012,R03,J012,Scale AI,"Software Engineer, Public Sector - New Grad","San Francisco, CA",,,,
-R03__J013,R03,J013,Accenture,AI & Data Analyst,"Washington, DC",,,,
-R03__J014,R03,J014,Trace3,System Engineer,"Colorado Springs, CO",,,,
-R03__J015,R03,J015,Jumio,Research Engineer – Machine Learning & Robotics,"Lenexa, Kansas",,,,
-R03__J016,R03,J016,Maven Securities,Graduate Developer Programme Chicago 2027,Chicago,,,,
-R03__J017,R03,J017,Evolver,Research Scientist - Autonomous Systems,"Palo Alto, California",,,,
-R03__J018,R03,J018,PlanetScale,Software Engineer - Internal Tools,San Francisco Office,,,,
-R03__J019,R03,J019,Evolver,Research Scientist - Information Theory and Statistical Inference,"Palo Alto, California",,,,
-R03__J020,R03,J020,Uare.ai,Software Engineer (Early Career),"Los Altos, CA",,,,
-R03__J021,R03,J021,VML,Associate Data Engineer,"Austin, Texas, United States",,,,
-R03__J022,R03,J022,Anduril,"Software Engineer, Battlespace Awareness","Broomfield, Colorado, United States; Fort Collins, Colorado, United States",,,,
-R03__J023,R03,J023,The Trade Desk,Data Support Analyst I,Ventura,,,,
-R03__J024,R03,J024,Kikoff,Software Engineer - Recent Grad,San Francisco,,,,
-R03__J025,R03,J025,VML,Associate Data Insights Consultant ,"Austin, Texas, United States",,,,
-R03__J026,R03,J026,Hatch IT,Junior Data Engineer (DEA),"Arlington, VA",,,,
-R03__J027,R03,J027,Global Lending Services,Software Developer,"Greenville, South Carolina",,,,
-R03__J028,R03,J028,SteerBridge,Junior Data Engineer,"Vienna, VA",,,,
-R03__J029,R03,J029,Synergy ECP,Software Engineer,"Annapolis Junction, MD",,,,
-R03__J030,R03,J030,Vitana Pediatric & Orthodontic Partners,Data Analyst,"Plantation, FL",,,,
-R03__J031,R03,J031,FiscalNote,Associate Software Engineer,United States - Remote,,,,
-R03__J032,R03,J032,Rainmaker,"Rainmaker Fellow, Machine Learning","El Segundo, CA",,,,
-R03__J033,R03,J033,Agile Defense,Software Developer I,"Aberdeen Proving Ground, MD",,,,
-R03__J034,R03,J034,WisdomTree,AI Solutions Analyst,"Hybrid - New York, NY",,,,
-R03__J035,R03,J035,Rover,"Entry Level Software Engineer, Recommendations",Seattle,,,,
-R03__J036,R03,J036,Toyota Research Institute,AI Resident - Learning From Videos (LFV),"Los Altos, CA",,,,
-R03__J037,R03,J037,Kitware,OSTP Software Developer,"Clifton Park, New York",,,,
-R03__J038,R03,J038,Mulligan Funding,Data Scientist I - Management Trainee,"San Diego, CA",,,,
-R03__J039,R03,J039,Belvedere Trading,Software Engineer - Entry Level 2027,"Chicago, Illinois",,,,
-R03__J040,R03,J040,Field AI,"Embedded Systems Engineer, Robotics Hardware","Irvine, CA",,,,
-R03__J041,R03,J041,Veeva Systems,Associate Software Engineer - 2027 Start Dates,California - Pleasanton,,,,
-R03__J042,R03,J042,Datalab USA,Production Programmer - Entry Level SQL Developer,"Germantown, MD",,,,
-R03__J043,R03,J043,Revenue Analytics,Data Scientist,"Atlanta, GA (Open Remote - Eastern Time Zone)",,,,
-R03__J044,R03,J044,SEP,"Software Engineer (2027 start dates, in person)","Westfield, IN",,,,
-R03__J045,R03,J045,AHEAD,Associate AI Engineer,"Chicago, Illinois",,,,
-R03__J046,R03,J046,Artera,Associate AI Builder,"Seattle, Washington",,,,
-R03__J047,R03,J047,Field AI,"Robotics Engineer, Humanoid System Integration","Irvine, CA",,,,
-R03__J048,R03,J048,Wyetech,Software Engineer 0/1,"Ft. Meade, Maryland",,,,
-R03__J049,R03,J049,Global Lending Services,Data Developer,"Greenville, South Carolina",,,,
-R03__J050,R03,J050,Demiurge Studios,2027 Associate Software Engineer,Remote,,,,
-R04__J001,R04,J001,Bracebridge Capital,Machine Learning Analyst ,"Boston, MA",,,,
-R04__J002,R04,J002,Klaviyo,AI Engineer I,"Boston, MA",,,,
-R04__J003,R04,J003,CHAOS Industries,Applied AI Engineer,"San Francisco, California, United States",,,,
-R04__J004,R04,J004,SpaceX,"New Graduate Engineer, Software (Starship)","Hawthorne, CA",,,,
-R04__J005,R04,J005,The Brattle Group,Data and AI Engineer,"Boston, Massachusetts, United States",,,,
-R04__J006,R04,J006,Tebra,Software Engineer I,United States - Remote,,,,
-R04__J007,R04,J007,Major League Baseball,Data Scientist,"Cleveland, Ohio, United States",,,,
-R04__J008,R04,J008,Man Group,Technology Rotational Program - Associate Engineer,Massachusetts,,,,
-R04__J009,R04,J009,Xaira Therapeutics,AI in Residence,"South San Francisco, California, United States",,,,
-R04__J010,R04,J010,True Anomaly,"Software Engineer I, Elixir (New Grad)","Denver, CO or Long Beach, CA ",,,,
-R04__J011,R04,J011,Schonfeld,Market Data Analyst,"New York, New York, United States",,,,
-R04__J012,R04,J012,Scale AI,"Software Engineer, Public Sector - New Grad","San Francisco, CA",,,,
-R04__J013,R04,J013,Accenture,AI & Data Analyst,"Washington, DC",,,,
-R04__J014,R04,J014,Trace3,System Engineer,"Colorado Springs, CO",,,,
-R04__J015,R04,J015,Jumio,Research Engineer – Machine Learning & Robotics,"Lenexa, Kansas",,,,
-R04__J016,R04,J016,Maven Securities,Graduate Developer Programme Chicago 2027,Chicago,,,,
-R04__J017,R04,J017,Evolver,Research Scientist - Autonomous Systems,"Palo Alto, California",,,,
-R04__J018,R04,J018,PlanetScale,Software Engineer - Internal Tools,San Francisco Office,,,,
-R04__J019,R04,J019,Evolver,Research Scientist - Information Theory and Statistical Inference,"Palo Alto, California",,,,
-R04__J020,R04,J020,Uare.ai,Software Engineer (Early Career),"Los Altos, CA",,,,
-R04__J021,R04,J021,VML,Associate Data Engineer,"Austin, Texas, United States",,,,
-R04__J022,R04,J022,Anduril,"Software Engineer, Battlespace Awareness","Broomfield, Colorado, United States; Fort Collins, Colorado, United States",,,,
-R04__J023,R04,J023,The Trade Desk,Data Support Analyst I,Ventura,,,,
-R04__J024,R04,J024,Kikoff,Software Engineer - Recent Grad,San Francisco,,,,
-R04__J025,R04,J025,VML,Associate Data Insights Consultant ,"Austin, Texas, United States",,,,
-R04__J026,R04,J026,Hatch IT,Junior Data Engineer (DEA),"Arlington, VA",,,,
-R04__J027,R04,J027,Global Lending Services,Software Developer,"Greenville, South Carolina",,,,
-R04__J028,R04,J028,SteerBridge,Junior Data Engineer,"Vienna, VA",,,,
-R04__J029,R04,J029,Synergy ECP,Software Engineer,"Annapolis Junction, MD",,,,
-R04__J030,R04,J030,Vitana Pediatric & Orthodontic Partners,Data Analyst,"Plantation, FL",,,,
-R04__J031,R04,J031,FiscalNote,Associate Software Engineer,United States - Remote,,,,
-R04__J032,R04,J032,Rainmaker,"Rainmaker Fellow, Machine Learning","El Segundo, CA",,,,
-R04__J033,R04,J033,Agile Defense,Software Developer I,"Aberdeen Proving Ground, MD",,,,
-R04__J034,R04,J034,WisdomTree,AI Solutions Analyst,"Hybrid - New York, NY",,,,
-R04__J035,R04,J035,Rover,"Entry Level Software Engineer, Recommendations",Seattle,,,,
-R04__J036,R04,J036,Toyota Research Institute,AI Resident - Learning From Videos (LFV),"Los Altos, CA",,,,
-R04__J037,R04,J037,Kitware,OSTP Software Developer,"Clifton Park, New York",,,,
-R04__J038,R04,J038,Mulligan Funding,Data Scientist I - Management Trainee,"San Diego, CA",,,,
-R04__J039,R04,J039,Belvedere Trading,Software Engineer - Entry Level 2027,"Chicago, Illinois",,,,
-R04__J040,R04,J040,Field AI,"Embedded Systems Engineer, Robotics Hardware","Irvine, CA",,,,
-R04__J041,R04,J041,Veeva Systems,Associate Software Engineer - 2027 Start Dates,California - Pleasanton,,,,
-R04__J042,R04,J042,Datalab USA,Production Programmer - Entry Level SQL Developer,"Germantown, MD",,,,
-R04__J043,R04,J043,Revenue Analytics,Data Scientist,"Atlanta, GA (Open Remote - Eastern Time Zone)",,,,
-R04__J044,R04,J044,SEP,"Software Engineer (2027 start dates, in person)","Westfield, IN",,,,
-R04__J045,R04,J045,AHEAD,Associate AI Engineer,"Chicago, Illinois",,,,
-R04__J046,R04,J046,Artera,Associate AI Builder,"Seattle, Washington",,,,
-R04__J047,R04,J047,Field AI,"Robotics Engineer, Humanoid System Integration","Irvine, CA",,,,
-R04__J048,R04,J048,Wyetech,Software Engineer 0/1,"Ft. Meade, Maryland",,,,
-R04__J049,R04,J049,Global Lending Services,Data Developer,"Greenville, South Carolina",,,,
-R04__J050,R04,J050,Demiurge Studios,2027 Associate Software Engineer,Remote,,,,
-R05__J001,R05,J001,Bracebridge Capital,Machine Learning Analyst ,"Boston, MA",,,,
-R05__J002,R05,J002,Klaviyo,AI Engineer I,"Boston, MA",,,,
-R05__J003,R05,J003,CHAOS Industries,Applied AI Engineer,"San Francisco, California, United States",,,,
-R05__J004,R05,J004,SpaceX,"New Graduate Engineer, Software (Starship)","Hawthorne, CA",,,,
-R05__J005,R05,J005,The Brattle Group,Data and AI Engineer,"Boston, Massachusetts, United States",,,,
-R05__J006,R05,J006,Tebra,Software Engineer I,United States - Remote,,,,
-R05__J007,R05,J007,Major League Baseball,Data Scientist,"Cleveland, Ohio, United States",,,,
-R05__J008,R05,J008,Man Group,Technology Rotational Program - Associate Engineer,Massachusetts,,,,
-R05__J009,R05,J009,Xaira Therapeutics,AI in Residence,"South San Francisco, California, United States",,,,
-R05__J010,R05,J010,True Anomaly,"Software Engineer I, Elixir (New Grad)","Denver, CO or Long Beach, CA ",,,,
-R05__J011,R05,J011,Schonfeld,Market Data Analyst,"New York, New York, United States",,,,
-R05__J012,R05,J012,Scale AI,"Software Engineer, Public Sector - New Grad","San Francisco, CA",,,,
-R05__J013,R05,J013,Accenture,AI & Data Analyst,"Washington, DC",,,,
-R05__J014,R05,J014,Trace3,System Engineer,"Colorado Springs, CO",,,,
-R05__J015,R05,J015,Jumio,Research Engineer – Machine Learning & Robotics,"Lenexa, Kansas",,,,
-R05__J016,R05,J016,Maven Securities,Graduate Developer Programme Chicago 2027,Chicago,,,,
-R05__J017,R05,J017,Evolver,Research Scientist - Autonomous Systems,"Palo Alto, California",,,,
-R05__J018,R05,J018,PlanetScale,Software Engineer - Internal Tools,San Francisco Office,,,,
-R05__J019,R05,J019,Evolver,Research Scientist - Information Theory and Statistical Inference,"Palo Alto, California",,,,
-R05__J020,R05,J020,Uare.ai,Software Engineer (Early Career),"Los Altos, CA",,,,
-R05__J021,R05,J021,VML,Associate Data Engineer,"Austin, Texas, United States",,,,
-R05__J022,R05,J022,Anduril,"Software Engineer, Battlespace Awareness","Broomfield, Colorado, United States; Fort Collins, Colorado, United States",,,,
-R05__J023,R05,J023,The Trade Desk,Data Support Analyst I,Ventura,,,,
-R05__J024,R05,J024,Kikoff,Software Engineer - Recent Grad,San Francisco,,,,
-R05__J025,R05,J025,VML,Associate Data Insights Consultant ,"Austin, Texas, United States",,,,
-R05__J026,R05,J026,Hatch IT,Junior Data Engineer (DEA),"Arlington, VA",,,,
-R05__J027,R05,J027,Global Lending Services,Software Developer,"Greenville, South Carolina",,,,
-R05__J028,R05,J028,SteerBridge,Junior Data Engineer,"Vienna, VA",,,,
-R05__J029,R05,J029,Synergy ECP,Software Engineer,"Annapolis Junction, MD",,,,
-R05__J030,R05,J030,Vitana Pediatric & Orthodontic Partners,Data Analyst,"Plantation, FL",,,,
-R05__J031,R05,J031,FiscalNote,Associate Software Engineer,United States - Remote,,,,
-R05__J032,R05,J032,Rainmaker,"Rainmaker Fellow, Machine Learning","El Segundo, CA",,,,
-R05__J033,R05,J033,Agile Defense,Software Developer I,"Aberdeen Proving Ground, MD",,,,
-R05__J034,R05,J034,WisdomTree,AI Solutions Analyst,"Hybrid - New York, NY",,,,
-R05__J035,R05,J035,Rover,"Entry Level Software Engineer, Recommendations",Seattle,,,,
-R05__J036,R05,J036,Toyota Research Institute,AI Resident - Learning From Videos (LFV),"Los Altos, CA",,,,
-R05__J037,R05,J037,Kitware,OSTP Software Developer,"Clifton Park, New York",,,,
-R05__J038,R05,J038,Mulligan Funding,Data Scientist I - Management Trainee,"San Diego, CA",,,,
-R05__J039,R05,J039,Belvedere Trading,Software Engineer - Entry Level 2027,"Chicago, Illinois",,,,
-R05__J040,R05,J040,Field AI,"Embedded Systems Engineer, Robotics Hardware","Irvine, CA",,,,
-R05__J041,R05,J041,Veeva Systems,Associate Software Engineer - 2027 Start Dates,California - Pleasanton,,,,
-R05__J042,R05,J042,Datalab USA,Production Programmer - Entry Level SQL Developer,"Germantown, MD",,,,
-R05__J043,R05,J043,Revenue Analytics,Data Scientist,"Atlanta, GA (Open Remote - Eastern Time Zone)",,,,
-R05__J044,R05,J044,SEP,"Software Engineer (2027 start dates, in person)","Westfield, IN",,,,
-R05__J045,R05,J045,AHEAD,Associate AI Engineer,"Chicago, Illinois",,,,
-R05__J046,R05,J046,Artera,Associate AI Builder,"Seattle, Washington",,,,
-R05__J047,R05,J047,Field AI,"Robotics Engineer, Humanoid System Integration","Irvine, CA",,,,
-R05__J048,R05,J048,Wyetech,Software Engineer 0/1,"Ft. Meade, Maryland",,,,
-R05__J049,R05,J049,Global Lending Services,Data Developer,"Greenville, South Carolina",,,,
-R05__J050,R05,J050,Demiurge Studios,2027 Associate Software Engineer,Remote,,,,
-R06__J001,R06,J001,Bracebridge Capital,Machine Learning Analyst ,"Boston, MA",,,,
-R06__J002,R06,J002,Klaviyo,AI Engineer I,"Boston, MA",,,,
-R06__J003,R06,J003,CHAOS Industries,Applied AI Engineer,"San Francisco, California, United States",,,,
-R06__J004,R06,J004,SpaceX,"New Graduate Engineer, Software (Starship)","Hawthorne, CA",,,,
-R06__J005,R06,J005,The Brattle Group,Data and AI Engineer,"Boston, Massachusetts, United States",,,,
-R06__J006,R06,J006,Tebra,Software Engineer I,United States - Remote,,,,
-R06__J007,R06,J007,Major League Baseball,Data Scientist,"Cleveland, Ohio, United States",,,,
-R06__J008,R06,J008,Man Group,Technology Rotational Program - Associate Engineer,Massachusetts,,,,
-R06__J009,R06,J009,Xaira Therapeutics,AI in Residence,"South San Francisco, California, United States",,,,
-R06__J010,R06,J010,True Anomaly,"Software Engineer I, Elixir (New Grad)","Denver, CO or Long Beach, CA ",,,,
-R06__J011,R06,J011,Schonfeld,Market Data Analyst,"New York, New York, United States",,,,
-R06__J012,R06,J012,Scale AI,"Software Engineer, Public Sector - New Grad","San Francisco, CA",,,,
-R06__J013,R06,J013,Accenture,AI & Data Analyst,"Washington, DC",,,,
-R06__J014,R06,J014,Trace3,System Engineer,"Colorado Springs, CO",,,,
-R06__J015,R06,J015,Jumio,Research Engineer – Machine Learning & Robotics,"Lenexa, Kansas",,,,
-R06__J016,R06,J016,Maven Securities,Graduate Developer Programme Chicago 2027,Chicago,,,,
-R06__J017,R06,J017,Evolver,Research Scientist - Autonomous Systems,"Palo Alto, California",,,,
-R06__J018,R06,J018,PlanetScale,Software Engineer - Internal Tools,San Francisco Office,,,,
-R06__J019,R06,J019,Evolver,Research Scientist - Information Theory and Statistical Inference,"Palo Alto, California",,,,
-R06__J020,R06,J020,Uare.ai,Software Engineer (Early Career),"Los Altos, CA",,,,
-R06__J021,R06,J021,VML,Associate Data Engineer,"Austin, Texas, United States",,,,
-R06__J022,R06,J022,Anduril,"Software Engineer, Battlespace Awareness","Broomfield, Colorado, United States; Fort Collins, Colorado, United States",,,,
-R06__J023,R06,J023,The Trade Desk,Data Support Analyst I,Ventura,,,,
-R06__J024,R06,J024,Kikoff,Software Engineer - Recent Grad,San Francisco,,,,
-R06__J025,R06,J025,VML,Associate Data Insights Consultant ,"Austin, Texas, United States",,,,
-R06__J026,R06,J026,Hatch IT,Junior Data Engineer (DEA),"Arlington, VA",,,,
-R06__J027,R06,J027,Global Lending Services,Software Developer,"Greenville, South Carolina",,,,
-R06__J028,R06,J028,SteerBridge,Junior Data Engineer,"Vienna, VA",,,,
-R06__J029,R06,J029,Synergy ECP,Software Engineer,"Annapolis Junction, MD",,,,
-R06__J030,R06,J030,Vitana Pediatric & Orthodontic Partners,Data Analyst,"Plantation, FL",,,,
-R06__J031,R06,J031,FiscalNote,Associate Software Engineer,United States - Remote,,,,
-R06__J032,R06,J032,Rainmaker,"Rainmaker Fellow, Machine Learning","El Segundo, CA",,,,
-R06__J033,R06,J033,Agile Defense,Software Developer I,"Aberdeen Proving Ground, MD",,,,
-R06__J034,R06,J034,WisdomTree,AI Solutions Analyst,"Hybrid - New York, NY",,,,
-R06__J035,R06,J035,Rover,"Entry Level Software Engineer, Recommendations",Seattle,,,,
-R06__J036,R06,J036,Toyota Research Institute,AI Resident - Learning From Videos (LFV),"Los Altos, CA",,,,
-R06__J037,R06,J037,Kitware,OSTP Software Developer,"Clifton Park, New York",,,,
-R06__J038,R06,J038,Mulligan Funding,Data Scientist I - Management Trainee,"San Diego, CA",,,,
-R06__J039,R06,J039,Belvedere Trading,Software Engineer - Entry Level 2027,"Chicago, Illinois",,,,
-R06__J040,R06,J040,Field AI,"Embedded Systems Engineer, Robotics Hardware","Irvine, CA",,,,
-R06__J041,R06,J041,Veeva Systems,Associate Software Engineer - 2027 Start Dates,California - Pleasanton,,,,
-R06__J042,R06,J042,Datalab USA,Production Programmer - Entry Level SQL Developer,"Germantown, MD",,,,
-R06__J043,R06,J043,Revenue Analytics,Data Scientist,"Atlanta, GA (Open Remote - Eastern Time Zone)",,,,
-R06__J044,R06,J044,SEP,"Software Engineer (2027 start dates, in person)","Westfield, IN",,,,
-R06__J045,R06,J045,AHEAD,Associate AI Engineer,"Chicago, Illinois",,,,
-R06__J046,R06,J046,Artera,Associate AI Builder,"Seattle, Washington",,,,
-R06__J047,R06,J047,Field AI,"Robotics Engineer, Humanoid System Integration","Irvine, CA",,,,
-R06__J048,R06,J048,Wyetech,Software Engineer 0/1,"Ft. Meade, Maryland",,,,
-R06__J049,R06,J049,Global Lending Services,Data Developer,"Greenville, South Carolina",,,,
-R06__J050,R06,J050,Demiurge Studios,2027 Associate Software Engineer,Remote,,,,
-R07__J001,R07,J001,Bracebridge Capital,Machine Learning Analyst ,"Boston, MA",,,,
-R07__J002,R07,J002,Klaviyo,AI Engineer I,"Boston, MA",,,,
-R07__J003,R07,J003,CHAOS Industries,Applied AI Engineer,"San Francisco, California, United States",,,,
-R07__J004,R07,J004,SpaceX,"New Graduate Engineer, Software (Starship)","Hawthorne, CA",,,,
-R07__J005,R07,J005,The Brattle Group,Data and AI Engineer,"Boston, Massachusetts, United States",,,,
-R07__J006,R07,J006,Tebra,Software Engineer I,United States - Remote,,,,
-R07__J007,R07,J007,Major League Baseball,Data Scientist,"Cleveland, Ohio, United States",,,,
-R07__J008,R07,J008,Man Group,Technology Rotational Program - Associate Engineer,Massachusetts,,,,
-R07__J009,R07,J009,Xaira Therapeutics,AI in Residence,"South San Francisco, California, United States",,,,
-R07__J010,R07,J010,True Anomaly,"Software Engineer I, Elixir (New Grad)","Denver, CO or Long Beach, CA ",,,,
-R07__J011,R07,J011,Schonfeld,Market Data Analyst,"New York, New York, United States",,,,
-R07__J012,R07,J012,Scale AI,"Software Engineer, Public Sector - New Grad","San Francisco, CA",,,,
-R07__J013,R07,J013,Accenture,AI & Data Analyst,"Washington, DC",,,,
-R07__J014,R07,J014,Trace3,System Engineer,"Colorado Springs, CO",,,,
-R07__J015,R07,J015,Jumio,Research Engineer – Machine Learning & Robotics,"Lenexa, Kansas",,,,
-R07__J016,R07,J016,Maven Securities,Graduate Developer Programme Chicago 2027,Chicago,,,,
-R07__J017,R07,J017,Evolver,Research Scientist - Autonomous Systems,"Palo Alto, California",,,,
-R07__J018,R07,J018,PlanetScale,Software Engineer - Internal Tools,San Francisco Office,,,,
-R07__J019,R07,J019,Evolver,Research Scientist - Information Theory and Statistical Inference,"Palo Alto, California",,,,
-R07__J020,R07,J020,Uare.ai,Software Engineer (Early Career),"Los Altos, CA",,,,
-R07__J021,R07,J021,VML,Associate Data Engineer,"Austin, Texas, United States",,,,
-R07__J022,R07,J022,Anduril,"Software Engineer, Battlespace Awareness","Broomfield, Colorado, United States; Fort Collins, Colorado, United States",,,,
-R07__J023,R07,J023,The Trade Desk,Data Support Analyst I,Ventura,,,,
-R07__J024,R07,J024,Kikoff,Software Engineer - Recent Grad,San Francisco,,,,
-R07__J025,R07,J025,VML,Associate Data Insights Consultant ,"Austin, Texas, United States",,,,
-R07__J026,R07,J026,Hatch IT,Junior Data Engineer (DEA),"Arlington, VA",,,,
-R07__J027,R07,J027,Global Lending Services,Software Developer,"Greenville, South Carolina",,,,
-R07__J028,R07,J028,SteerBridge,Junior Data Engineer,"Vienna, VA",,,,
-R07__J029,R07,J029,Synergy ECP,Software Engineer,"Annapolis Junction, MD",,,,
-R07__J030,R07,J030,Vitana Pediatric & Orthodontic Partners,Data Analyst,"Plantation, FL",,,,
-R07__J031,R07,J031,FiscalNote,Associate Software Engineer,United States - Remote,,,,
-R07__J032,R07,J032,Rainmaker,"Rainmaker Fellow, Machine Learning","El Segundo, CA",,,,
-R07__J033,R07,J033,Agile Defense,Software Developer I,"Aberdeen Proving Ground, MD",,,,
-R07__J034,R07,J034,WisdomTree,AI Solutions Analyst,"Hybrid - New York, NY",,,,
-R07__J035,R07,J035,Rover,"Entry Level Software Engineer, Recommendations",Seattle,,,,
-R07__J036,R07,J036,Toyota Research Institute,AI Resident - Learning From Videos (LFV),"Los Altos, CA",,,,
-R07__J037,R07,J037,Kitware,OSTP Software Developer,"Clifton Park, New York",,,,
-R07__J038,R07,J038,Mulligan Funding,Data Scientist I - Management Trainee,"San Diego, CA",,,,
-R07__J039,R07,J039,Belvedere Trading,Software Engineer - Entry Level 2027,"Chicago, Illinois",,,,
-R07__J040,R07,J040,Field AI,"Embedded Systems Engineer, Robotics Hardware","Irvine, CA",,,,
-R07__J041,R07,J041,Veeva Systems,Associate Software Engineer - 2027 Start Dates,California - Pleasanton,,,,
-R07__J042,R07,J042,Datalab USA,Production Programmer - Entry Level SQL Developer,"Germantown, MD",,,,
-R07__J043,R07,J043,Revenue Analytics,Data Scientist,"Atlanta, GA (Open Remote - Eastern Time Zone)",,,,
-R07__J044,R07,J044,SEP,"Software Engineer (2027 start dates, in person)","Westfield, IN",,,,
-R07__J045,R07,J045,AHEAD,Associate AI Engineer,"Chicago, Illinois",,,,
-R07__J046,R07,J046,Artera,Associate AI Builder,"Seattle, Washington",,,,
-R07__J047,R07,J047,Field AI,"Robotics Engineer, Humanoid System Integration","Irvine, CA",,,,
-R07__J048,R07,J048,Wyetech,Software Engineer 0/1,"Ft. Meade, Maryland",,,,
-R07__J049,R07,J049,Global Lending Services,Data Developer,"Greenville, South Carolina",,,,
-R07__J050,R07,J050,Demiurge Studios,2027 Associate Software Engineer,Remote,,,,
-R08__J001,R08,J001,Bracebridge Capital,Machine Learning Analyst ,"Boston, MA",,,,
-R08__J002,R08,J002,Klaviyo,AI Engineer I,"Boston, MA",,,,
-R08__J003,R08,J003,CHAOS Industries,Applied AI Engineer,"San Francisco, California, United States",,,,
-R08__J004,R08,J004,SpaceX,"New Graduate Engineer, Software (Starship)","Hawthorne, CA",,,,
-R08__J005,R08,J005,The Brattle Group,Data and AI Engineer,"Boston, Massachusetts, United States",,,,
-R08__J006,R08,J006,Tebra,Software Engineer I,United States - Remote,,,,
-R08__J007,R08,J007,Major League Baseball,Data Scientist,"Cleveland, Ohio, United States",,,,
-R08__J008,R08,J008,Man Group,Technology Rotational Program - Associate Engineer,Massachusetts,,,,
-R08__J009,R08,J009,Xaira Therapeutics,AI in Residence,"South San Francisco, California, United States",,,,
-R08__J010,R08,J010,True Anomaly,"Software Engineer I, Elixir (New Grad)","Denver, CO or Long Beach, CA ",,,,
-R08__J011,R08,J011,Schonfeld,Market Data Analyst,"New York, New York, United States",,,,
-R08__J012,R08,J012,Scale AI,"Software Engineer, Public Sector - New Grad","San Francisco, CA",,,,
-R08__J013,R08,J013,Accenture,AI & Data Analyst,"Washington, DC",,,,
-R08__J014,R08,J014,Trace3,System Engineer,"Colorado Springs, CO",,,,
-R08__J015,R08,J015,Jumio,Research Engineer – Machine Learning & Robotics,"Lenexa, Kansas",,,,
-R08__J016,R08,J016,Maven Securities,Graduate Developer Programme Chicago 2027,Chicago,,,,
-R08__J017,R08,J017,Evolver,Research Scientist - Autonomous Systems,"Palo Alto, California",,,,
-R08__J018,R08,J018,PlanetScale,Software Engineer - Internal Tools,San Francisco Office,,,,
-R08__J019,R08,J019,Evolver,Research Scientist - Information Theory and Statistical Inference,"Palo Alto, California",,,,
-R08__J020,R08,J020,Uare.ai,Software Engineer (Early Career),"Los Altos, CA",,,,
-R08__J021,R08,J021,VML,Associate Data Engineer,"Austin, Texas, United States",,,,
-R08__J022,R08,J022,Anduril,"Software Engineer, Battlespace Awareness","Broomfield, Colorado, United States; Fort Collins, Colorado, United States",,,,
-R08__J023,R08,J023,The Trade Desk,Data Support Analyst I,Ventura,,,,
-R08__J024,R08,J024,Kikoff,Software Engineer - Recent Grad,San Francisco,,,,
-R08__J025,R08,J025,VML,Associate Data Insights Consultant ,"Austin, Texas, United States",,,,
-R08__J026,R08,J026,Hatch IT,Junior Data Engineer (DEA),"Arlington, VA",,,,
-R08__J027,R08,J027,Global Lending Services,Software Developer,"Greenville, South Carolina",,,,
-R08__J028,R08,J028,SteerBridge,Junior Data Engineer,"Vienna, VA",,,,
-R08__J029,R08,J029,Synergy ECP,Software Engineer,"Annapolis Junction, MD",,,,
-R08__J030,R08,J030,Vitana Pediatric & Orthodontic Partners,Data Analyst,"Plantation, FL",,,,
-R08__J031,R08,J031,FiscalNote,Associate Software Engineer,United States - Remote,,,,
-R08__J032,R08,J032,Rainmaker,"Rainmaker Fellow, Machine Learning","El Segundo, CA",,,,
-R08__J033,R08,J033,Agile Defense,Software Developer I,"Aberdeen Proving Ground, MD",,,,
-R08__J034,R08,J034,WisdomTree,AI Solutions Analyst,"Hybrid - New York, NY",,,,
-R08__J035,R08,J035,Rover,"Entry Level Software Engineer, Recommendations",Seattle,,,,
-R08__J036,R08,J036,Toyota Research Institute,AI Resident - Learning From Videos (LFV),"Los Altos, CA",,,,
-R08__J037,R08,J037,Kitware,OSTP Software Developer,"Clifton Park, New York",,,,
-R08__J038,R08,J038,Mulligan Funding,Data Scientist I - Management Trainee,"San Diego, CA",,,,
-R08__J039,R08,J039,Belvedere Trading,Software Engineer - Entry Level 2027,"Chicago, Illinois",,,,
-R08__J040,R08,J040,Field AI,"Embedded Systems Engineer, Robotics Hardware","Irvine, CA",,,,
-R08__J041,R08,J041,Veeva Systems,Associate Software Engineer - 2027 Start Dates,California - Pleasanton,,,,
-R08__J042,R08,J042,Datalab USA,Production Programmer - Entry Level SQL Developer,"Germantown, MD",,,,
-R08__J043,R08,J043,Revenue Analytics,Data Scientist,"Atlanta, GA (Open Remote - Eastern Time Zone)",,,,
-R08__J044,R08,J044,SEP,"Software Engineer (2027 start dates, in person)","Westfield, IN",,,,
-R08__J045,R08,J045,AHEAD,Associate AI Engineer,"Chicago, Illinois",,,,
-R08__J046,R08,J046,Artera,Associate AI Builder,"Seattle, Washington",,,,
-R08__J047,R08,J047,Field AI,"Robotics Engineer, Humanoid System Integration","Irvine, CA",,,,
-R08__J048,R08,J048,Wyetech,Software Engineer 0/1,"Ft. Meade, Maryland",,,,
-R08__J049,R08,J049,Global Lending Services,Data Developer,"Greenville, South Carolina",,,,
-R08__J050,R08,J050,Demiurge Studios,2027 Associate Software Engineer,Remote,,,,
-R09__J001,R09,J001,Bracebridge Capital,Machine Learning Analyst ,"Boston, MA",,,,
-R09__J002,R09,J002,Klaviyo,AI Engineer I,"Boston, MA",,,,
-R09__J003,R09,J003,CHAOS Industries,Applied AI Engineer,"San Francisco, California, United States",,,,
-R09__J004,R09,J004,SpaceX,"New Graduate Engineer, Software (Starship)","Hawthorne, CA",,,,
-R09__J005,R09,J005,The Brattle Group,Data and AI Engineer,"Boston, Massachusetts, United States",,,,
-R09__J006,R09,J006,Tebra,Software Engineer I,United States - Remote,,,,
-R09__J007,R09,J007,Major League Baseball,Data Scientist,"Cleveland, Ohio, United States",,,,
-R09__J008,R09,J008,Man Group,Technology Rotational Program - Associate Engineer,Massachusetts,,,,
-R09__J009,R09,J009,Xaira Therapeutics,AI in Residence,"South San Francisco, California, United States",,,,
-R09__J010,R09,J010,True Anomaly,"Software Engineer I, Elixir (New Grad)","Denver, CO or Long Beach, CA ",,,,
-R09__J011,R09,J011,Schonfeld,Market Data Analyst,"New York, New York, United States",,,,
-R09__J012,R09,J012,Scale AI,"Software Engineer, Public Sector - New Grad","San Francisco, CA",,,,
-R09__J013,R09,J013,Accenture,AI & Data Analyst,"Washington, DC",,,,
-R09__J014,R09,J014,Trace3,System Engineer,"Colorado Springs, CO",,,,
-R09__J015,R09,J015,Jumio,Research Engineer – Machine Learning & Robotics,"Lenexa, Kansas",,,,
-R09__J016,R09,J016,Maven Securities,Graduate Developer Programme Chicago 2027,Chicago,,,,
-R09__J017,R09,J017,Evolver,Research Scientist - Autonomous Systems,"Palo Alto, California",,,,
-R09__J018,R09,J018,PlanetScale,Software Engineer - Internal Tools,San Francisco Office,,,,
-R09__J019,R09,J019,Evolver,Research Scientist - Information Theory and Statistical Inference,"Palo Alto, California",,,,
-R09__J020,R09,J020,Uare.ai,Software Engineer (Early Career),"Los Altos, CA",,,,
-R09__J021,R09,J021,VML,Associate Data Engineer,"Austin, Texas, United States",,,,
-R09__J022,R09,J022,Anduril,"Software Engineer, Battlespace Awareness","Broomfield, Colorado, United States; Fort Collins, Colorado, United States",,,,
-R09__J023,R09,J023,The Trade Desk,Data Support Analyst I,Ventura,,,,
-R09__J024,R09,J024,Kikoff,Software Engineer - Recent Grad,San Francisco,,,,
-R09__J025,R09,J025,VML,Associate Data Insights Consultant ,"Austin, Texas, United States",,,,
-R09__J026,R09,J026,Hatch IT,Junior Data Engineer (DEA),"Arlington, VA",,,,
-R09__J027,R09,J027,Global Lending Services,Software Developer,"Greenville, South Carolina",,,,
-R09__J028,R09,J028,SteerBridge,Junior Data Engineer,"Vienna, VA",,,,
-R09__J029,R09,J029,Synergy ECP,Software Engineer,"Annapolis Junction, MD",,,,
-R09__J030,R09,J030,Vitana Pediatric & Orthodontic Partners,Data Analyst,"Plantation, FL",,,,
-R09__J031,R09,J031,FiscalNote,Associate Software Engineer,United States - Remote,,,,
-R09__J032,R09,J032,Rainmaker,"Rainmaker Fellow, Machine Learning","El Segundo, CA",,,,
-R09__J033,R09,J033,Agile Defense,Software Developer I,"Aberdeen Proving Ground, MD",,,,
-R09__J034,R09,J034,WisdomTree,AI Solutions Analyst,"Hybrid - New York, NY",,,,
-R09__J035,R09,J035,Rover,"Entry Level Software Engineer, Recommendations",Seattle,,,,
-R09__J036,R09,J036,Toyota Research Institute,AI Resident - Learning From Videos (LFV),"Los Altos, CA",,,,
-R09__J037,R09,J037,Kitware,OSTP Software Developer,"Clifton Park, New York",,,,
-R09__J038,R09,J038,Mulligan Funding,Data Scientist I - Management Trainee,"San Diego, CA",,,,
-R09__J039,R09,J039,Belvedere Trading,Software Engineer - Entry Level 2027,"Chicago, Illinois",,,,
-R09__J040,R09,J040,Field AI,"Embedded Systems Engineer, Robotics Hardware","Irvine, CA",,,,
-R09__J041,R09,J041,Veeva Systems,Associate Software Engineer - 2027 Start Dates,California - Pleasanton,,,,
-R09__J042,R09,J042,Datalab USA,Production Programmer - Entry Level SQL Developer,"Germantown, MD",,,,
-R09__J043,R09,J043,Revenue Analytics,Data Scientist,"Atlanta, GA (Open Remote - Eastern Time Zone)",,,,
-R09__J044,R09,J044,SEP,"Software Engineer (2027 start dates, in person)","Westfield, IN",,,,
-R09__J045,R09,J045,AHEAD,Associate AI Engineer,"Chicago, Illinois",,,,
-R09__J046,R09,J046,Artera,Associate AI Builder,"Seattle, Washington",,,,
-R09__J047,R09,J047,Field AI,"Robotics Engineer, Humanoid System Integration","Irvine, CA",,,,
-R09__J048,R09,J048,Wyetech,Software Engineer 0/1,"Ft. Meade, Maryland",,,,
-R09__J049,R09,J049,Global Lending Services,Data Developer,"Greenville, South Carolina",,,,
-R09__J050,R09,J050,Demiurge Studios,2027 Associate Software Engineer,Remote,,,,
-R10__J001,R10,J001,Bracebridge Capital,Machine Learning Analyst ,"Boston, MA",,,,
-R10__J002,R10,J002,Klaviyo,AI Engineer I,"Boston, MA",,,,
-R10__J003,R10,J003,CHAOS Industries,Applied AI Engineer,"San Francisco, California, United States",,,,
-R10__J004,R10,J004,SpaceX,"New Graduate Engineer, Software (Starship)","Hawthorne, CA",,,,
-R10__J005,R10,J005,The Brattle Group,Data and AI Engineer,"Boston, Massachusetts, United States",,,,
-R10__J006,R10,J006,Tebra,Software Engineer I,United States - Remote,,,,
-R10__J007,R10,J007,Major League Baseball,Data Scientist,"Cleveland, Ohio, United States",,,,
-R10__J008,R10,J008,Man Group,Technology Rotational Program - Associate Engineer,Massachusetts,,,,
-R10__J009,R10,J009,Xaira Therapeutics,AI in Residence,"South San Francisco, California, United States",,,,
-R10__J010,R10,J010,True Anomaly,"Software Engineer I, Elixir (New Grad)","Denver, CO or Long Beach, CA ",,,,
-R10__J011,R10,J011,Schonfeld,Market Data Analyst,"New York, New York, United States",,,,
-R10__J012,R10,J012,Scale AI,"Software Engineer, Public Sector - New Grad","San Francisco, CA",,,,
-R10__J013,R10,J013,Accenture,AI & Data Analyst,"Washington, DC",,,,
-R10__J014,R10,J014,Trace3,System Engineer,"Colorado Springs, CO",,,,
-R10__J015,R10,J015,Jumio,Research Engineer – Machine Learning & Robotics,"Lenexa, Kansas",,,,
-R10__J016,R10,J016,Maven Securities,Graduate Developer Programme Chicago 2027,Chicago,,,,
-R10__J017,R10,J017,Evolver,Research Scientist - Autonomous Systems,"Palo Alto, California",,,,
-R10__J018,R10,J018,PlanetScale,Software Engineer - Internal Tools,San Francisco Office,,,,
-R10__J019,R10,J019,Evolver,Research Scientist - Information Theory and Statistical Inference,"Palo Alto, California",,,,
-R10__J020,R10,J020,Uare.ai,Software Engineer (Early Career),"Los Altos, CA",,,,
-R10__J021,R10,J021,VML,Associate Data Engineer,"Austin, Texas, United States",,,,
-R10__J022,R10,J022,Anduril,"Software Engineer, Battlespace Awareness","Broomfield, Colorado, United States; Fort Collins, Colorado, United States",,,,
-R10__J023,R10,J023,The Trade Desk,Data Support Analyst I,Ventura,,,,
-R10__J024,R10,J024,Kikoff,Software Engineer - Recent Grad,San Francisco,,,,
-R10__J025,R10,J025,VML,Associate Data Insights Consultant ,"Austin, Texas, United States",,,,
-R10__J026,R10,J026,Hatch IT,Junior Data Engineer (DEA),"Arlington, VA",,,,
-R10__J027,R10,J027,Global Lending Services,Software Developer,"Greenville, South Carolina",,,,
-R10__J028,R10,J028,SteerBridge,Junior Data Engineer,"Vienna, VA",,,,
-R10__J029,R10,J029,Synergy ECP,Software Engineer,"Annapolis Junction, MD",,,,
-R10__J030,R10,J030,Vitana Pediatric & Orthodontic Partners,Data Analyst,"Plantation, FL",,,,
-R10__J031,R10,J031,FiscalNote,Associate Software Engineer,United States - Remote,,,,
-R10__J032,R10,J032,Rainmaker,"Rainmaker Fellow, Machine Learning","El Segundo, CA",,,,
-R10__J033,R10,J033,Agile Defense,Software Developer I,"Aberdeen Proving Ground, MD",,,,
-R10__J034,R10,J034,WisdomTree,AI Solutions Analyst,"Hybrid - New York, NY",,,,
-R10__J035,R10,J035,Rover,"Entry Level Software Engineer, Recommendations",Seattle,,,,
-R10__J036,R10,J036,Toyota Research Institute,AI Resident - Learning From Videos (LFV),"Los Altos, CA",,,,
-R10__J037,R10,J037,Kitware,OSTP Software Developer,"Clifton Park, New York",,,,
-R10__J038,R10,J038,Mulligan Funding,Data Scientist I - Management Trainee,"San Diego, CA",,,,
-R10__J039,R10,J039,Belvedere Trading,Software Engineer - Entry Level 2027,"Chicago, Illinois",,,,
-R10__J040,R10,J040,Field AI,"Embedded Systems Engineer, Robotics Hardware","Irvine, CA",,,,
-R10__J041,R10,J041,Veeva Systems,Associate Software Engineer - 2027 Start Dates,California - Pleasanton,,,,
-R10__J042,R10,J042,Datalab USA,Production Programmer - Entry Level SQL Developer,"Germantown, MD",,,,
-R10__J043,R10,J043,Revenue Analytics,Data Scientist,"Atlanta, GA (Open Remote - Eastern Time Zone)",,,,
-R10__J044,R10,J044,SEP,"Software Engineer (2027 start dates, in person)","Westfield, IN",,,,
-R10__J045,R10,J045,AHEAD,Associate AI Engineer,"Chicago, Illinois",,,,
-R10__J046,R10,J046,Artera,Associate AI Builder,"Seattle, Washington",,,,
-R10__J047,R10,J047,Field AI,"Robotics Engineer, Humanoid System Integration","Irvine, CA",,,,
-R10__J048,R10,J048,Wyetech,Software Engineer 0/1,"Ft. Meade, Maryland",,,,
-R10__J049,R10,J049,Global Lending Services,Data Developer,"Greenville, South Carolina",,,,
-R10__J050,R10,J050,Demiurge Studios,2027 Associate Software Engineer,Remote,,,,
+R03__J001,R03,J001,Bracebridge Capital,Machine Learning Analyst ,"Boston, MA",1,,,"Kevin, Ritvik, Aidan"
+R03__J002,R03,J002,Klaviyo,AI Engineer I,"Boston, MA",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R03__J003,R03,J003,CHAOS Industries,Applied AI Engineer,"San Francisco, California, United States",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R03__J004,R03,J004,SpaceX,"New Graduate Engineer, Software (Starship)","Hawthorne, CA",0,OTHER,requires 2027 graduates,"Kevin, Ritvik, Aidan"
+R03__J005,R03,J005,The Brattle Group,Data and AI Engineer,"Boston, Massachusetts, United States",1,,,"Kevin, Ritvik, Aidan"
+R03__J006,R03,J006,Tebra,Software Engineer I,United States - Remote,1,,,"Kevin, Ritvik, Aidan"
+R03__J007,R03,J007,Major League Baseball,Data Scientist,"Cleveland, Ohio, United States",1,,,"Kevin, Ritvik, Aidan"
+R03__J008,R03,J008,Man Group,Technology Rotational Program - Associate Engineer,Massachusetts,0,OTHER,current students only,"Kevin, Ritvik, Aidan"
+R03__J009,R03,J009,Xaira Therapeutics,AI in Residence,"South San Francisco, California, United States",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R03__J010,R03,J010,True Anomaly,"Software Engineer I, Elixir (New Grad)","Denver, CO or Long Beach, CA ",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R03__J011,R03,J011,Schonfeld,Market Data Analyst,"New York, New York, United States",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R03__J012,R03,J012,Scale AI,"Software Engineer, Public Sector - New Grad","San Francisco, CA",0,OTHER,requires Fall 2026 / Spring 2027 graduates,"Kevin, Ritvik, Aidan"
+R03__J013,R03,J013,Accenture,AI & Data Analyst,"Washington, DC",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R03__J014,R03,J014,Trace3,System Engineer,"Colorado Springs, CO",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R03__J015,R03,J015,Jumio,Research Engineer – Machine Learning & Robotics,"Lenexa, Kansas",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R03__J016,R03,J016,Maven Securities,Graduate Developer Programme Chicago 2027,Chicago,0,OTHER,final-year students only (2027 program),"Kevin, Ritvik, Aidan"
+R03__J017,R03,J017,Evolver,Research Scientist - Autonomous Systems,"Palo Alto, California",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R03__J018,R03,J018,PlanetScale,Software Engineer - Internal Tools,San Francisco Office,0,LOCATION,"must already live in SF Bay Area, no relocation","Kevin, Ritvik, Aidan"
+R03__J019,R03,J019,Evolver,Research Scientist - Information Theory and Statistical Inference,"Palo Alto, California",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R03__J020,R03,J020,Uare.ai,Software Engineer (Early Career),"Los Altos, CA",1,,"LLM work shown, RAG / vector DB not shown","Kevin, Ritvik, Aidan"
+R03__J021,R03,J021,VML,Associate Data Engineer,"Austin, Texas, United States",1,,,"Kevin, Ritvik, Aidan"
+R03__J022,R03,J022,Anduril,"Software Engineer, Battlespace Awareness","Broomfield, Colorado, United States; Fort Collins, Colorado, United States",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R03__J023,R03,J023,The Trade Desk,Data Support Analyst I,Ventura,1,,,"Kevin, Ritvik, Aidan"
+R03__J024,R03,J024,Kikoff,Software Engineer - Recent Grad,San Francisco,0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R03__J025,R03,J025,VML,Associate Data Insights Consultant ,"Austin, Texas, United States",1,,,"Kevin, Ritvik, Aidan"
+R03__J026,R03,J026,Hatch IT,Junior Data Engineer (DEA),"Arlington, VA",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R03__J027,R03,J027,Global Lending Services,Software Developer,"Greenville, South Carolina",1,,,"Kevin, Ritvik, Aidan"
+R03__J028,R03,J028,SteerBridge,Junior Data Engineer,"Vienna, VA",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R03__J029,R03,J029,Synergy ECP,Software Engineer,"Annapolis Junction, MD",1,,"posting has no requirements section; likely needs clearance, verify","Kevin, Ritvik, Aidan"
+R03__J030,R03,J030,Vitana Pediatric & Orthodontic Partners,Data Analyst,"Plantation, FL",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R03__J031,R03,J031,FiscalNote,Associate Software Engineer,United States - Remote,1,,,"Kevin, Ritvik, Aidan"
+R03__J032,R03,J032,Rainmaker,"Rainmaker Fellow, Machine Learning","El Segundo, CA",1,,,"Kevin, Ritvik, Aidan"
+R03__J033,R03,J033,Agile Defense,Software Developer I,"Aberdeen Proving Ground, MD",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R03__J034,R03,J034,WisdomTree,AI Solutions Analyst,"Hybrid - New York, NY",1,,,"Kevin, Ritvik, Aidan"
+R03__J035,R03,J035,Rover,"Entry Level Software Engineer, Recommendations",Seattle,0,LEVEL,requires 1-4 yrs professional experience,"Kevin, Ritvik, Aidan"
+R03__J036,R03,J036,Toyota Research Institute,AI Resident - Learning From Videos (LFV),"Los Altos, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R03__J037,R03,J037,Kitware,OSTP Software Developer,"Clifton Park, New York",0,OTHER,requires Spring 2027 (or Dec 2026) graduates,"Kevin, Ritvik, Aidan"
+R03__J038,R03,J038,Mulligan Funding,Data Scientist I - Management Trainee,"San Diego, CA",1,,,"Kevin, Ritvik, Aidan"
+R03__J039,R03,J039,Belvedere Trading,Software Engineer - Entry Level 2027,"Chicago, Illinois",0,OTHER,requires Dec 2026 / May-June 2027 graduates,"Kevin, Ritvik, Aidan"
+R03__J040,R03,J040,Field AI,"Embedded Systems Engineer, Robotics Hardware","Irvine, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R03__J041,R03,J041,Veeva Systems,Associate Software Engineer - 2027 Start Dates,California - Pleasanton,0,CORE_MISSING,requires an OS or Compilers class; only R09 shows one,"Kevin, Ritvik, Aidan"
+R03__J042,R03,J042,Datalab USA,Production Programmer - Entry Level SQL Developer,"Germantown, MD",1,,,"Kevin, Ritvik, Aidan"
+R03__J043,R03,J043,Revenue Analytics,Data Scientist,"Atlanta, GA (Open Remote - Eastern Time Zone)",1,,,"Kevin, Ritvik, Aidan"
+R03__J044,R03,J044,SEP,"Software Engineer (2027 start dates, in person)","Westfield, IN",1,,,"Kevin, Ritvik, Aidan"
+R03__J045,R03,J045,AHEAD,Associate AI Engineer,"Chicago, Illinois",0,OTHER,must have graduated by 1/11/26,"Kevin, Ritvik, Aidan"
+R03__J046,R03,J046,Artera,Associate AI Builder,"Seattle, Washington",1,,,"Kevin, Ritvik, Aidan"
+R03__J047,R03,J047,Field AI,"Robotics Engineer, Humanoid System Integration","Irvine, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R03__J048,R03,J048,Wyetech,Software Engineer 0/1,"Ft. Meade, Maryland",0,CLEARANCE,requires TS/SCI with poly; R10 shows Secret only,"Kevin, Ritvik, Aidan"
+R03__J049,R03,J049,Global Lending Services,Data Developer,"Greenville, South Carolina",1,,,"Kevin, Ritvik, Aidan"
+R03__J050,R03,J050,Demiurge Studios,2027 Associate Software Engineer,Remote,1,,,"Kevin, Ritvik, Aidan"
+R04__J001,R04,J001,Bracebridge Capital,Machine Learning Analyst ,"Boston, MA",1,,,"Kevin, Ritvik, Aidan"
+R04__J002,R04,J002,Klaviyo,AI Engineer I,"Boston, MA",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R04__J003,R04,J003,CHAOS Industries,Applied AI Engineer,"San Francisco, California, United States",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R04__J004,R04,J004,SpaceX,"New Graduate Engineer, Software (Starship)","Hawthorne, CA",0,OTHER,requires 2027 graduates,"Kevin, Ritvik, Aidan"
+R04__J005,R04,J005,The Brattle Group,Data and AI Engineer,"Boston, Massachusetts, United States",1,,,"Kevin, Ritvik, Aidan"
+R04__J006,R04,J006,Tebra,Software Engineer I,United States - Remote,0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R04__J007,R04,J007,Major League Baseball,Data Scientist,"Cleveland, Ohio, United States",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R04__J008,R04,J008,Man Group,Technology Rotational Program - Associate Engineer,Massachusetts,0,OTHER,current students only,"Kevin, Ritvik, Aidan"
+R04__J009,R04,J009,Xaira Therapeutics,AI in Residence,"South San Francisco, California, United States",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R04__J010,R04,J010,True Anomaly,"Software Engineer I, Elixir (New Grad)","Denver, CO or Long Beach, CA ",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R04__J011,R04,J011,Schonfeld,Market Data Analyst,"New York, New York, United States",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R04__J012,R04,J012,Scale AI,"Software Engineer, Public Sector - New Grad","San Francisco, CA",0,OTHER,requires Fall 2026 / Spring 2027 graduates,"Kevin, Ritvik, Aidan"
+R04__J013,R04,J013,Accenture,AI & Data Analyst,"Washington, DC",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R04__J014,R04,J014,Trace3,System Engineer,"Colorado Springs, CO",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R04__J015,R04,J015,Jumio,Research Engineer – Machine Learning & Robotics,"Lenexa, Kansas",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R04__J016,R04,J016,Maven Securities,Graduate Developer Programme Chicago 2027,Chicago,0,OTHER,final-year students only (2027 program),"Kevin, Ritvik, Aidan"
+R04__J017,R04,J017,Evolver,Research Scientist - Autonomous Systems,"Palo Alto, California",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R04__J018,R04,J018,PlanetScale,Software Engineer - Internal Tools,San Francisco Office,0,LOCATION,"must already live in SF Bay Area, no relocation","Kevin, Ritvik, Aidan"
+R04__J019,R04,J019,Evolver,Research Scientist - Information Theory and Statistical Inference,"Palo Alto, California",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R04__J020,R04,J020,Uare.ai,Software Engineer (Early Career),"Los Altos, CA",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R04__J021,R04,J021,VML,Associate Data Engineer,"Austin, Texas, United States",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R04__J022,R04,J022,Anduril,"Software Engineer, Battlespace Awareness","Broomfield, Colorado, United States; Fort Collins, Colorado, United States",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R04__J023,R04,J023,The Trade Desk,Data Support Analyst I,Ventura,0,LOCATION,,"Kevin, Ritvik, Aidan"
+R04__J024,R04,J024,Kikoff,Software Engineer - Recent Grad,San Francisco,0,LOCATION,,"Kevin, Ritvik, Aidan"
+R04__J025,R04,J025,VML,Associate Data Insights Consultant ,"Austin, Texas, United States",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R04__J026,R04,J026,Hatch IT,Junior Data Engineer (DEA),"Arlington, VA",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R04__J027,R04,J027,Global Lending Services,Software Developer,"Greenville, South Carolina",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R04__J028,R04,J028,SteerBridge,Junior Data Engineer,"Vienna, VA",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R04__J029,R04,J029,Synergy ECP,Software Engineer,"Annapolis Junction, MD",0,LOCATION,"posting has no requirements section; likely needs clearance, verify","Kevin, Ritvik, Aidan"
+R04__J030,R04,J030,Vitana Pediatric & Orthodontic Partners,Data Analyst,"Plantation, FL",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R04__J031,R04,J031,FiscalNote,Associate Software Engineer,United States - Remote,0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R04__J032,R04,J032,Rainmaker,"Rainmaker Fellow, Machine Learning","El Segundo, CA",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R04__J033,R04,J033,Agile Defense,Software Developer I,"Aberdeen Proving Ground, MD",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R04__J034,R04,J034,WisdomTree,AI Solutions Analyst,"Hybrid - New York, NY",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R04__J035,R04,J035,Rover,"Entry Level Software Engineer, Recommendations",Seattle,0,LOCATION,requires 1-4 yrs professional experience,"Kevin, Ritvik, Aidan"
+R04__J036,R04,J036,Toyota Research Institute,AI Resident - Learning From Videos (LFV),"Los Altos, CA",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R04__J037,R04,J037,Kitware,OSTP Software Developer,"Clifton Park, New York",0,OTHER,requires Spring 2027 (or Dec 2026) graduates,"Kevin, Ritvik, Aidan"
+R04__J038,R04,J038,Mulligan Funding,Data Scientist I - Management Trainee,"San Diego, CA",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R04__J039,R04,J039,Belvedere Trading,Software Engineer - Entry Level 2027,"Chicago, Illinois",0,OTHER,requires Dec 2026 / May-June 2027 graduates,"Kevin, Ritvik, Aidan"
+R04__J040,R04,J040,Field AI,"Embedded Systems Engineer, Robotics Hardware","Irvine, CA",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R04__J041,R04,J041,Veeva Systems,Associate Software Engineer - 2027 Start Dates,California - Pleasanton,0,LOCATION,requires an OS or Compilers class; only R09 shows one,"Kevin, Ritvik, Aidan"
+R04__J042,R04,J042,Datalab USA,Production Programmer - Entry Level SQL Developer,"Germantown, MD",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R04__J043,R04,J043,Revenue Analytics,Data Scientist,"Atlanta, GA (Open Remote - Eastern Time Zone)",1,,,"Kevin, Ritvik, Aidan"
+R04__J044,R04,J044,SEP,"Software Engineer (2027 start dates, in person)","Westfield, IN",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R04__J045,R04,J045,AHEAD,Associate AI Engineer,"Chicago, Illinois",0,OTHER,must have graduated by 1/11/26,"Kevin, Ritvik, Aidan"
+R04__J046,R04,J046,Artera,Associate AI Builder,"Seattle, Washington",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R04__J047,R04,J047,Field AI,"Robotics Engineer, Humanoid System Integration","Irvine, CA",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R04__J048,R04,J048,Wyetech,Software Engineer 0/1,"Ft. Meade, Maryland",0,CLEARANCE,requires TS/SCI with poly; R10 shows Secret only,"Kevin, Ritvik, Aidan"
+R04__J049,R04,J049,Global Lending Services,Data Developer,"Greenville, South Carolina",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R04__J050,R04,J050,Demiurge Studios,2027 Associate Software Engineer,Remote,0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R05__J001,R05,J001,Bracebridge Capital,Machine Learning Analyst ,"Boston, MA",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J002,R05,J002,Klaviyo,AI Engineer I,"Boston, MA",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R05__J003,R05,J003,CHAOS Industries,Applied AI Engineer,"San Francisco, California, United States",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R05__J004,R05,J004,SpaceX,"New Graduate Engineer, Software (Starship)","Hawthorne, CA",0,OTHER,requires 2027 graduates,"Kevin, Ritvik, Aidan"
+R05__J005,R05,J005,The Brattle Group,Data and AI Engineer,"Boston, Massachusetts, United States",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J006,R05,J006,Tebra,Software Engineer I,United States - Remote,1,,,"Kevin, Ritvik, Aidan"
+R05__J007,R05,J007,Major League Baseball,Data Scientist,"Cleveland, Ohio, United States",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J008,R05,J008,Man Group,Technology Rotational Program - Associate Engineer,Massachusetts,0,OTHER,current students only,"Kevin, Ritvik, Aidan"
+R05__J009,R05,J009,Xaira Therapeutics,AI in Residence,"South San Francisco, California, United States",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R05__J010,R05,J010,True Anomaly,"Software Engineer I, Elixir (New Grad)","Denver, CO or Long Beach, CA ",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R05__J011,R05,J011,Schonfeld,Market Data Analyst,"New York, New York, United States",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J012,R05,J012,Scale AI,"Software Engineer, Public Sector - New Grad","San Francisco, CA",0,OTHER,requires Fall 2026 / Spring 2027 graduates,"Kevin, Ritvik, Aidan"
+R05__J013,R05,J013,Accenture,AI & Data Analyst,"Washington, DC",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R05__J014,R05,J014,Trace3,System Engineer,"Colorado Springs, CO",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R05__J015,R05,J015,Jumio,Research Engineer – Machine Learning & Robotics,"Lenexa, Kansas",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J016,R05,J016,Maven Securities,Graduate Developer Programme Chicago 2027,Chicago,0,OTHER,final-year students only (2027 program),"Kevin, Ritvik, Aidan"
+R05__J017,R05,J017,Evolver,Research Scientist - Autonomous Systems,"Palo Alto, California",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R05__J018,R05,J018,PlanetScale,Software Engineer - Internal Tools,San Francisco Office,0,LOCATION,"must already live in SF Bay Area, no relocation","Kevin, Ritvik, Aidan"
+R05__J019,R05,J019,Evolver,Research Scientist - Information Theory and Statistical Inference,"Palo Alto, California",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R05__J020,R05,J020,Uare.ai,Software Engineer (Early Career),"Los Altos, CA",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J021,R05,J021,VML,Associate Data Engineer,"Austin, Texas, United States",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J022,R05,J022,Anduril,"Software Engineer, Battlespace Awareness","Broomfield, Colorado, United States; Fort Collins, Colorado, United States",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R05__J023,R05,J023,The Trade Desk,Data Support Analyst I,Ventura,0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J024,R05,J024,Kikoff,Software Engineer - Recent Grad,San Francisco,0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J025,R05,J025,VML,Associate Data Insights Consultant ,"Austin, Texas, United States",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J026,R05,J026,Hatch IT,Junior Data Engineer (DEA),"Arlington, VA",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R05__J027,R05,J027,Global Lending Services,Software Developer,"Greenville, South Carolina",1,,,"Kevin, Ritvik, Aidan"
+R05__J028,R05,J028,SteerBridge,Junior Data Engineer,"Vienna, VA",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R05__J029,R05,J029,Synergy ECP,Software Engineer,"Annapolis Junction, MD",0,LOCATION,"posting has no requirements section; likely needs clearance, verify","Kevin, Ritvik, Aidan"
+R05__J030,R05,J030,Vitana Pediatric & Orthodontic Partners,Data Analyst,"Plantation, FL",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J031,R05,J031,FiscalNote,Associate Software Engineer,United States - Remote,1,,,"Kevin, Ritvik, Aidan"
+R05__J032,R05,J032,Rainmaker,"Rainmaker Fellow, Machine Learning","El Segundo, CA",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J033,R05,J033,Agile Defense,Software Developer I,"Aberdeen Proving Ground, MD",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R05__J034,R05,J034,WisdomTree,AI Solutions Analyst,"Hybrid - New York, NY",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J035,R05,J035,Rover,"Entry Level Software Engineer, Recommendations",Seattle,0,LOCATION,requires 1-4 yrs professional experience,"Kevin, Ritvik, Aidan"
+R05__J036,R05,J036,Toyota Research Institute,AI Resident - Learning From Videos (LFV),"Los Altos, CA",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J037,R05,J037,Kitware,OSTP Software Developer,"Clifton Park, New York",0,OTHER,requires Spring 2027 (or Dec 2026) graduates,"Kevin, Ritvik, Aidan"
+R05__J038,R05,J038,Mulligan Funding,Data Scientist I - Management Trainee,"San Diego, CA",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J039,R05,J039,Belvedere Trading,Software Engineer - Entry Level 2027,"Chicago, Illinois",0,OTHER,requires Dec 2026 / May-June 2027 graduates,"Kevin, Ritvik, Aidan"
+R05__J040,R05,J040,Field AI,"Embedded Systems Engineer, Robotics Hardware","Irvine, CA",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J041,R05,J041,Veeva Systems,Associate Software Engineer - 2027 Start Dates,California - Pleasanton,0,LOCATION,requires an OS or Compilers class; only R09 shows one,"Kevin, Ritvik, Aidan"
+R05__J042,R05,J042,Datalab USA,Production Programmer - Entry Level SQL Developer,"Germantown, MD",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J043,R05,J043,Revenue Analytics,Data Scientist,"Atlanta, GA (Open Remote - Eastern Time Zone)",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R05__J044,R05,J044,SEP,"Software Engineer (2027 start dates, in person)","Westfield, IN",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J045,R05,J045,AHEAD,Associate AI Engineer,"Chicago, Illinois",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J046,R05,J046,Artera,Associate AI Builder,"Seattle, Washington",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J047,R05,J047,Field AI,"Robotics Engineer, Humanoid System Integration","Irvine, CA",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R05__J048,R05,J048,Wyetech,Software Engineer 0/1,"Ft. Meade, Maryland",0,CLEARANCE,requires TS/SCI with poly; R10 shows Secret only,"Kevin, Ritvik, Aidan"
+R05__J049,R05,J049,Global Lending Services,Data Developer,"Greenville, South Carolina",1,,,"Kevin, Ritvik, Aidan"
+R05__J050,R05,J050,Demiurge Studios,2027 Associate Software Engineer,Remote,1,,,"Kevin, Ritvik, Aidan"
+R06__J001,R06,J001,Bracebridge Capital,Machine Learning Analyst ,"Boston, MA",1,,,"Kevin, Ritvik, Aidan"
+R06__J002,R06,J002,Klaviyo,AI Engineer I,"Boston, MA",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R06__J003,R06,J003,CHAOS Industries,Applied AI Engineer,"San Francisco, California, United States",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R06__J004,R06,J004,SpaceX,"New Graduate Engineer, Software (Starship)","Hawthorne, CA",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R06__J005,R06,J005,The Brattle Group,Data and AI Engineer,"Boston, Massachusetts, United States",1,,,"Kevin, Ritvik, Aidan"
+R06__J006,R06,J006,Tebra,Software Engineer I,United States - Remote,1,,,"Kevin, Ritvik, Aidan"
+R06__J007,R06,J007,Major League Baseball,Data Scientist,"Cleveland, Ohio, United States",1,,,"Kevin, Ritvik, Aidan"
+R06__J008,R06,J008,Man Group,Technology Rotational Program - Associate Engineer,Massachusetts,1,,,"Kevin, Ritvik, Aidan"
+R06__J009,R06,J009,Xaira Therapeutics,AI in Residence,"South San Francisco, California, United States",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R06__J010,R06,J010,True Anomaly,"Software Engineer I, Elixir (New Grad)","Denver, CO or Long Beach, CA ",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R06__J011,R06,J011,Schonfeld,Market Data Analyst,"New York, New York, United States",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R06__J012,R06,J012,Scale AI,"Software Engineer, Public Sector - New Grad","San Francisco, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R06__J013,R06,J013,Accenture,AI & Data Analyst,"Washington, DC",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R06__J014,R06,J014,Trace3,System Engineer,"Colorado Springs, CO",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R06__J015,R06,J015,Jumio,Research Engineer – Machine Learning & Robotics,"Lenexa, Kansas",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R06__J016,R06,J016,Maven Securities,Graduate Developer Programme Chicago 2027,Chicago,1,,,"Kevin, Ritvik, Aidan"
+R06__J017,R06,J017,Evolver,Research Scientist - Autonomous Systems,"Palo Alto, California",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R06__J018,R06,J018,PlanetScale,Software Engineer - Internal Tools,San Francisco Office,0,LOCATION,"must already live in SF Bay Area, no relocation","Kevin, Ritvik, Aidan"
+R06__J019,R06,J019,Evolver,Research Scientist - Information Theory and Statistical Inference,"Palo Alto, California",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R06__J020,R06,J020,Uare.ai,Software Engineer (Early Career),"Los Altos, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R06__J021,R06,J021,VML,Associate Data Engineer,"Austin, Texas, United States",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R06__J022,R06,J022,Anduril,"Software Engineer, Battlespace Awareness","Broomfield, Colorado, United States; Fort Collins, Colorado, United States",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R06__J023,R06,J023,The Trade Desk,Data Support Analyst I,Ventura,0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R06__J024,R06,J024,Kikoff,Software Engineer - Recent Grad,San Francisco,0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R06__J025,R06,J025,VML,Associate Data Insights Consultant ,"Austin, Texas, United States",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R06__J026,R06,J026,Hatch IT,Junior Data Engineer (DEA),"Arlington, VA",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R06__J027,R06,J027,Global Lending Services,Software Developer,"Greenville, South Carolina",1,,,"Kevin, Ritvik, Aidan"
+R06__J028,R06,J028,SteerBridge,Junior Data Engineer,"Vienna, VA",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R06__J029,R06,J029,Synergy ECP,Software Engineer,"Annapolis Junction, MD",1,,"posting has no requirements section; likely needs clearance, verify","Kevin, Ritvik, Aidan"
+R06__J030,R06,J030,Vitana Pediatric & Orthodontic Partners,Data Analyst,"Plantation, FL",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R06__J031,R06,J031,FiscalNote,Associate Software Engineer,United States - Remote,0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R06__J032,R06,J032,Rainmaker,"Rainmaker Fellow, Machine Learning","El Segundo, CA",1,,,"Kevin, Ritvik, Aidan"
+R06__J033,R06,J033,Agile Defense,Software Developer I,"Aberdeen Proving Ground, MD",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R06__J034,R06,J034,WisdomTree,AI Solutions Analyst,"Hybrid - New York, NY",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R06__J035,R06,J035,Rover,"Entry Level Software Engineer, Recommendations",Seattle,0,LEVEL,requires 1-4 yrs professional experience,"Kevin, Ritvik, Aidan"
+R06__J036,R06,J036,Toyota Research Institute,AI Resident - Learning From Videos (LFV),"Los Altos, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R06__J037,R06,J037,Kitware,OSTP Software Developer,"Clifton Park, New York",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R06__J038,R06,J038,Mulligan Funding,Data Scientist I - Management Trainee,"San Diego, CA",1,,,"Kevin, Ritvik, Aidan"
+R06__J039,R06,J039,Belvedere Trading,Software Engineer - Entry Level 2027,"Chicago, Illinois",1,,,"Kevin, Ritvik, Aidan"
+R06__J040,R06,J040,Field AI,"Embedded Systems Engineer, Robotics Hardware","Irvine, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R06__J041,R06,J041,Veeva Systems,Associate Software Engineer - 2027 Start Dates,California - Pleasanton,0,CORE_MISSING,requires an OS or Compilers class; only R09 shows one,"Kevin, Ritvik, Aidan"
+R06__J042,R06,J042,Datalab USA,Production Programmer - Entry Level SQL Developer,"Germantown, MD",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R06__J043,R06,J043,Revenue Analytics,Data Scientist,"Atlanta, GA (Open Remote - Eastern Time Zone)",1,,,"Kevin, Ritvik, Aidan"
+R06__J044,R06,J044,SEP,"Software Engineer (2027 start dates, in person)","Westfield, IN",1,,,"Kevin, Ritvik, Aidan"
+R06__J045,R06,J045,AHEAD,Associate AI Engineer,"Chicago, Illinois",0,OTHER,must have graduated by 1/11/26,"Kevin, Ritvik, Aidan"
+R06__J046,R06,J046,Artera,Associate AI Builder,"Seattle, Washington",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R06__J047,R06,J047,Field AI,"Robotics Engineer, Humanoid System Integration","Irvine, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R06__J048,R06,J048,Wyetech,Software Engineer 0/1,"Ft. Meade, Maryland",0,CLEARANCE,requires TS/SCI with poly; R10 shows Secret only,"Kevin, Ritvik, Aidan"
+R06__J049,R06,J049,Global Lending Services,Data Developer,"Greenville, South Carolina",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R06__J050,R06,J050,Demiurge Studios,2027 Associate Software Engineer,Remote,1,,,"Kevin, Ritvik, Aidan"
+R07__J001,R07,J001,Bracebridge Capital,Machine Learning Analyst ,"Boston, MA",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R07__J002,R07,J002,Klaviyo,AI Engineer I,"Boston, MA",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R07__J003,R07,J003,CHAOS Industries,Applied AI Engineer,"San Francisco, California, United States",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R07__J004,R07,J004,SpaceX,"New Graduate Engineer, Software (Starship)","Hawthorne, CA",0,OTHER,requires 2027 graduates,"Kevin, Ritvik, Aidan"
+R07__J005,R07,J005,The Brattle Group,Data and AI Engineer,"Boston, Massachusetts, United States",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R07__J006,R07,J006,Tebra,Software Engineer I,United States - Remote,1,,,"Kevin, Ritvik, Aidan"
+R07__J007,R07,J007,Major League Baseball,Data Scientist,"Cleveland, Ohio, United States",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R07__J008,R07,J008,Man Group,Technology Rotational Program - Associate Engineer,Massachusetts,0,OTHER,current students only,"Kevin, Ritvik, Aidan"
+R07__J009,R07,J009,Xaira Therapeutics,AI in Residence,"South San Francisco, California, United States",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R07__J010,R07,J010,True Anomaly,"Software Engineer I, Elixir (New Grad)","Denver, CO or Long Beach, CA ",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R07__J011,R07,J011,Schonfeld,Market Data Analyst,"New York, New York, United States",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R07__J012,R07,J012,Scale AI,"Software Engineer, Public Sector - New Grad","San Francisco, CA",0,OTHER,requires Fall 2026 / Spring 2027 graduates,"Kevin, Ritvik, Aidan"
+R07__J013,R07,J013,Accenture,AI & Data Analyst,"Washington, DC",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R07__J014,R07,J014,Trace3,System Engineer,"Colorado Springs, CO",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R07__J015,R07,J015,Jumio,Research Engineer – Machine Learning & Robotics,"Lenexa, Kansas",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R07__J016,R07,J016,Maven Securities,Graduate Developer Programme Chicago 2027,Chicago,0,OTHER,final-year students only (2027 program),"Kevin, Ritvik, Aidan"
+R07__J017,R07,J017,Evolver,Research Scientist - Autonomous Systems,"Palo Alto, California",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R07__J018,R07,J018,PlanetScale,Software Engineer - Internal Tools,San Francisco Office,0,LOCATION,"must already live in SF Bay Area, no relocation","Kevin, Ritvik, Aidan"
+R07__J019,R07,J019,Evolver,Research Scientist - Information Theory and Statistical Inference,"Palo Alto, California",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R07__J020,R07,J020,Uare.ai,Software Engineer (Early Career),"Los Altos, CA",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R07__J021,R07,J021,VML,Associate Data Engineer,"Austin, Texas, United States",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R07__J022,R07,J022,Anduril,"Software Engineer, Battlespace Awareness","Broomfield, Colorado, United States; Fort Collins, Colorado, United States",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R07__J023,R07,J023,The Trade Desk,Data Support Analyst I,Ventura,0,LOCATION,,"Kevin, Ritvik, Aidan"
+R07__J024,R07,J024,Kikoff,Software Engineer - Recent Grad,San Francisco,0,LOCATION,,"Kevin, Ritvik, Aidan"
+R07__J025,R07,J025,VML,Associate Data Insights Consultant ,"Austin, Texas, United States",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R07__J026,R07,J026,Hatch IT,Junior Data Engineer (DEA),"Arlington, VA",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R07__J027,R07,J027,Global Lending Services,Software Developer,"Greenville, South Carolina",1,,,"Kevin, Ritvik, Aidan"
+R07__J028,R07,J028,SteerBridge,Junior Data Engineer,"Vienna, VA",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R07__J029,R07,J029,Synergy ECP,Software Engineer,"Annapolis Junction, MD",0,LOCATION,"posting has no requirements section; likely needs clearance, verify","Kevin, Ritvik, Aidan"
+R07__J030,R07,J030,Vitana Pediatric & Orthodontic Partners,Data Analyst,"Plantation, FL",1,,no data warehouse experience shown,"Kevin, Ritvik, Aidan"
+R07__J031,R07,J031,FiscalNote,Associate Software Engineer,United States - Remote,1,,,"Kevin, Ritvik, Aidan"
+R07__J032,R07,J032,Rainmaker,"Rainmaker Fellow, Machine Learning","El Segundo, CA",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R07__J033,R07,J033,Agile Defense,Software Developer I,"Aberdeen Proving Ground, MD",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R07__J034,R07,J034,WisdomTree,AI Solutions Analyst,"Hybrid - New York, NY",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R07__J035,R07,J035,Rover,"Entry Level Software Engineer, Recommendations",Seattle,0,LOCATION,requires 1-4 yrs professional experience,"Kevin, Ritvik, Aidan"
+R07__J036,R07,J036,Toyota Research Institute,AI Resident - Learning From Videos (LFV),"Los Altos, CA",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R07__J037,R07,J037,Kitware,OSTP Software Developer,"Clifton Park, New York",0,OTHER,requires Spring 2027 (or Dec 2026) graduates,"Kevin, Ritvik, Aidan"
+R07__J038,R07,J038,Mulligan Funding,Data Scientist I - Management Trainee,"San Diego, CA",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R07__J039,R07,J039,Belvedere Trading,Software Engineer - Entry Level 2027,"Chicago, Illinois",0,OTHER,requires Dec 2026 / May-June 2027 graduates,"Kevin, Ritvik, Aidan"
+R07__J040,R07,J040,Field AI,"Embedded Systems Engineer, Robotics Hardware","Irvine, CA",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R07__J041,R07,J041,Veeva Systems,Associate Software Engineer - 2027 Start Dates,California - Pleasanton,0,LOCATION,requires an OS or Compilers class; only R09 shows one,"Kevin, Ritvik, Aidan"
+R07__J042,R07,J042,Datalab USA,Production Programmer - Entry Level SQL Developer,"Germantown, MD",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R07__J043,R07,J043,Revenue Analytics,Data Scientist,"Atlanta, GA (Open Remote - Eastern Time Zone)",1,,,"Kevin, Ritvik, Aidan"
+R07__J044,R07,J044,SEP,"Software Engineer (2027 start dates, in person)","Westfield, IN",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R07__J045,R07,J045,AHEAD,Associate AI Engineer,"Chicago, Illinois",0,OTHER,must have graduated by 1/11/26,"Kevin, Ritvik, Aidan"
+R07__J046,R07,J046,Artera,Associate AI Builder,"Seattle, Washington",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R07__J047,R07,J047,Field AI,"Robotics Engineer, Humanoid System Integration","Irvine, CA",0,LOCATION,,"Kevin, Ritvik, Aidan"
+R07__J048,R07,J048,Wyetech,Software Engineer 0/1,"Ft. Meade, Maryland",0,CLEARANCE,requires TS/SCI with poly; R10 shows Secret only,"Kevin, Ritvik, Aidan"
+R07__J049,R07,J049,Global Lending Services,Data Developer,"Greenville, South Carolina",1,,,"Kevin, Ritvik, Aidan"
+R07__J050,R07,J050,Demiurge Studios,2027 Associate Software Engineer,Remote,1,,,"Kevin, Ritvik, Aidan"
+R08__J001,R08,J001,Bracebridge Capital,Machine Learning Analyst ,"Boston, MA",1,,,"Kevin, Ritvik, Aidan"
+R08__J002,R08,J002,Klaviyo,AI Engineer I,"Boston, MA",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R08__J003,R08,J003,CHAOS Industries,Applied AI Engineer,"San Francisco, California, United States",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R08__J004,R08,J004,SpaceX,"New Graduate Engineer, Software (Starship)","Hawthorne, CA",0,OTHER,requires 2027 graduates,"Kevin, Ritvik, Aidan"
+R08__J005,R08,J005,The Brattle Group,Data and AI Engineer,"Boston, Massachusetts, United States",1,,,"Kevin, Ritvik, Aidan"
+R08__J006,R08,J006,Tebra,Software Engineer I,United States - Remote,1,,,"Kevin, Ritvik, Aidan"
+R08__J007,R08,J007,Major League Baseball,Data Scientist,"Cleveland, Ohio, United States",1,,,"Kevin, Ritvik, Aidan"
+R08__J008,R08,J008,Man Group,Technology Rotational Program - Associate Engineer,Massachusetts,0,OTHER,current students only,"Kevin, Ritvik, Aidan"
+R08__J009,R08,J009,Xaira Therapeutics,AI in Residence,"South San Francisco, California, United States",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R08__J010,R08,J010,True Anomaly,"Software Engineer I, Elixir (New Grad)","Denver, CO or Long Beach, CA ",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R08__J011,R08,J011,Schonfeld,Market Data Analyst,"New York, New York, United States",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R08__J012,R08,J012,Scale AI,"Software Engineer, Public Sector - New Grad","San Francisco, CA",0,OTHER,requires Fall 2026 / Spring 2027 graduates,"Kevin, Ritvik, Aidan"
+R08__J013,R08,J013,Accenture,AI & Data Analyst,"Washington, DC",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R08__J014,R08,J014,Trace3,System Engineer,"Colorado Springs, CO",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R08__J015,R08,J015,Jumio,Research Engineer – Machine Learning & Robotics,"Lenexa, Kansas",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R08__J016,R08,J016,Maven Securities,Graduate Developer Programme Chicago 2027,Chicago,0,OTHER,final-year students only (2027 program),"Kevin, Ritvik, Aidan"
+R08__J017,R08,J017,Evolver,Research Scientist - Autonomous Systems,"Palo Alto, California",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R08__J018,R08,J018,PlanetScale,Software Engineer - Internal Tools,San Francisco Office,0,LOCATION,"must already live in SF Bay Area, no relocation","Kevin, Ritvik, Aidan"
+R08__J019,R08,J019,Evolver,Research Scientist - Information Theory and Statistical Inference,"Palo Alto, California",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R08__J020,R08,J020,Uare.ai,Software Engineer (Early Career),"Los Altos, CA",1,,"LLM pipelines shown, RAG / vector DB not shown","Kevin, Ritvik, Aidan"
+R08__J021,R08,J021,VML,Associate Data Engineer,"Austin, Texas, United States",1,,,"Kevin, Ritvik, Aidan"
+R08__J022,R08,J022,Anduril,"Software Engineer, Battlespace Awareness","Broomfield, Colorado, United States; Fort Collins, Colorado, United States",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R08__J023,R08,J023,The Trade Desk,Data Support Analyst I,Ventura,1,,,"Kevin, Ritvik, Aidan"
+R08__J024,R08,J024,Kikoff,Software Engineer - Recent Grad,San Francisco,1,,2+ yrs or equivalent is borderline,"Kevin, Ritvik, Aidan"
+R08__J025,R08,J025,VML,Associate Data Insights Consultant ,"Austin, Texas, United States",1,,,"Kevin, Ritvik, Aidan"
+R08__J026,R08,J026,Hatch IT,Junior Data Engineer (DEA),"Arlington, VA",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R08__J027,R08,J027,Global Lending Services,Software Developer,"Greenville, South Carolina",1,,,"Kevin, Ritvik, Aidan"
+R08__J028,R08,J028,SteerBridge,Junior Data Engineer,"Vienna, VA",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R08__J029,R08,J029,Synergy ECP,Software Engineer,"Annapolis Junction, MD",1,,"posting has no requirements section; likely needs clearance, verify","Kevin, Ritvik, Aidan"
+R08__J030,R08,J030,Vitana Pediatric & Orthodontic Partners,Data Analyst,"Plantation, FL",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R08__J031,R08,J031,FiscalNote,Associate Software Engineer,United States - Remote,1,,,"Kevin, Ritvik, Aidan"
+R08__J032,R08,J032,Rainmaker,"Rainmaker Fellow, Machine Learning","El Segundo, CA",1,,,"Kevin, Ritvik, Aidan"
+R08__J033,R08,J033,Agile Defense,Software Developer I,"Aberdeen Proving Ground, MD",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R08__J034,R08,J034,WisdomTree,AI Solutions Analyst,"Hybrid - New York, NY",1,,,"Kevin, Ritvik, Aidan"
+R08__J035,R08,J035,Rover,"Entry Level Software Engineer, Recommendations",Seattle,0,LEVEL,requires 1-4 yrs professional experience,"Kevin, Ritvik, Aidan"
+R08__J036,R08,J036,Toyota Research Institute,AI Resident - Learning From Videos (LFV),"Los Altos, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R08__J037,R08,J037,Kitware,OSTP Software Developer,"Clifton Park, New York",0,OTHER,requires Spring 2027 (or Dec 2026) graduates,"Kevin, Ritvik, Aidan"
+R08__J038,R08,J038,Mulligan Funding,Data Scientist I - Management Trainee,"San Diego, CA",1,,,"Kevin, Ritvik, Aidan"
+R08__J039,R08,J039,Belvedere Trading,Software Engineer - Entry Level 2027,"Chicago, Illinois",0,OTHER,requires Dec 2026 / May-June 2027 graduates,"Kevin, Ritvik, Aidan"
+R08__J040,R08,J040,Field AI,"Embedded Systems Engineer, Robotics Hardware","Irvine, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R08__J041,R08,J041,Veeva Systems,Associate Software Engineer - 2027 Start Dates,California - Pleasanton,0,CORE_MISSING,requires an OS or Compilers class; only R09 shows one,"Kevin, Ritvik, Aidan"
+R08__J042,R08,J042,Datalab USA,Production Programmer - Entry Level SQL Developer,"Germantown, MD",1,,,"Kevin, Ritvik, Aidan"
+R08__J043,R08,J043,Revenue Analytics,Data Scientist,"Atlanta, GA (Open Remote - Eastern Time Zone)",1,,,"Kevin, Ritvik, Aidan"
+R08__J044,R08,J044,SEP,"Software Engineer (2027 start dates, in person)","Westfield, IN",1,,,"Kevin, Ritvik, Aidan"
+R08__J045,R08,J045,AHEAD,Associate AI Engineer,"Chicago, Illinois",0,OTHER,must have graduated by 1/11/26,"Kevin, Ritvik, Aidan"
+R08__J046,R08,J046,Artera,Associate AI Builder,"Seattle, Washington",1,,,"Kevin, Ritvik, Aidan"
+R08__J047,R08,J047,Field AI,"Robotics Engineer, Humanoid System Integration","Irvine, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R08__J048,R08,J048,Wyetech,Software Engineer 0/1,"Ft. Meade, Maryland",0,CLEARANCE,requires TS/SCI with poly; R10 shows Secret only,"Kevin, Ritvik, Aidan"
+R08__J049,R08,J049,Global Lending Services,Data Developer,"Greenville, South Carolina",1,,,"Kevin, Ritvik, Aidan"
+R08__J050,R08,J050,Demiurge Studios,2027 Associate Software Engineer,Remote,1,,,"Kevin, Ritvik, Aidan"
+R09__J001,R09,J001,Bracebridge Capital,Machine Learning Analyst ,"Boston, MA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R09__J002,R09,J002,Klaviyo,AI Engineer I,"Boston, MA",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R09__J003,R09,J003,CHAOS Industries,Applied AI Engineer,"San Francisco, California, United States",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R09__J004,R09,J004,SpaceX,"New Graduate Engineer, Software (Starship)","Hawthorne, CA",0,OTHER,requires 2027 graduates,"Kevin, Ritvik, Aidan"
+R09__J005,R09,J005,The Brattle Group,Data and AI Engineer,"Boston, Massachusetts, United States",1,,,"Kevin, Ritvik, Aidan"
+R09__J006,R09,J006,Tebra,Software Engineer I,United States - Remote,1,,,"Kevin, Ritvik, Aidan"
+R09__J007,R09,J007,Major League Baseball,Data Scientist,"Cleveland, Ohio, United States",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R09__J008,R09,J008,Man Group,Technology Rotational Program - Associate Engineer,Massachusetts,0,OTHER,current students only,"Kevin, Ritvik, Aidan"
+R09__J009,R09,J009,Xaira Therapeutics,AI in Residence,"South San Francisco, California, United States",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R09__J010,R09,J010,True Anomaly,"Software Engineer I, Elixir (New Grad)","Denver, CO or Long Beach, CA ",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R09__J011,R09,J011,Schonfeld,Market Data Analyst,"New York, New York, United States",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R09__J012,R09,J012,Scale AI,"Software Engineer, Public Sector - New Grad","San Francisco, CA",0,OTHER,requires Fall 2026 / Spring 2027 graduates,"Kevin, Ritvik, Aidan"
+R09__J013,R09,J013,Accenture,AI & Data Analyst,"Washington, DC",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R09__J014,R09,J014,Trace3,System Engineer,"Colorado Springs, CO",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R09__J015,R09,J015,Jumio,Research Engineer – Machine Learning & Robotics,"Lenexa, Kansas",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R09__J016,R09,J016,Maven Securities,Graduate Developer Programme Chicago 2027,Chicago,0,OTHER,final-year students only (2027 program),"Kevin, Ritvik, Aidan"
+R09__J017,R09,J017,Evolver,Research Scientist - Autonomous Systems,"Palo Alto, California",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R09__J018,R09,J018,PlanetScale,Software Engineer - Internal Tools,San Francisco Office,0,LOCATION,"must already live in SF Bay Area, no relocation","Kevin, Ritvik, Aidan"
+R09__J019,R09,J019,Evolver,Research Scientist - Information Theory and Statistical Inference,"Palo Alto, California",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R09__J020,R09,J020,Uare.ai,Software Engineer (Early Career),"Los Altos, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R09__J021,R09,J021,VML,Associate Data Engineer,"Austin, Texas, United States",1,,,"Kevin, Ritvik, Aidan"
+R09__J022,R09,J022,Anduril,"Software Engineer, Battlespace Awareness","Broomfield, Colorado, United States; Fort Collins, Colorado, United States",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R09__J023,R09,J023,The Trade Desk,Data Support Analyst I,Ventura,1,,,"Kevin, Ritvik, Aidan"
+R09__J024,R09,J024,Kikoff,Software Engineer - Recent Grad,San Francisco,1,,2+ yrs or equivalent is borderline,"Kevin, Ritvik, Aidan"
+R09__J025,R09,J025,VML,Associate Data Insights Consultant ,"Austin, Texas, United States",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R09__J026,R09,J026,Hatch IT,Junior Data Engineer (DEA),"Arlington, VA",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R09__J027,R09,J027,Global Lending Services,Software Developer,"Greenville, South Carolina",1,,,"Kevin, Ritvik, Aidan"
+R09__J028,R09,J028,SteerBridge,Junior Data Engineer,"Vienna, VA",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R09__J029,R09,J029,Synergy ECP,Software Engineer,"Annapolis Junction, MD",1,,"posting has no requirements section; likely needs clearance, verify","Kevin, Ritvik, Aidan"
+R09__J030,R09,J030,Vitana Pediatric & Orthodontic Partners,Data Analyst,"Plantation, FL",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R09__J031,R09,J031,FiscalNote,Associate Software Engineer,United States - Remote,1,,,"Kevin, Ritvik, Aidan"
+R09__J032,R09,J032,Rainmaker,"Rainmaker Fellow, Machine Learning","El Segundo, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R09__J033,R09,J033,Agile Defense,Software Developer I,"Aberdeen Proving Ground, MD",0,CLEARANCE,requires US citizenship / clearance not shown on resume,"Kevin, Ritvik, Aidan"
+R09__J034,R09,J034,WisdomTree,AI Solutions Analyst,"Hybrid - New York, NY",1,,,"Kevin, Ritvik, Aidan"
+R09__J035,R09,J035,Rover,"Entry Level Software Engineer, Recommendations",Seattle,0,LEVEL,requires 1-4 yrs professional experience,"Kevin, Ritvik, Aidan"
+R09__J036,R09,J036,Toyota Research Institute,AI Resident - Learning From Videos (LFV),"Los Altos, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R09__J037,R09,J037,Kitware,OSTP Software Developer,"Clifton Park, New York",0,OTHER,requires Spring 2027 (or Dec 2026) graduates,"Kevin, Ritvik, Aidan"
+R09__J038,R09,J038,Mulligan Funding,Data Scientist I - Management Trainee,"San Diego, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R09__J039,R09,J039,Belvedere Trading,Software Engineer - Entry Level 2027,"Chicago, Illinois",0,OTHER,requires Dec 2026 / May-June 2027 graduates,"Kevin, Ritvik, Aidan"
+R09__J040,R09,J040,Field AI,"Embedded Systems Engineer, Robotics Hardware","Irvine, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R09__J041,R09,J041,Veeva Systems,Associate Software Engineer - 2027 Start Dates,California - Pleasanton,1,,requires an OS or Compilers class; only R09 shows one,"Kevin, Ritvik, Aidan"
+R09__J042,R09,J042,Datalab USA,Production Programmer - Entry Level SQL Developer,"Germantown, MD",1,,,"Kevin, Ritvik, Aidan"
+R09__J043,R09,J043,Revenue Analytics,Data Scientist,"Atlanta, GA (Open Remote - Eastern Time Zone)",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R09__J044,R09,J044,SEP,"Software Engineer (2027 start dates, in person)","Westfield, IN",1,,,"Kevin, Ritvik, Aidan"
+R09__J045,R09,J045,AHEAD,Associate AI Engineer,"Chicago, Illinois",0,OTHER,must have graduated by 1/11/26,"Kevin, Ritvik, Aidan"
+R09__J046,R09,J046,Artera,Associate AI Builder,"Seattle, Washington",1,,,"Kevin, Ritvik, Aidan"
+R09__J047,R09,J047,Field AI,"Robotics Engineer, Humanoid System Integration","Irvine, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R09__J048,R09,J048,Wyetech,Software Engineer 0/1,"Ft. Meade, Maryland",0,CLEARANCE,requires TS/SCI with poly; R10 shows Secret only,"Kevin, Ritvik, Aidan"
+R09__J049,R09,J049,Global Lending Services,Data Developer,"Greenville, South Carolina",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R09__J050,R09,J050,Demiurge Studios,2027 Associate Software Engineer,Remote,1,,,"Kevin, Ritvik, Aidan"
+R10__J001,R10,J001,Bracebridge Capital,Machine Learning Analyst ,"Boston, MA",1,,,"Kevin, Ritvik, Aidan"
+R10__J002,R10,J002,Klaviyo,AI Engineer I,"Boston, MA",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R10__J003,R10,J003,CHAOS Industries,Applied AI Engineer,"San Francisco, California, United States",0,CORE_MISSING,no production ML / model serving experience shown,"Kevin, Ritvik, Aidan"
+R10__J004,R10,J004,SpaceX,"New Graduate Engineer, Software (Starship)","Hawthorne, CA",0,OTHER,requires 2027 graduates,"Kevin, Ritvik, Aidan"
+R10__J005,R10,J005,The Brattle Group,Data and AI Engineer,"Boston, Massachusetts, United States",1,,,"Kevin, Ritvik, Aidan"
+R10__J006,R10,J006,Tebra,Software Engineer I,United States - Remote,1,,,"Kevin, Ritvik, Aidan"
+R10__J007,R10,J007,Major League Baseball,Data Scientist,"Cleveland, Ohio, United States",1,,,"Kevin, Ritvik, Aidan"
+R10__J008,R10,J008,Man Group,Technology Rotational Program - Associate Engineer,Massachusetts,0,OTHER,current students only,"Kevin, Ritvik, Aidan"
+R10__J009,R10,J009,Xaira Therapeutics,AI in Residence,"South San Francisco, California, United States",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R10__J010,R10,J010,True Anomaly,"Software Engineer I, Elixir (New Grad)","Denver, CO or Long Beach, CA ",0,CORE_MISSING,no functional programming (Elixir/Erlang) shown,"Kevin, Ritvik, Aidan"
+R10__J011,R10,J011,Schonfeld,Market Data Analyst,"New York, New York, United States",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R10__J012,R10,J012,Scale AI,"Software Engineer, Public Sector - New Grad","San Francisco, CA",0,OTHER,requires Fall 2026 / Spring 2027 graduates,"Kevin, Ritvik, Aidan"
+R10__J013,R10,J013,Accenture,AI & Data Analyst,"Washington, DC",1,,,"Kevin, Ritvik, Aidan"
+R10__J014,R10,J014,Trace3,System Engineer,"Colorado Springs, CO",0,CORE_MISSING,has active Secret; V-model / Cameo not shown,"Kevin, Ritvik, Aidan"
+R10__J015,R10,J015,Jumio,Research Engineer – Machine Learning & Robotics,"Lenexa, Kansas",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R10__J016,R10,J016,Maven Securities,Graduate Developer Programme Chicago 2027,Chicago,0,OTHER,final-year students only (2027 program),"Kevin, Ritvik, Aidan"
+R10__J017,R10,J017,Evolver,Research Scientist - Autonomous Systems,"Palo Alto, California",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R10__J018,R10,J018,PlanetScale,Software Engineer - Internal Tools,San Francisco Office,0,LOCATION,"must already live in SF Bay Area, no relocation","Kevin, Ritvik, Aidan"
+R10__J019,R10,J019,Evolver,Research Scientist - Information Theory and Statistical Inference,"Palo Alto, California",0,DEGREE,,"Kevin, Ritvik, Aidan"
+R10__J020,R10,J020,Uare.ai,Software Engineer (Early Career),"Los Altos, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R10__J021,R10,J021,VML,Associate Data Engineer,"Austin, Texas, United States",1,,,"Kevin, Ritvik, Aidan"
+R10__J022,R10,J022,Anduril,"Software Engineer, Battlespace Awareness","Broomfield, Colorado, United States; Fort Collins, Colorado, United States",1,,,"Kevin, Ritvik, Aidan"
+R10__J023,R10,J023,The Trade Desk,Data Support Analyst I,Ventura,1,,,"Kevin, Ritvik, Aidan"
+R10__J024,R10,J024,Kikoff,Software Engineer - Recent Grad,San Francisco,0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R10__J025,R10,J025,VML,Associate Data Insights Consultant ,"Austin, Texas, United States",1,,,"Kevin, Ritvik, Aidan"
+R10__J026,R10,J026,Hatch IT,Junior Data Engineer (DEA),"Arlington, VA",1,,,"Kevin, Ritvik, Aidan"
+R10__J027,R10,J027,Global Lending Services,Software Developer,"Greenville, South Carolina",1,,,"Kevin, Ritvik, Aidan"
+R10__J028,R10,J028,SteerBridge,Junior Data Engineer,"Vienna, VA",1,,,"Kevin, Ritvik, Aidan"
+R10__J029,R10,J029,Synergy ECP,Software Engineer,"Annapolis Junction, MD",1,,"posting has no requirements section; likely needs clearance, verify","Kevin, Ritvik, Aidan"
+R10__J030,R10,J030,Vitana Pediatric & Orthodontic Partners,Data Analyst,"Plantation, FL",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R10__J031,R10,J031,FiscalNote,Associate Software Engineer,United States - Remote,1,,,"Kevin, Ritvik, Aidan"
+R10__J032,R10,J032,Rainmaker,"Rainmaker Fellow, Machine Learning","El Segundo, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R10__J033,R10,J033,Agile Defense,Software Developer I,"Aberdeen Proving Ground, MD",1,,,"Kevin, Ritvik, Aidan"
+R10__J034,R10,J034,WisdomTree,AI Solutions Analyst,"Hybrid - New York, NY",1,,,"Kevin, Ritvik, Aidan"
+R10__J035,R10,J035,Rover,"Entry Level Software Engineer, Recommendations",Seattle,0,LEVEL,requires 1-4 yrs professional experience,"Kevin, Ritvik, Aidan"
+R10__J036,R10,J036,Toyota Research Institute,AI Resident - Learning From Videos (LFV),"Los Altos, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R10__J037,R10,J037,Kitware,OSTP Software Developer,"Clifton Park, New York",0,OTHER,requires Spring 2027 (or Dec 2026) graduates,"Kevin, Ritvik, Aidan"
+R10__J038,R10,J038,Mulligan Funding,Data Scientist I - Management Trainee,"San Diego, CA",1,,,"Kevin, Ritvik, Aidan"
+R10__J039,R10,J039,Belvedere Trading,Software Engineer - Entry Level 2027,"Chicago, Illinois",0,OTHER,requires Dec 2026 / May-June 2027 graduates,"Kevin, Ritvik, Aidan"
+R10__J040,R10,J040,Field AI,"Embedded Systems Engineer, Robotics Hardware","Irvine, CA",1,,ROS not shown (familiarity only),"Kevin, Ritvik, Aidan"
+R10__J041,R10,J041,Veeva Systems,Associate Software Engineer - 2027 Start Dates,California - Pleasanton,0,CORE_MISSING,requires an OS or Compilers class; only R09 shows one,"Kevin, Ritvik, Aidan"
+R10__J042,R10,J042,Datalab USA,Production Programmer - Entry Level SQL Developer,"Germantown, MD",1,,,"Kevin, Ritvik, Aidan"
+R10__J043,R10,J043,Revenue Analytics,Data Scientist,"Atlanta, GA (Open Remote - Eastern Time Zone)",1,,,"Kevin, Ritvik, Aidan"
+R10__J044,R10,J044,SEP,"Software Engineer (2027 start dates, in person)","Westfield, IN",1,,,"Kevin, Ritvik, Aidan"
+R10__J045,R10,J045,AHEAD,Associate AI Engineer,"Chicago, Illinois",1,,,"Kevin, Ritvik, Aidan"
+R10__J046,R10,J046,Artera,Associate AI Builder,"Seattle, Washington",1,,,"Kevin, Ritvik, Aidan"
+R10__J047,R10,J047,Field AI,"Robotics Engineer, Humanoid System Integration","Irvine, CA",0,CORE_MISSING,,"Kevin, Ritvik, Aidan"
+R10__J048,R10,J048,Wyetech,Software Engineer 0/1,"Ft. Meade, Maryland",0,CLEARANCE,requires TS/SCI with poly; R10 shows Secret only,"Kevin, Ritvik, Aidan"
+R10__J049,R10,J049,Global Lending Services,Data Developer,"Greenville, South Carolina",1,,,"Kevin, Ritvik, Aidan"
+R10__J050,R10,J050,Demiurge Studios,2027 Associate Software Engineer,Remote,1,,,"Kevin, Ritvik, Aidan"
