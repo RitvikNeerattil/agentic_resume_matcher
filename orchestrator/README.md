@@ -48,8 +48,12 @@ Still requires the team:
 - Review the completed development measurements and run a successful pilot.
 - Freeze the successful pilot, run evaluation and reuse, and produce real tables.
 
-The local development benchmark is running; its comparison report will use the
-saved measurements after completion. Human relevance judgments and quality
+The local development benchmark completed all eight attempts: six succeeded.
+Both R02 orchestrator runs failed resume-evidence validation after one retry.
+The [measured PDF](../data/reports/pipeline_comparison.pdf) includes successful
+end-to-end times, token usage, actual outputs, and failed-attempt accounting.
+R01 completed both 20- and 50-job orchestrator runs. A fully successful pilot
+still requires resolving the R02 parser failures. Human relevance judgments and quality
 claims remain pending. The blank sheets are preparation, not completed labels.
 Offline fake responses only verify control flow. Full weeks 5–6 quality evaluation
 requires the completed human labels and successful pilot.
@@ -84,8 +88,8 @@ Measure development cost and end-to-end speed for both pipelines, then create
 the PDF/charts:
 
 ```sh
-python3 -m shared.run_experiment --phase benchmark --architectures both --repetitions 1 --config shared/local_experiment.json --output results/local_benchmark --execute
-/opt/anaconda3/bin/python -m shared.make_pipeline_report results/local_benchmark --output data/reports
+python3 -m shared.run_experiment --phase benchmark --architectures both --repetitions 1 --config shared/local_experiment.json --output results/new_benchmark --execute
+/opt/anaconda3/bin/python -m shared.make_pipeline_report results/new_benchmark --output data/reports
 ```
 
 This makes eight matching runs: two development resumes × two job sizes × two

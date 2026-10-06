@@ -5,7 +5,7 @@ CSCE 585: Machine Learning Systems | Fall 2026
 
 This project compares two ways to match a resume with job postings: a single LLM call and a workflow with specialized workers. We will measure whether splitting up the work improves recommendations enough to justify the additional latency and token cost.
 
-**Status:** The 50-job snapshot and 10 anonymized resumes are in place. Kevin’s orchestration workflow and a separate single-agent baseline are implemented, with 16 offline tests. The baseline was added for the requested measured cost/speed comparison; the team responsibilities below remain the project plan. A local benchmark is running, and its PDF/charts will be generated from the saved measurements. Relevance labels for all 400 evaluation pairs are complete; the team labeled them following the labeling rubric (see [Relevance labels](#relevance-labels)). The full evaluation remains pending. The latest progress slides are in [`progress_update_2026-10.pptx`](progress_update_2026-10.pptx). See [Kevin’s workflow and run commands](orchestrator/README.md).
+**Status:** The 50-job snapshot and 10 anonymized resumes are in place. Kevin’s orchestration workflow and a separate single-agent baseline are implemented, with 16 offline tests. The baseline was added for the requested measured cost/speed comparison; the team responsibilities below remain the project plan. The eight-run local benchmark is complete: six runs succeeded; both R02 orchestrator runs failed resume-evidence validation. The measured PDF/charts are in [`data/reports/`](data/reports/). Relevance labels for all 400 evaluation pairs are complete; the team labeled them following the labeling rubric (see [Relevance labels](#relevance-labels)). The full evaluation remains pending. The latest progress slides are in [`progress_update_2026-10.pptx`](progress_update_2026-10.pptx). See [Kevin’s workflow and run commands](orchestrator/README.md).
 
 The runner supports both architectures. Its default remains four orchestrator
 pilot runs, 48 main runs, and six reuse runs. Selecting `--architectures both`
@@ -48,18 +48,40 @@ The local model is `qwen3:4b-instruct-2507-q4_K_M`, already downloaded for Ollam
 No API key is needed. Local inference has **$0 API token charges**; hardware and
 electricity costs are unmeasured.
 
+**Measured results — October 6, 2026:** [PDF and actual output comparison](data/reports/pipeline_comparison.pdf), [latency chart](data/reports/latency_comparison.png), [token chart](data/reports/token_usage.png), and [exact summary CSV](data/reports/comparison.csv).
+
+Completed same-input pairs for R01:
+
+| Jobs | Single time | Multi time | Single total tokens | Multi total tokens | API fees, each |
+|---|---:|---:|---:|---:|---:|
+| 20 | 65.5s | 274.4s | 31,388 | 92,835 | $0 |
+| 50 | 268.0s | 1200.2s | 73,540 | 214,563 | $0 |
+
+R02 completed both single-agent runs. Both R02 orchestrator runs failed during
+resume parsing after one retry because generated quotes were unsupported.
+Their time and tokens remain in the summary and batch totals. All eight runs
+took 39.44 minutes in one local server session; cache/model state was not reset.
+These are development measurements: the 96-run quality evaluation remains
+pending (the 400 relevance labels are done; the second review is not).
+
 From the repository root, run the eight-measurement comparison and generate its
 PDF/charts from the completed logs:
 
 ```sh
-python3 -m shared.run_experiment --phase benchmark --architectures both --repetitions 1 --config shared/local_experiment.json --output results/local_benchmark --execute
+python3 -m shared.run_experiment --phase benchmark --architectures both --repetitions 1 --config shared/local_experiment.json --output results/new_benchmark --execute
+/opt/anaconda3/bin/python -m shared.make_pipeline_report results/new_benchmark --output data/reports
+```
+
+To regenerate the saved comparison without running inference:
+
+```sh
 /opt/anaconda3/bin/python -m shared.make_pipeline_report results/local_benchmark --output data/reports
 ```
 
 Use a new results directory for each execution. The report command uses
 Matplotlib, available in this Anaconda environment; the matcher itself uses only
-the Python standard library. The comparison reports measured latency and token
-usage, rather than the illustrative token counts in the proposal below.
+the Python standard library. The report reads saved provider responses and run timers. It separates completed
+pipeline time from failed-attempt time and preserves all attempt costs/tokens.
 
 For optional cloud execution, choose `--config shared/experiment.json` and set
 `OPENAI_API_KEY`. That config selects `gpt-4.1-mini-2025-04-14` and prices dated
@@ -91,7 +113,7 @@ The following feedback came from the project presentation. The exact discussion 
 |---|---|---|---|
 | Add additional job datasets. | Presentation discussion; date not recorded | Accepted | Build a small, fixed collection from Greenhouse and Lever postings, using SimplifyJobs to help identify relevant employers and roles. |
 | Look into how Simplify matches candidates to jobs. | Presentation discussion; date not recorded | Accepted | Added a related-work comparison covering its documented matching inputs and the limits of what its public description reveals. |
-| Explain how token costs will be calculated. | Presentation discussion; date not recorded | Accepted | Added per-call accounting, a worked example, and a distinction between initial processing and reused job requirements. |
+| Explain how token costs will be calculated. | Presentation discussion; date not recorded | Accepted | Added per-call accounting, measured development results, and a distinction between initial processing and reused job requirements. |
 
 ## Problem and Motivation
 
@@ -127,9 +149,8 @@ flowchart TD
     B --> C["Single LLM call"]
     B --> D["Python orchestrator"]
     D --> E["Resume parser"]
-    D --> F["Job requirement extractor"]
-    E --> G["Scoring and ranking worker"]
-    F --> G
+    E --> F["Batched job requirement extractor"]
+    F --> G["Scoring and ranking worker"]
     C --> H["Top five jobs and explanations"]
     G --> H
     H --> I["Shared evaluation and usage log"]
@@ -139,7 +160,7 @@ flowchart TD
 
 **Orchestrated workflow:** A Python controller makes three sequential calls: parse the resume, extract requirements from the candidate postings in one batch, and rank jobs using those structured outputs. The controller needs no additional LLM call. Here, “multi-agent” means role-specific LLM workers in a fixed workflow.
 
-**Reused components:** One hosted LLM and its Python SDK, job-data endpoints, and standard Python analysis libraries. We will select an affordable model during the pilot and fix its version across both methods. A laptop and API access should suffice; no model training or dedicated GPU is planned.
+**Reused components:** A fixed LLM through the shared standard-library HTTP client, job-data endpoints, and Matplotlib for reports. Both methods use the same model in each comparison. The measured development runs use local Ollama; a fixed OpenAI model is configured for optional cloud runs. No model training is planned.
 
 **Team contribution:** The matchers, prompts, output validation, labeled workload, and experiment script. We will use Python scripts and JSON/CSV files. Resume rewriting, automatic applications, a production website, and large-scale scraping are outside scope.
 
@@ -197,21 +218,22 @@ Our provisional criterion is **at least five percentage points higher mean Preci
 
 Each request log will contain the model, worker, input/output tokens, time, retry number, and prices. Counts will come from API usage metadata. Prompts and intermediate results count again whenever another call receives them.
 
-With ordinary input/output billing and prices in USD per million tokens:
+With input/cache/output prices in USD per million tokens:
 
 ```text
-call_cost = (input_tokens × input_price + output_tokens × output_price) / 1,000,000
+call_cost = ((input_tokens - cached_tokens) × input_price
+             + cached_tokens × cached_input_price
+             + output_tokens × output_price) / 1,000,000
 resume_cost = sum(call_cost for every call and retry used for that resume)
 ```
 
-**Illustrative example:** Assume input costs **$0.50 per million tokens** and output costs **$2.00 per million tokens**. These are example prices, not a quote for the model we will select.
-
-| Method | Total input tokens | Total output tokens | Calculation | Cost per resume |
-|---|---:|---:|---|---:|
-| Single agent | 8,000 | 1,000 | `(8,000 × 0.50 + 1,000 × 2.00) / 1,000,000` | $0.006 |
-| Orchestrated, all calls combined | 16,000 | 2,500 | `(16,000 × 0.50 + 2,500 × 2.00) / 1,000,000` | $0.013 |
-
-Here, orchestration adds **$0.007 per resume** and costs about **2.17 times** as much. Experiments will use dated, published provider prices. Cache reads/writes can have separate rates, as shown in [Anthropic's pricing documentation](https://platform.claude.com/docs/en/about-claude/pricing). We will count each billed category once, including any billed reasoning tokens, and use matching provider-cache settings. Missing usage from failed requests will be marked unknown.
+The completed local benchmark above uses actual token counters. Local API
+token charges are $0 for both architectures; hardware and electricity are
+unmeasured. The PDF distinguishes successful runs from failed attempts.
+Cloud execution uses the dated prices in `shared/experiment.json`; its timings
+and token costs require separate live runs. Each billed category is counted
+once, including any reasoning tokens already included in completion counts.
+Missing usage stays unknown.
 
 For the reuse ablation, we will report initial extraction cost separately and calculate `amortized cost = preparation cost / requests reusing it + mean per-request cost`. A small pilot will estimate the full run against a proposed **$20 budget**. We will reduce scope if needed.
 

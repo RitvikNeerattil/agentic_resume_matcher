@@ -22,8 +22,8 @@ The downloaded Ollama model `qwen3:4b-instruct-2507-q4_K_M` runs locally at
 development inputs, then generate the measured PDF/charts:
 
 ```sh
-python3 -m shared.run_experiment --phase benchmark --architectures both --repetitions 1 --config shared/local_experiment.json --output results/local_benchmark --execute
-/opt/anaconda3/bin/python -m shared.make_pipeline_report results/local_benchmark --output data/reports
+python3 -m shared.run_experiment --phase benchmark --architectures both --repetitions 1 --config shared/local_experiment.json --output results/new_benchmark --execute
+/opt/anaconda3/bin/python -m shared.make_pipeline_report results/new_benchmark --output data/reports
 ```
 
 This command measures eight matching runs: two development resumes × two job
@@ -41,3 +41,7 @@ one call; an invalid response or request failure can add one logged retry.
 The full 96-run paired main experiment additionally requires completed human
 labels and a successful eight-run pilot using `--architectures both`. See
 [`orchestrator/README.md`](../orchestrator/README.md) for pilot/evaluation commands.
+
+The completed local benchmark succeeded on all four single-agent runs. See the
+[measured PDF](../data/reports/pipeline_comparison.pdf) for timing, tokens, and
+actual output comparisons, including the orchestrator’s two recorded failures.

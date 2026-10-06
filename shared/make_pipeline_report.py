@@ -141,6 +141,11 @@ def summarize(manifest, runs):
     for (size, method), group in sorted(groups.items(), key=lambda item: (item[0][0], METHODS.index(item[0][1]))):
         durations = [r['seconds'] for r in group]
         succeeded = [r['seconds'] for r in group if r['status'] == 'ok']
+        failed = [r for r in group if r['status'] == 'failed']
+        failed_usage = [usage(call) for run in failed for call in run['calls']]
+        success_calls = [call for run in group if run['status'] == 'ok' for call in run['calls']]
+        success_usage = [usage(call) for call in success_calls]
+        complete_usage = bool(succeeded) and all(value is not None for value in success_usage)
         calls = [call for run in group for call in run['calls']]
         counted = [usage(call) for call in calls]
         unknown_usage = sum(value is None for value in counted)
@@ -157,6 +162,15 @@ def summarize(manifest, runs):
             'retry_calls': sum(call.get('retry', 0) > 0 for call in calls),
             'median_seconds': statistics.median(durations), 'min_seconds': min(durations), 'max_seconds': max(durations),
             'median_success_seconds': statistics.median(succeeded) if succeeded else None,
+            'min_success_seconds': min(succeeded) if succeeded else None,
+            'max_success_seconds': max(succeeded) if succeeded else None,
+            'mean_success_input_tokens': sum(value[0] for value in success_usage) / len(succeeded) if complete_usage else None,
+            'mean_success_output_tokens': sum(value[1] for value in success_usage) / len(succeeded) if complete_usage else None,
+            'mean_success_cost_usd': sum(call['cost_usd'] for call in success_calls) / len(succeeded)
+                if succeeded and all(number(call.get('cost_usd')) for call in success_calls) else None,
+            'failed_seconds': sum(run['seconds'] for run in failed),
+            'failed_tokens': sum(sum(value[:2]) for value in failed_usage)
+                if all(value is not None for value in failed_usage) else None,
             'total_matcher_seconds': total_seconds,
             'successful_runs_per_minute': len(succeeded) * 60 / total_seconds if total_seconds else None,
             'total_input_tokens': None if unknown_usage else known_input,
@@ -190,23 +204,24 @@ def chart(ax, rows, metric):
     positions = list(range(len(rows)))
     colors = [COLORS[r['architecture']] for r in rows]
     if metric == 'latency':
-        values = [r['median_seconds'] for r in rows]
+        values = [r['median_success_seconds'] or 0 for r in rows]
         bars = ax.bar(positions, values, color=colors, width=.64)
-        ax.errorbar(positions, values, yerr=[[v - r['min_seconds'] for r, v in zip(rows, values)],
-                                            [r['max_seconds'] - v for r, v in zip(rows, values)]],
+        ax.errorbar(positions, values, yerr=[[v - (r['min_success_seconds'] or 0) for r, v in zip(rows, values)],
+                                            [(r['max_success_seconds'] or 0) - v for r, v in zip(rows, values)]],
                     fmt='none', ecolor=INK, capsize=4, linewidth=1)
-        ax.set_ylabel('Seconds per resume')
-        ax.set_title('End-to-end time', loc='left', fontweight='bold', color=INK)
-        maximum = max(r['max_seconds'] for r in rows)
-        for bar, value in zip(bars, values):
-            ax.text(bar.get_x() + bar.get_width() / 2, value + maximum * .04, f'{value:.1f}s', ha='center', fontsize=8, color=INK)
+        ax.set_ylabel('Seconds per completed pipeline')
+        ax.set_title('Time to validated output', loc='left', fontweight='bold', color=INK)
+        maximum = max([r['max_success_seconds'] or 0 for r in rows] + [1])
+        for bar, value, row in zip(bars, values, rows):
+            label = f'{value:.1f}s' if row['median_success_seconds'] is not None else 'No output'
+            ax.text(bar.get_x() + bar.get_width() / 2, (row['max_success_seconds'] or 0) + maximum * .04, label, ha='center', fontsize=8, color=INK)
     elif metric == 'tokens':
-        complete = [r['mean_input_tokens'] is not None for r in rows]
-        inputs = [r['mean_input_tokens'] or 0 for r in rows]
-        outputs = [r['mean_output_tokens'] or 0 for r in rows]
+        complete = [r['mean_success_input_tokens'] is not None for r in rows]
+        inputs = [r['mean_success_input_tokens'] or 0 for r in rows]
+        outputs = [r['mean_success_output_tokens'] or 0 for r in rows]
         ax.bar(positions, inputs, color=colors, width=.64, label='Input')
         ax.bar(positions, outputs, bottom=inputs, color=colors, width=.64, hatch='////', edgecolor='white', label='Output')
-        ax.set_ylabel('Tokens per resume (all calls)')
+        ax.set_ylabel('Tokens per completed pipeline (all calls)')
         ax.set_title('Measured input + output', loc='left', fontweight='bold', color=INK)
         maximum = max([a + b for a, b in zip(inputs, outputs)] + [1])
         for x, a, b, known in zip(positions, inputs, outputs, complete):
@@ -220,6 +235,11 @@ def chart(ax, rows, metric):
             ax.text(x, value + maximum * .05, cost_fmt(row['mean_cost_usd']), ha='center', fontsize=9, color=INK)
         ax.set_ylabel('USD per resume (API tokens)')
         ax.set_title('Measured token charges', loc='left', fontweight='bold', color=INK)
+        if all(row['mean_cost_usd'] == 0 for row in rows):
+            maximum = 1
+            ax.set_yticks([0])
+            ax.text(.5, .55, '$0 API token charges\nHardware and electricity unmeasured',
+                    transform=ax.transAxes, ha='center', fontsize=12, color=INK)
     ax.set_ylim(0, maximum * 1.28)
     ax.set_xticks(positions, labels, fontsize=8)
     ax.tick_params(axis='y', labelsize=8)
@@ -261,6 +281,25 @@ def paired_example(runs):
     return None, None
 
 
+def completed_pairs(runs):
+    grouped = defaultdict(dict)
+    for run in runs:
+        grouped[(run['resume_id'], run['size'], run['repetition'])][run['architecture']] = run
+    pairs = []
+    for (resume_id, size, repetition), pair in sorted(grouped.items()):
+        if set(pair) != set(METHODS) or any(run['status'] != 'ok' for run in pair.values()):
+            continue
+        single, multi = pair['single'], pair['orchestrated']
+        pairs.append({'resume_id': resume_id, 'size': size, 'repetition': repetition,
+                      'single_seconds': single['seconds'], 'multi_seconds': multi['seconds'],
+                      'latency_ratio': multi['seconds'] / single['seconds'],
+                      'single_tokens': sum(sum(usage(call)[:2]) for call in single['calls'])
+                          if all(usage(call) is not None for call in single['calls']) else None,
+                      'multi_tokens': sum(sum(usage(call)[:2]) for call in multi['calls'])
+                          if all(usage(call) is not None for call in multi['calls']) else None})
+    return pairs
+
+
 def render(directory, output, manifest, runs, rows):
     import matplotlib
     matplotlib.use('Agg')
@@ -293,6 +332,11 @@ def render(directory, output, manifest, runs, rows):
     cache_note = ' '.join(measurement_notes) or 'Model loading and server cache state can affect local timings; no forced cold-cache claim is made.'
     batch = json.loads((directory / 'batch.json').read_text()) if (directory / 'batch.json').exists() else None
     expected = len(manifest['schedule'])
+    failures = [run for run in runs if run['status'] == 'failed']
+    failure_labels = ', '.join(f"{run['resume_id']}/{run['size']} {NAMES[run['architecture']]}" for run in failures)
+    failure_errors = sorted({call.get('error_detail', call.get('error', 'Unknown error'))
+                             for run in failures for call in run['calls'] if call.get('status') == 'failed'})
+    failure_note = textwrap.shorten(f"Failed runs: {failure_labels}. Saved errors: {'; '.join(failure_errors)}. Early exits are not completed-pipeline speeds.", width=240)
     with PdfPages(output / 'pipeline_comparison.pdf', metadata={'Title': 'Measured single-agent vs multi-agent pipeline comparison', 'Author': 'CSCE 585'}) as pdf:
         fig = plt.figure(figsize=(8.5, 11))
         header(fig, 'Single agent vs multi agent', f"Measured comparison  /  {provider}  /  {config['model']}", 1)
@@ -308,7 +352,7 @@ def render(directory, output, manifest, runs, rows):
         else:
             paragraph(fig, .07, .768, f"Charges use measured response token counts and frozen prices dated {config['price_date']}.", size=8.5)
         columns = [.07, .18, .355, .47, .60, .715, .845]
-        headings = ['Jobs', 'Pipeline', 'OK / runs', 'Median time', 'Input / run', 'Output / run', 'USD / run']
+        headings = ['Jobs', 'Pipeline', 'OK / runs', 'Time / OK', 'Input / OK', 'Output / OK', 'USD / OK']
         top, height = .724, .032
         fig.add_artist(Rectangle((.065, top - height), .87, height, transform=fig.transFigure, facecolor=INK, edgecolor='none'))
         for x, label in zip(columns, headings):
@@ -317,15 +361,19 @@ def render(directory, output, manifest, runs, rows):
             y = top - (i + 1) * height
             fig.add_artist(Rectangle((.065, y - height), .87, height, transform=fig.transFigure, facecolor=PALE if i % 2 == 0 else 'white', edgecolor='none'))
             cells = [str(row['size']), NAMES[row['architecture']], f"{row['successful_runs']} / {row['attempted_runs']}",
-                     f"{row['median_seconds']:.1f}s", token_fmt(row['mean_input_tokens']), token_fmt(row['mean_output_tokens']), cost_fmt(row['mean_cost_usd'])]
+                     fmt(row['median_success_seconds']) + 's', token_fmt(row['mean_success_input_tokens']), token_fmt(row['mean_success_output_tokens']), cost_fmt(row['mean_success_cost_usd'])]
             for x, value in zip(columns, cells):
                 text(fig, x, y - .01, value, size=8, color=COLORS[row['architecture']] if x == columns[1] else INK)
+        pairs = completed_pairs(runs)
+        if pairs:
+            label = '; '.join(f"{p['resume_id']}/{p['size']}: {p['latency_ratio']:.2f}x time" for p in pairs)
+            text(fig, .07, .548, textwrap.shorten('Completed same-input pairs, multi / single: ' + label, width=116), size=8, color=MUTED)
         left = fig.add_axes([.1, .27, .36, .23])
         right = fig.add_axes([.57, .27, .36, .23])
         chart(left, rows, 'latency')
         chart(right, rows, 'tokens')
-        paragraph(fig, .07, .215, 'Time bars show the median across attempted runs; whiskers show the measured minimum and maximum. Token bars show mean input + output per attempt, including every worker and retry. Missing metadata is unknown.', size=8)
-        details = [f"{r['size']} jobs, {NAMES[r['architecture']]}: {r['api_calls']} calls, {r['retry_calls']} retries, {r['min_seconds']:.1f}-{r['max_seconds']:.1f}s range, {fmt(r['successful_runs_per_minute'], 2)} successes/min."
+        paragraph(fig, .07, .215, 'OK means a validated top-five output. Time shows the median of completed runs; whiskers show their minimum/maximum. Tokens show the mean per completed run, including all workers and retries. Failures are accounted for below and in CSV/JSON.', size=8)
+        details = [f"{r['size']} jobs, {NAMES[r['architecture']]}: {r['failed_runs']} failed ({r['failed_seconds']:.1f}s / {token_fmt(r['failed_tokens'])} tokens); {r['api_calls']} calls, {r['retry_calls']} retries total."
                    for r in rows]
         text(fig, .07, .147, '\n'.join(details), size=7.4, color=MUTED, linespacing=1.5)
         if batch and number(batch.get('seconds')):
@@ -369,7 +417,8 @@ def render(directory, output, manifest, runs, rows):
         text(fig, .07, .29, 'WHAT THESE MEASUREMENTS COVER', size=9, weight='bold')
         notes = [
             'Single agent makes one ranking request. Multi agent parses the resume, extracts all job requirements in one batch, and ranks using those structured outputs. Workers run sequentially; the controller adds no LLM call.',
-            f"This {manifest.get('phase', 'recorded')} uses {len({r['resume_id'] for r in runs})} resumes, {repetitions} repetition(s) per condition, and {len(runs)} attempts. Failures and retries count toward time and tokens. Throughput is successes / total matcher minutes, at one resume at a time.",
+            f"Development benchmark: {len({r['resume_id'] for r in runs})} resumes, {repetitions} repetition(s) per condition, {len(runs)} attempts, {successes} successes. Failed time/tokens count in batch totals and CSV/JSON. Throughput includes all attempt time.",
+            failure_note if failures else 'All scheduled pipelines returned validated five-job rankings.',
             'Human relevance labels are not used in this timing/cost report. Precision@5 and a winner on recommendation quality are not inferred from these sample rankings.',
             f"Recorded platform: {manifest.get('platform', 'not recorded')}; Python {manifest.get('python', 'not recorded')}.{local_context}",
             cache_note,
@@ -377,7 +426,7 @@ def render(directory, output, manifest, runs, rows):
         ]
         y = .266
         for note in notes:
-            y = paragraph(fig, .07, y, note, width=123, size=7.2, line_height=.013) - .008
+            y = paragraph(fig, .07, y, note, width=123, size=7.2, line_height=.01) - .006
         text(fig, .07, .068, f"Source: {directory.as_posix()}/runs.jsonl + manifest.json", size=7, color=MUTED)
         text(fig, .07, .052, f"{len(runs)}/{expected} scheduled attempts present. No extrapolated or hypothetical results.", size=7, color=MUTED)
         pdf.savefig(fig)
@@ -405,6 +454,7 @@ def main():
                'model': manifest['config']['model'], 'provider': manifest['config'].get('provider', 'openai'),
                'observed_runs': len(runs), 'expected_runs': len(manifest['schedule']),
                'schedule_complete': len(runs) == len(manifest['schedule']), 'results': rows,
+               'completed_same_input_pairs': completed_pairs(runs),
                'local_cost_note': 'API token charges only; electricity and hardware costs were not measured.' if manifest['config'].get('provider') == 'ollama' else None}
     (args.output / 'comparison.json').write_text(json.dumps(summary, indent=2) + '\n')
     render(args.directory, args.output, manifest, runs, rows)
