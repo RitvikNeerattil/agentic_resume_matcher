@@ -26,7 +26,7 @@ def precision(run, labels):
 def write_csv(path, rows):
     if not rows:
         return
-    with path.open('w', newline='') as stream:
+    with path.open('w', newline='', encoding='utf-8') as stream:
         writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
         writer.writeheader()
         writer.writerows(rows)
@@ -57,18 +57,18 @@ def main():
     parser.add_argument('directory', type=Path)
     parser.add_argument('--labels', type=Path, default=ROOT / 'data/labels/reference_labels.csv')
     args = parser.parse_args()
-    runs = [json.loads(line) for line in (args.directory / 'runs.jsonl').read_text().splitlines()]
+    runs = [json.loads(line) for line in (args.directory / 'runs.jsonl').read_text(encoding='utf-8').splitlines()]
     if not runs or any(r['phase'] == 'pilot' for r in runs):
         raise SystemExit('Use completed eval runs; pilot does not have held-out labels')
-    raw = list(csv.DictReader(args.labels.open()))
+    raw = list(csv.DictReader(args.labels.open(encoding='utf-8')))
     if len(raw) != 400 or any(r['relevant'] not in ('0', '1') for r in raw):
         raise SystemExit('Need 400 completed reference labels')
     labels = {(r['resume_id'], r['job_id']): int(r['relevant']) for r in raw}
     expected = {(f'R{i:02}', f'J{j:03}') for i in range(3, 11) for j in range(1, 51)}
     if set(labels) != expected:
         raise SystemExit('Invalid or duplicate reference pairs')
-    manifest = json.loads((args.directory / 'manifest.json').read_text())
-    if digest(args.labels.read_text()) != manifest['labels_sha256']:
+    manifest = json.loads((args.directory / 'manifest.json').read_text(encoding='utf-8'))
+    if digest(args.labels.read_text(encoding='utf-8')) != manifest['labels_sha256']:
         raise SystemExit('Labels changed since execution; use the frozen reference labels')
     rows = summarize(runs, labels)
     write_csv(args.directory / 'comparison.csv', rows)
@@ -84,7 +84,7 @@ def main():
     write_csv(args.directory / 'paired_resumes.csv', paired)
     preparation_path = args.directory / 'preparation.json'
     if preparation_path.exists():
-        prep = json.loads(preparation_path.read_text())
+        prep = json.loads(preparation_path.read_text(encoding='utf-8'))
         known = all(c['cost_usd'] is not None for c in prep['calls']) and all(r['cost_usd'] is not None for r in runs)
         (args.directory / 'reuse_cost.json').write_text(json.dumps({
             'preparation_seconds': prep['seconds'],

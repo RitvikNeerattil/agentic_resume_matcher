@@ -15,7 +15,7 @@ from single_agent import match as single_match
 
 class WorkflowTests(unittest.TestCase):
     def setUp(self):
-        self.config = json.loads((ROOT / 'shared/experiment.json').read_text())
+        self.config = json.loads((ROOT / 'shared/experiment.json').read_text(encoding='utf-8'))
         self.config['prices_per_million'] = {'input': 1, 'cached_input': .5, 'output': 2}
         self.jobs = [{'job_id': f'J{i:03}', 'description': 'Python required.'} for i in range(1, 6)]
         self.ranking = {'matches': [{'job_id': j['job_id'], 'explanation': 'Python experience; degree unknown.'} for j in self.jobs]}
@@ -193,7 +193,7 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(precision(run, labels), 0)
 
     def test_frozen_data(self):
-        jobs = [json.loads(line) for line in (ROOT / 'data/jobs/jobs_50.jsonl').read_text().splitlines()]
+        jobs = [json.loads(line) for line in (ROOT / 'data/jobs/jobs_50.jsonl').read_text(encoding='utf-8').splitlines()]
         self.assertEqual(len(jobs), 50)
         self.assertEqual(sum(j['in_small_workload'] for j in jobs), 20)
         self.assertEqual(sum(j['source'] == 'lever' for j in jobs), 25)

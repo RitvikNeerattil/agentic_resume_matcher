@@ -73,8 +73,8 @@ def usage(call):
 
 
 def load_runs(directory):
-    manifest = json.loads((directory / 'manifest.json').read_text())
-    runs = [json.loads(line) for line in (directory / 'runs.jsonl').read_text().splitlines() if line.strip()]
+    manifest = json.loads((directory / 'manifest.json').read_text(encoding='utf-8'))
+    runs = [json.loads(line) for line in (directory / 'runs.jsonl').read_text(encoding='utf-8').splitlines() if line.strip()]
     provider = manifest.get('config', {}).get('provider', 'openai')
     if provider not in ('openai', 'ollama'):
         raise ValueError('Only recorded OpenAI or Ollama responses are supported')
@@ -330,7 +330,7 @@ def render(directory, output, manifest, runs, rows):
     if isinstance(measurement_notes, str):
         measurement_notes = [measurement_notes]
     cache_note = ' '.join(measurement_notes) or 'Model loading and server cache state can affect local timings; no forced cold-cache claim is made.'
-    batch = json.loads((directory / 'batch.json').read_text()) if (directory / 'batch.json').exists() else None
+    batch = json.loads((directory / 'batch.json').read_text(encoding='utf-8')) if (directory / 'batch.json').exists() else None
     expected = len(manifest['schedule'])
     failures = [run for run in runs if run['status'] == 'failed']
     failure_labels = ', '.join(f"{run['resume_id']}/{run['size']} {NAMES[run['architecture']]}" for run in failures)
@@ -446,7 +446,7 @@ def main():
     except (ValueError, KeyError, TypeError, FileNotFoundError) as exc:
         raise SystemExit(f'Cannot report measured comparison: {exc}') from exc
     args.output.mkdir(parents=True, exist_ok=True)
-    with (args.output / 'comparison.csv').open('w', newline='') as stream:
+    with (args.output / 'comparison.csv').open('w', newline='', encoding='utf-8') as stream:
         writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
         writer.writeheader()
         writer.writerows(rows)

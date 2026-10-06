@@ -16,7 +16,7 @@ from single_agent import match as single_match
 
 
 def prompt_snapshot():
-    return {str(p.relative_to(ROOT)): p.read_text()
+    return {p.relative_to(ROOT).as_posix(): p.read_text(encoding='utf-8')
             for directory in ('shared', 'orchestrator/prompts')
             for p in sorted((ROOT / directory).glob('*.txt'))}
 
@@ -70,14 +70,14 @@ def preflight(config, resumes, phase):
     ids = {r['resume_id'] for r in plan(phase, config['seed'])}
     for rid in sorted(ids):
         path = ROOT / 'data/resumes' / resumes[rid]['file']
-        if not path.is_file() or not path.read_text().strip():
+        if not path.is_file() or not path.read_text(encoding='utf-8').strip():
             errors.append('Missing cleaned resume: ' + rid)
     if phase not in ('pilot', 'benchmark'):
         path = ROOT / 'data/labels/reference_labels.csv'
         if not path.exists():
             errors.append('Finish independent human labels before evaluating predictions')
         else:
-            rows = list(csv.DictReader(path.open()))
+            rows = list(csv.DictReader(path.open(encoding='utf-8')))
             pairs = {(r['resume_id'], r['job_id']) for r in rows if r['relevant'] in ('0', '1')}
             expected = {(f'R{i:02}', f'J{j:03}') for i in range(3, 11) for j in range(1, 51)}
             if pairs != expected or len(rows) != 400:
@@ -99,9 +99,9 @@ def main():
         parser.error('--repetitions requires benchmark phase and a positive count')
     if args.phase == 'reuse' and args.architectures != 'orchestrated':
         parser.error('Reuse is an orchestrator ablation')
-    config = json.loads(args.config.read_text())
-    resumes = {r['resume_id']: r for r in csv.DictReader((ROOT / 'data/resumes/resumes.csv').open())}
-    jobs = [json.loads(line) for line in (ROOT / 'data/jobs/jobs_50.jsonl').read_text().splitlines()]
+    config = json.loads(args.config.read_text(encoding='utf-8'))
+    resumes = {r['resume_id']: r for r in csv.DictReader((ROOT / 'data/resumes/resumes.csv').open(encoding='utf-8'))}
+    jobs = [json.loads(line) for line in (ROOT / 'data/jobs/jobs_50.jsonl').read_text(encoding='utf-8').splitlines()]
     assert len(jobs) == 50 and len({j['job_id'] for j in jobs}) == 50
     assert sum(j['in_small_workload'] for j in jobs) == 20
     schedule = plan(args.phase, config['seed'], args.architectures, args.repetitions)
@@ -116,8 +116,8 @@ def main():
     if args.phase not in ('pilot', 'benchmark'):
         if args.pilot_dir is None:
             raise SystemExit('Pass --pilot-dir with a completed pilot before evaluation')
-        pilot = json.loads((args.pilot_dir / 'manifest.json').read_text())
-        pilot_runs = [json.loads(line) for line in (args.pilot_dir / 'runs.jsonl').read_text().splitlines()]
+        pilot = json.loads((args.pilot_dir / 'manifest.json').read_text(encoding='utf-8'))
+        pilot_runs = [json.loads(line) for line in (args.pilot_dir / 'runs.jsonl').read_text(encoding='utf-8').splitlines()]
         current_prompts = prompt_snapshot()
         pilot_methods = {r['architecture'] for r in pilot_runs}
         needed_methods = {r['architecture'] for r in schedule} - {'reuse'}
@@ -134,16 +134,16 @@ def main():
     freeze = {'config': config, 'prompts': prompts, 'jobs_sha256': digest(jobs),
               'provider_metadata': provider_metadata,
               'measurement_notes': ['Timings use one continuous local server session; model loading and cache state were not reset or standardized. The server had already been used for development before this benchmark.'] if config.get('provider') == 'ollama' else [],
-              'code_sha256': {str(p.relative_to(ROOT)): digest(p.read_text())
+              'code_sha256': {p.relative_to(ROOT).as_posix(): digest(p.read_text(encoding='utf-8'))
                               for directory in ('shared', 'orchestrator', 'single_agent')
                               for p in sorted((ROOT / directory).glob('*.py'))},
               'schedule': schedule, 'platform': platform.platform(), 'python': platform.python_version(),
               'started_at': datetime.now(timezone.utc).isoformat(), 'phase': args.phase,
               'preferences': {rid: resumes[rid] for rid in {r['resume_id'] for r in schedule}},
-              'resumes_sha256': {rid: digest((ROOT / 'data/resumes' / resumes[rid]['file']).read_text())
+              'resumes_sha256': {rid: digest((ROOT / 'data/resumes' / resumes[rid]['file']).read_text(encoding='utf-8'))
                                  for rid in {r['resume_id'] for r in schedule}}}
     if args.phase not in ('pilot', 'benchmark'):
-        freeze['labels_sha256'] = digest((ROOT / 'data/labels/reference_labels.csv').read_text())
+        freeze['labels_sha256'] = digest((ROOT / 'data/labels/reference_labels.csv').read_text(encoding='utf-8'))
     (args.output / 'manifest.json').write_text(json.dumps(freeze, indent=2))
     spent = 0.0
     requirements = None
@@ -172,7 +172,7 @@ def main():
         try:
             matcher = single_match if row['architecture'] == 'single' else orchestrated_match
             extras = {} if row['architecture'] == 'single' else {'requirements': requirements}
-            record['output'] = matcher(client, (ROOT / 'data/resumes' / resume['file']).read_text(),
+            record['output'] = matcher(client, (ROOT / 'data/resumes' / resume['file']).read_text(encoding='utf-8'),
                 {k: v for k, v in resume.items() if k.startswith('pref_') or k in ('needs_sponsorship', 'other_constraints')},
                 subset, **extras)
             record['status'] = 'ok'
@@ -181,7 +181,7 @@ def main():
         record.update(seconds=time.perf_counter() - start, calls=client.calls)
         record['cost_usd'] = sum(c['cost_usd'] for c in client.calls) if all(c['cost_usd'] is not None for c in client.calls) else None
         spent += sum(c['cost_usd'] or 0 for c in client.calls)
-        with (args.output / 'runs.jsonl').open('a') as stream:
+        with (args.output / 'runs.jsonl').open('a', encoding='utf-8') as stream:
             stream.write(json.dumps(record) + '\n')
         print(f"{row['resume_id']} {row['size']} {row['architecture']}: {record['status']}", flush=True)
         if record['cost_usd'] is None:

@@ -13,3 +13,6 @@ data/raw/*.pdf
 data/raw/*.docx
 # maps R01-R10 to source files and names
 data/raw/resume_id_map.csv
+# OS / filesystem junk
+.DS_Store
+.fuse_hidden*

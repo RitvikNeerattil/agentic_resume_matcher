@@ -15,7 +15,7 @@ def load_api_key():
         return
     path = ROOT / '.env'
     if path.exists():
-        for line in path.read_text().splitlines():
+        for line in path.read_text(encoding='utf-8').splitlines():
             name, separator, value = line.partition('=')
             if separator and name.strip() == 'OPENAI_API_KEY':
                 value = value.strip().strip('\"\'')
@@ -99,7 +99,7 @@ class Client:
 
     def call(self, worker, data, *, prompt=None, validator=validate_rank, schema=None):
         if prompt is None:
-            prompt = (ROOT / 'shared/rank.txt').read_text()
+            prompt = (ROOT / 'shared/rank.txt').read_text(encoding='utf-8')
         if schema is None and worker in ('rank', 'baseline'):
             schema = ranking_schema(data['jobs'])
         retry_hint = ''

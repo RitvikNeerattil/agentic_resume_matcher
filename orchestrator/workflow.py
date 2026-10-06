@@ -9,7 +9,7 @@ PROMPTS = Path(__file__).resolve().parent / 'prompts'
 
 def parse_resume(client, resume):
     return client.call('resume', {'resume': clean(resume)},
-                       prompt=(PROMPTS / 'resume.txt').read_text(),
+                       prompt=(PROMPTS / 'resume.txt').read_text(encoding='utf-8'),
                        validator=lambda value, data: validate('resume', value, data))
 
 
@@ -90,7 +90,7 @@ def extract_requirements(client, jobs):
     numbered = number_jobs(original_jobs)
     data = {'jobs': numbered}
     return client.call('requirements', data,
-                       prompt=(PROMPTS / 'requirements.txt').read_text(),
+                       prompt=(PROMPTS / 'requirements.txt').read_text(encoding='utf-8'),
                        schema=requirements_schema(numbered, client.config.get('provider', 'openai')),
                        validator=lambda value, data: decode_requirements(value, data, original_jobs))
 
