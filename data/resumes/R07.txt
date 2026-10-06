@@ -1,0 +1,41 @@
+Education
+University of South Carolina – Columbia, S.C.   May 2026
+  •   Bachelor of Science in Computer Science (B.S.C.S)
+  •   Minor in Data Science
+  •   Cumulative GPA: 3.933, President’s Honor List (Fall 2022), Dean’s Honor List (4 semesters), Palmetto
+   Fellows, merit-based scholarships and awards
+  •   Relevant Coursework: Algorithmic Design, UNIX/Linux Fundamentals, Digital Logic Design, Discrete
+   Mathematics, Computer Architecture, Software Engineering, Data Structures and Algorithms, Data
+   Visualizations, Artificial Intelligence, Database System Design, Applied Multivariate Statistics
+
+Skills
+ • Programming Languages: C++, Java, HTML/CSS/XML, SQL, R, Python, Tableau
+ • Soft Skills: Oral/Written Communication, Team Building, Reliability, Problem Solving
+ • Operating Systems: Windows XP professional, Linux, Mac OS
+
+Internship
+SC Department of Health and Environmental Control/SC Department of Environmental Services
+July 2022 – August 2022, June 2023 – August 2023, July 2024 – August 2024, May 2025 – August 2025
+Natural Resource Technician II
+ • Worked as intern for the Dam Safety Division of DHEC
+ • Used Microsoft Suite to handle data management via Excel and Outlook
+ • Updated dam profiles on the department’s webapp, ePermitting, with geographic and fiscal information
+ • Utilized ArcGIS and other ESRI resources to fill out dam profiles
+ • Reviewed frontend changes alongside amidst a department rebranding
+
+Projects
+ •   NFL Combine Metrics Data Visualization Webpage
+   o   Used NFL Combine data from 2010-2023 to create a variety of data visualizations.
+   o   Utilized RStudio and the Shiny package to create a web application.
+   o   Incorporated interactivity into a variety of data visualization methods.
+   o   Managed database of thousands of players and their measurements
+ •   SportsGrid Game
+   o Designed and developed a personal SportsGrid-esque game based on the 2023-2024 NBA season.
+   o Utilized JavaFx for frontend purposes.
+   o Created and managed a database of 550+ athlete profiles with JSON.
+
+ •   "DegreeWorks” Application
+   o Created application to track college degree progress for undergraduate computer science students.
+   o Worked with JavaFx for frontend creation.
+   o Utilized key Java design patterns to create application backend.
+   o Ex. Singleton, Iterator, Observer, etc.

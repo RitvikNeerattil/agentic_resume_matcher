@@ -45,7 +45,7 @@ def preflight(config, resumes, phase):
     for rid in sorted(ids):
         path = ROOT / 'data/resumes' / resumes[rid]['file']
         if not path.is_file() or not path.read_text().strip():
-            errors.append('Missing cleaned, consented resume: ' + rid)
+            errors.append('Missing cleaned resume: ' + rid)
     if phase != 'pilot':
         path = ROOT / 'data/labels/reference_labels.csv'
         if not path.exists():

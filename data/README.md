@@ -27,11 +27,13 @@ Rerunning step 3 always gives the same 50. Rerunning step 2 won't, since posting
 
 ## Resumes (`data/resumes/`)
 
-`resumes.csv` lists the 10 resumes (R01 and R02 for dev, R03 to R10 for eval) and each person's stated preferences. Put the cleaned text for each at `data/resumes/R0X.txt`. Those `.txt` files are git-ignored so identifiable resumes stay off GitHub.
+`R01.txt` to `R10.txt` are anonymized plain-text resumes (R01 and R02 for dev, R03 to R10 for eval), selected from 33 student resumes collected in a previous USC course. `resumes.csv` lists each one's split and preferences. The preferences were assigned by the team, since the resume owners didn't state any.
+
+`python3 -m shared.prep_resumes` rebuilds the `.txt` files from the originals. It removes names, emails, phone numbers, links and street addresses, and keeps city/state. The original PDFs and `data/raw/resume_id_map.csv` (which maps IDs to source files) are git-ignored and stay local.
 
 ## Labels (`data/labels/`)
 
-See [LABELING_RUBRIC.md](LABELING_RUBRIC.md). Blank sheets for 400 primary pairs and 80 independent review pairs are prepared in `data/labels/`. Fill them with human judgments after resume consent and calibration, before inspecting evaluation predictions. The agreement script refuses incomplete labels or reviews. Run commands from the repository root. To create sheets in a fresh checkout only:
+See [LABELING_RUBRIC.md](LABELING_RUBRIC.md). Blank sheets for 400 primary pairs and 80 independent review pairs are prepared in `data/labels/`. Fill them with human judgments after resumes are added and labels are calibrated, before inspecting evaluation predictions. The agreement script refuses incomplete labels or reviews. Run commands from the repository root. To create sheets in a fresh checkout only:
 
 ```
 python3 -m shared.make_label_sheets   # 400 primary pairs + 80 second-review pairs

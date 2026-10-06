@@ -1,0 +1,51 @@
+EDUCATION
+University of South Carolina   Expected Graduation: May 2026
+Bachelor of Science in Engineering in Computer Engineering   GPA: 3.5/4.0
+
+Honors: Zachary Lewis Drawdy Engineering Endowed Scholar, International Student Excellence Scholarship, John
+H. Fain Computing Scholarship
+
+PROFESSIONAL EXPERIENCE
+IT Intern, Division of Business Affairs USC   May 2025-Aug 2025
+● Managed and maintained the school’s central database containing confidential student information, ensuring
+   accuracy, security, and compliance with data privacy policies.
+● Utilized RingCentral to handle incoming calls, troubleshoot IT-related issues, and deliver responsive customer
+   support to students, faculty, and staff
+REU, Summer School on the Mathematical Foundations of Data Science USC   June 2025-July 2025
+● Designed an end-to-end framework integrating ROS with LLMs for robotic control.
+● Reviewed the SayCan paper in detail to inform development of a natural language–to-robot translation layer.
+● Explored ROS-LLM integration to enable natural language driven robotic commands.
+Website Manager & UI/UX Developer, Big Data Health Center USC   Jan 2025-May 2025
+● Manage and update three websites, ensuring accurate and timely information.
+● Revamped an entire website to enhance usability, design, and functionality.
+● Develop and improve UI/UX for multiple web platforms to optimize user experience
+Research Assistant for Artificial Intelligence Institute of USC   Jan 2023-May 2025
+● Designed and implemented a pipeline that leveraged an API-connected LLM to paraphrase social media posts,
+   supporting a project focused on detecting AI-generated content, reducing spam, and promoting ethical AI
+   practices
+● Managed large datasets in Linux and Conda environments using data visualization to uncover trends and
+   provide insights into AI-generated content
+● Created a user interface for a custom compact generative AI chatbot to assist in smart manufacturing cells,
+   contributing to automation and productivity improvements
+● Co authored: AAMAS 2025 Demonstrations Track SmartPilot: Agent-Based CoPilot for Intelligent
+   Manufacturing
+   AAAI Conference on Web and Social Media (ICWSM 2026): A Large Scale Social Web Audit of AI Generated
+   Text Detection Systems
+Peer Leader/Consultant, Student Success Center, USC   Aug2024-May 2025
+● Leading one-on-one consultations, helping students develop time management and study strategies, resulting in
+   an improvement of academic performance for participants
+● Supervising front desk operations, ensuring efficient communication and timely handling of daily activities
+Technical Intern, IT Department of Student Affairs and Services, USC   May 2024-Aug 2024
+● Resolved over 40 IT service requests using a virtual ticketing system, contributing to operational efficiency
+● Managed IT asset inventory using ERP systems and coordinated risk management for hardware installations,
+   reducing equipment-related incidents
+● Led technical efforts during campus move-in, proactively resolving issues and ensuring seamless hardware and
+   software installations
+
+SKILLS & CERTIFICATIONS
+Python, UI/UX, LINUX, SQL , R , Java , HTML, CSS, ROS, TensorFlow, PyTorch, CoreFlow, Sklearn, React
+Certifications: Kaggle Python Certificate, Data Analytics on AWS from Coursera, IBM Call for Code Hackathon
+
+INVOLVEMENT & ACTIVITIES
+Kappa Theta Pi, Founder,Director of Finance   March2025-Present
+Women in Computing Club,Vice President   Aug2022-Present

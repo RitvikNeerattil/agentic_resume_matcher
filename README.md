@@ -5,7 +5,7 @@ CSCE 585: Machine Learning Systems | Fall 2026
 
 This project compares two ways to match a resume with job postings: a single LLM call and a workflow with specialized workers. We will measure whether splitting up the work improves recommendations enough to justify the additional latency and token cost.
 
-**Status:** Kevin’s orchestration workflow and experiment tooling are implemented and verified offline. Real pilot/evaluation results are pending consented resumes, completed human labels, and model/API configuration. See [Kevin’s workflow and run commands](orchestrator/README.md).
+**Status:** The 50-job snapshot and 10 anonymized resumes are in place. Kevin’s orchestration workflow and experiment tooling are implemented and verified offline. Real pilot/evaluation results are pending completed human labels, the single-agent baseline, and model/API configuration. The latest progress slides are in [`progress_update_2026-10.pptx`](progress_update_2026-10.pptx). See [Kevin’s workflow and run commands](orchestrator/README.md).
 
 This implementation covers Kevin’s role. Aidan owns the single-agent baseline;
 it is not implemented here. The runner handles the orchestrator’s 48 main runs
@@ -18,6 +18,7 @@ and six reuse runs. The 96-run comparison below remains the team’s full plan.
 | [`orchestrator/`](orchestrator/) | Kevin’s three-worker workflow, extraction validation, worker prompts, and instructions. |
 | [`shared/`](shared/) | Common API code, ranking prompt, experiment settings, data/labeling tools, experiment runner, summary tool, and one test file. |
 | [`data/`](data/) | Job snapshots, resumes, human labels, and the labeling rubric. |
+| [`progress_update_2026-10.pptx`](progress_update_2026-10.pptx) | October progress update slides for the professor. |
 
 The shared components live together in `shared/`; there are no separate top-level
 `scripts/`, `tests/`, `config/`, `prompts/`, or `labels/` folders.
@@ -57,7 +58,7 @@ In our own new-grad job searches, we repeatedly compare our experience with job 
 
 The **ML component** is LLM-based extraction and ranking. The **systems component** is measuring whether orchestration improves results enough to offset extra requests, latency, and inference cost. The project explores this systems question through a small prototype.
 
-We will use resumes with permission and remove identifying details before API use. Recommendations will depend on documented qualifications and stated preferences. The small sample will not support claims about hiring outcomes or fairness across demographic groups.
+We will remove identifying details from resumes before API use. Recommendations will depend on documented qualifications and stated preferences. The small sample will not support claims about hiring outcomes or fairness across demographic groups.
 
 ## Research Questions and Hypotheses
 
@@ -113,7 +114,7 @@ flowchart TD
 
 We will select a short list of employers using Greenhouse and Lever and focus on early-career software/data roles. After deduplication, the snapshots will form one approximately 50-job collection, retaining source URLs, IDs, dates, and full text. Both workload sizes will include jobs from both sources.
 
-We will target **10 resumes: two for development and eight held out for evaluation**, from team members and consenting volunteers. We will freeze prompts after development and identify any supplemental synthetic resumes separately.
+We use **10 resumes: two for development (R01–R02) and eight held out for evaluation (R03–R10)**. They were selected from a set of 33 student resumes collected in a previous USC course, favoring new-grad computer science, computer engineering and data profiles with a mix of software, data, AI/ML and embedded experience. Names, contact details, links and street addresses were removed before use (`shared/prep_resumes.py`). Resume owners did not state job preferences, so the team assigned simple location preferences in `data/resumes/resumes.csv`. We will freeze prompts after development and identify any supplemental synthetic resumes separately.
 
 The small workload will use 20 postings from the fixed collection; the larger workload will use all 50. Both methods receive the complete set, without retrieval. We will check context/output limits during the pilot and reduce the workload equally for both methods if needed.
 
@@ -198,14 +199,14 @@ These are planning windows relative to implementation start. The final presentat
 | Too few usable job descriptions | Missing or duplicate descriptions during collection | Check both sources early and save snapshots. If needed, use fewer employers/postings and document the resulting coverage. |
 | API cost or context limits | Pilot exceeds the budget estimate or truncates inputs/outputs | Reduce the larger candidate set equally for both methods and keep the paired comparison. |
 | Inconsistent human labels | Reviewers disagree on core requirements | Clarify the rubric on development examples, resolve uncertain labels, and narrow claims if ambiguity remains. |
-| Too few volunteer resumes | Fewer than eight evaluation resumes available by the pilot | Seek permission early; use clearly identified synthetic examples as a separate supplemental workload if needed. |
+| Too few usable resumes | Fewer than eight evaluation resumes available by the pilot | Use clearly identified synthetic examples as a separate supplemental workload if needed. |
 | API errors or unfinished features | Repeated failures in the pilot | Allow one logged retry and prioritize the two scripts and results table. Use saved outputs for the final demo if necessary. |
 
 ## Reproducibility Plan
 
 We will record dependencies, model/version, prompts, settings, seeds, hardware/OS, data snapshots, source dates, and prices. Scripts will reproduce a matching comparison and regenerate figures from saved logs. Setup and run commands will be added with the implementation.
 
-We will record external repository commits used for data or code. Shared data will follow source reuse terms and resume-owner consent. Where redistribution is restricted, we will provide source records and preparation instructions. API keys and identifiable resumes will remain outside GitHub.
+We will record external repository commits used for data or code. Shared data will follow source reuse terms. Where redistribution is restricted, we will provide source records and preparation instructions. API keys and identifiable resumes will remain outside GitHub.
 
 Raw outputs and usage logs will accompany results. AI assistance helped draft this proposal and locate references. Later assistance that materially shapes code or analysis will also be documented.
 

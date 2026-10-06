@@ -1,0 +1,51 @@
+| Redding, CT
+   EDUCATION
+University of South Carolina, Molinaroli College of Engineering and Computing   Columbia, SC
+Candidate for Bachelor of Science in Computer Engineering   Expected May 2026
+Major: Computer Engineering | Minor: Business Administration | Concentration: Data Science   GPA: 3.95/4.0
+   • Achieved Dean’s List 5 consecutive semesters, Presidents List 4/6 semesters.
+   • Activities: Tau Beta Pi Professional Engineering Fraternity, Member of Pi Kappa Phi fraternity, Intramural Soccer.
+   TECHNICAL SKILLS
+
+Languages: Python, R, SQL, C++
+
+Tech Stack: Git, DataBricks, Jupyter Notebook (Anaconda), PyCharm, Spotfire, Tableau, MS Office
+
+   PROFESSIONAL EXPERIENCE
+ASML   Wilton, CT
+Business Engineering Intern   June 2025 – August 2025
+   • Applied AGILE/SCRUM methodologies within the Business Engineering department to guide project
+   development.
+   • Cleaned, transformed, and structured large datasets to enable reliable analysis and modeling.
+   • Built and optimized predictive models in DataBricks using Python libraries including Pandas, NumPy, Scikit-
+   learn, Matplotlib, and Seaborn.
+   • Implemented advanced forecasting techniques with XGBoost and Prophet to improve prediction accuracy.
+   • Evaluated model performance using RMSE (2.5 days), MAE (1.8 days), and MAPE (6%), achieving a prediction
+   error of less than 10% on median monthly cycle times.
+   • Ensured code integrity and collaboration by adhering to GitLab version control best practices.
+   • Delivered clear and impactful MS PowerPoint presentations of technical findings to both technical and non-
+   technical stakeholders.
+
+ARTech Packaging and Lubricants   Bethel, CT
+Production Associate   June 2021 - August 2024
+   • Streamlined inventory management using advanced Excel functions, including visualization tools and conditional
+   formatting, to track and optimize supply levels.
+   • Programmed and implemented automation timing systems for product conveyors, improving efficiency and
+   reducing manual intervention.
+   • Ensured quality control by monitoring production lines, troubleshooting machinery, and maintaining safety
+   compliance.
+   • Packaged 2,000+ units daily, ensuring accuracy and meeting production targets.
+
+   LEADERSHIP EXPERIENCE
+Study Group Leader   University of South Carolina, Columbia, SC
+Leader of study sessions 2-3 times a week   August 2022 – Present
+   • Hosted multiple effective study groups for varying courses including Physics, Digital Logic Design and Vector
+   Calculus.
+   • Promoted discussion and teamwork by facilitating instruction and allowing students to discuss their own questions
+   and ideas.
+
+   RELEVANT COURSEWORK
+
+   •   Statistics for Engineers   •   Big Data Analytics   •   Visualization Techniques
+   •   Computer Information   •   Advanced Programming   •   Finance and Markets
+   Systems in Business   Techniques

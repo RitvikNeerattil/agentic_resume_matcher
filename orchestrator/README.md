@@ -34,7 +34,7 @@ Completed:
 
 Still requires the team and API access:
 
-- Add ten consented, anonymized resumes and their actual preferences.
+- ~~Add ten anonymized resumes~~ Done: R01–R10 are in `data/resumes/` (preferences assigned by the team).
 - Calibrate labels on two development resumes; finish human evaluation labels.
 - Select a fixed model version, record dated provider prices, and run the pilot.
 - Freeze the successful pilot, run evaluation and reuse, and produce real tables.
