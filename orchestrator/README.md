@@ -15,9 +15,12 @@ are also used by the one-call baseline in [`single_agent/`](../single_agent/),
 added for the requested measured comparison. Shared tools, settings, and tests
 live in [`shared/`](../shared/); inputs and labels live in [`data/`](../data/).
 
-The requirement worker selects numbered lines from each complete posting. The
-controller restores the original quotes before validation and ranking, avoiding
-paraphrased evidence without adding another LLM call. Evidence checks ignore
+The requirement worker selects numbered lines from each complete posting. A JSON
+schema requires every supplied job ID; local inference also constrains references
+to that job’s source IDs. Each category selects up to four decisive lines. The
+controller restores original quotes for validation, then ranks with source
+references and the complete numbered postings, avoiding duplicate quote text.
+Reuse accepts requirements saved by `extract_requirements`. Evidence checks ignore
 whitespace differences while preserving the original words. Local requests
 disable input truncation and context shifting.
 
@@ -36,7 +39,7 @@ Completed:
 - Added comparison tables, paired resume differences, and the project decision rule.
 - Created 400 primary and 80 independent-review label rows.
 - Prevented unfinished labels from becoming reference labels.
-- Verified the pipelines and runner offline with 12 contract tests.
+- Verified the pipelines and runner offline with 16 contract tests.
 
 Still requires the team:
 
@@ -53,7 +56,7 @@ requires the completed human labels and successful pilot.
 
 ## Run
 
-Run all commands from the repository root. Python 3.10 or newer is sufficient
+Run all commands from the repository root. Python 3.9 or newer is sufficient
 for the matchers and runner. PDF/chart generation uses Matplotlib, already
 available through `/opt/anaconda3/bin/python` in this environment.
 
@@ -151,9 +154,8 @@ marked incomplete. Use `shared.make_pipeline_report` for development cost/speed
 and output comparisons without requiring relevance labels.
 Condition throughput uses summed matcher time; `batch.json` also records full batch
 wall time. Reuse saves one prepared 50-job extraction, runs R03/R04 three times each,
-and writes preparation and amortized costs separately. Ranking retains original
-job text to preserve metadata and support checking extracted facts; the pilot will
-measure the resulting overhead. Semantic explanation correctness still needs review.
+and writes preparation and amortized costs separately. Ranking retains every original job line once, with source IDs linking extracted
+requirements to the text. The pilot measures the resulting overhead. Semantic explanation correctness still needs review.
 
 AI assistance materially contributed to implementation, prompts, tests and these
 instructions. Existing source records and collection scripts remain the data basis.

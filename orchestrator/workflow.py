@@ -13,6 +13,17 @@ def parse_resume(client, resume):
                        validator=lambda value, data: validate('resume', value, data))
 
 
+def number_jobs(jobs):
+    """Keep every description word and metadata field, assigning local line IDs."""
+    numbered = []
+    for job in jobs:
+        lines = [line.strip() for line in clean(job['description']).splitlines() if line.strip()]
+        numbered.append({**{k: v for k, v in job.items() if k != 'description'},
+                         'description_lines': [{'evidence_id': f'E{i:03}', 'text': line}
+                                               for i, line in enumerate(lines, 1)]})
+    return numbered
+
+
 def requirements_schema(numbered_jobs, provider='ollama'):
     """Require every job key and constrain selections to that job's source IDs."""
     fields = ('required', 'preferred', 'constraints')
@@ -23,7 +34,7 @@ def requirements_schema(numbered_jobs, provider='ollama'):
         # checked against this job's source lines by decode_requirements.
         item = ({'type': 'string', 'enum': evidence_ids} if provider == 'ollama'
                 else {'type': 'string', 'pattern': '^E[0-9]{3,}$'})
-        selection = {'type': 'array', 'items': item}
+        selection = {'type': 'array', 'items': item, 'maxItems': 4}
         properties[job['job_id']] = {
             'type': 'object',
             'properties': {field: selection for field in fields},
@@ -65,21 +76,18 @@ def decode_requirements(value, data, original_jobs):
             selected = row.get(field)
             if not isinstance(selected, list) or any(not isinstance(i, str) for i in selected):
                 raise ValueError(field + ' must be a list of evidence IDs; use [] when absent')
+            if len(selected) > 4:
+                raise ValueError(field + ' must contain at most four evidence IDs')
             if any(i not in sources[job_id] for i in selected):
                 raise ValueError('Unknown evidence ID; use only IDs listed for that job')
-            result[field] = [sources[job_id][i] for i in selected]
+            result[field] = [sources[job_id][i] for i in dict.fromkeys(selected)]
         decoded.append(result)
     return validate('requirements', {'jobs': decoded}, {'jobs': original_jobs})
 
 
 def extract_requirements(client, jobs):
     original_jobs = [{**j, 'description': clean(j['description'])} for j in jobs]
-    numbered = []
-    for job in original_jobs:
-        lines = [line.strip() for line in job['description'].splitlines() if line.strip()]
-        numbered.append({**{k: v for k, v in job.items() if k != 'description'},
-                         'description_lines': [{'evidence_id': f'E{i:03}', 'text': line}
-                                               for i, line in enumerate(lines, 1)]})
+    numbered = number_jobs(original_jobs)
     data = {'jobs': numbered}
     return client.call('requirements', data,
                        prompt=(PROMPTS / 'requirements.txt').read_text(),
@@ -88,9 +96,27 @@ def extract_requirements(client, jobs):
 
 
 def rank_jobs(client, parsed, preferences, jobs, requirements):
-    # Shared ranking instructions and output contract are available for team integration.
+    numbered = number_jobs(jobs)
+    selected = {row['job_id']: row for row in requirements['jobs']}
+    compact = []
+    for job in numbered:
+        source_ids = {}
+        for line in job['description_lines']:
+            source_ids.setdefault(line['text'], line['evidence_id'])
+        row = {'job_id': job['job_id']}
+        for field in ('required', 'preferred', 'constraints'):
+            quotes = selected[job['job_id']][field]
+            if len(quotes) > 4:
+                raise ValueError(field + ' must contain at most four source quotes')
+            if any(quote not in source_ids for quote in quotes):
+                raise ValueError('Requirement evidence must match a complete source line')
+            row[field] = list(dict.fromkeys(source_ids[quote] for quote in quotes))
+        compact.append(row)
     return client.call('rank', {'resume_facts': parsed, 'preferences': preferences,
-                               'jobs': jobs, 'requirements': requirements})
+                               'jobs': numbered, 'requirements': {'jobs': compact},
+                               'evidence_note': 'Requirements reference evidence_id values in that same job\'s '
+                                                'description_lines. Each line contains its complete original text. '
+                                                'Read those texts and all other supplied job facts to rank fit.'})
 
 
 def match(client, resume, preferences, jobs, requirements=None):

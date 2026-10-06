@@ -5,7 +5,7 @@ CSCE 585: Machine Learning Systems | Fall 2026
 
 This project compares two ways to match a resume with job postings: a single LLM call and a workflow with specialized workers. We will measure whether splitting up the work improves recommendations enough to justify the additional latency and token cost.
 
-**Status:** The 50-job snapshot and 10 anonymized resumes are in place. Kevin’s orchestration workflow and a separate single-agent baseline are implemented, with 12 offline tests. The baseline was added for the requested measured cost/speed comparison; the team responsibilities below remain the project plan. A local benchmark is running, and its PDF/charts will be generated from the saved measurements. Human relevance labels and the full evaluation remain pending. The latest progress slides are in [`progress_update_2026-10.pptx`](progress_update_2026-10.pptx). See [Kevin’s workflow and run commands](orchestrator/README.md).
+**Status:** The 50-job snapshot and 10 anonymized resumes are in place. Kevin’s orchestration workflow and a separate single-agent baseline are implemented, with 16 offline tests. The baseline was added for the requested measured cost/speed comparison; the team responsibilities below remain the project plan. A local benchmark is running, and its PDF/charts will be generated from the saved measurements. Human relevance labels and the full evaluation remain pending. The latest progress slides are in [`progress_update_2026-10.pptx`](progress_update_2026-10.pptx). See [Kevin’s workflow and run commands](orchestrator/README.md).
 
 The runner supports both architectures. Its default remains four orchestrator
 pilot runs, 48 main runs, and six reuse runs. Selecting `--architectures both`

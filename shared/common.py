@@ -49,6 +49,17 @@ def validate_rank(value, data):
     return value
 
 
+def ranking_schema(jobs):
+    """Use the same five-result output constraints for both pipelines."""
+    return {'type': 'object', 'properties': {'matches': {
+        'type': 'array', 'minItems': 5, 'maxItems': 5,
+        'items': {'type': 'object', 'properties': {
+            'job_id': {'type': 'string', 'enum': [job['job_id'] for job in jobs]},
+            'explanation': {'type': 'string', 'minLength': 1, 'maxLength': 300}},
+            'required': ['job_id', 'explanation'], 'additionalProperties': False}}},
+        'required': ['matches'], 'additionalProperties': False}
+
+
 class Client:
     def __init__(self, config, transport=None):
         self.config = config
@@ -89,6 +100,8 @@ class Client:
     def call(self, worker, data, *, prompt=None, validator=validate_rank, schema=None):
         if prompt is None:
             prompt = (ROOT / 'shared/rank.txt').read_text()
+        if schema is None and worker in ('rank', 'baseline'):
+            schema = ranking_schema(data['jobs'])
         retry_hint = ''
         for attempt in range(2):
             start = time.perf_counter()

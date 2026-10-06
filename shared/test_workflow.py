@@ -7,7 +7,7 @@ from io import BytesIO
 from shared.common import Client, ROOT, validate_rank
 from orchestrator import match
 from orchestrator.validation import validate
-from orchestrator.workflow import decode_requirements, requirements_schema
+from orchestrator.workflow import decode_requirements, requirements_schema, number_jobs
 from shared.run_experiment import plan, prompt_snapshot
 from shared.summarize_results import precision
 from single_agent import match as single_match
@@ -39,6 +39,22 @@ class WorkflowTests(unittest.TestCase):
         client = self.client([parsed, self.ranking])
         match(client, 'Python', {}, self.jobs, requirements=extracted)
         self.assertEqual(len(client.calls), 2)
+
+    def test_rank_preserves_complete_postings_without_copying_quotes(self):
+        parsed = {'skills': [], 'education': [], 'experience': []}
+        selected = {'jobs': {j['job_id']: {'required': ['E001'], 'preferred': [], 'constraints': []} for j in self.jobs}}
+        responses = iter([parsed, selected, self.ranking])
+        payloads = []
+        def transport(payload):
+            payloads.append(json.loads(payload['messages'][1]['content']))
+            return self.response(next(responses))
+        match(Client(self.config, transport), 'Python', {}, self.jobs)
+        ranked = payloads[-1]
+        self.assertEqual([j['job_id'] for j in ranked['jobs']], [j['job_id'] for j in self.jobs])
+        for original, numbered in zip(self.jobs, ranked['jobs']):
+            self.assertNotIn('description', numbered)
+            self.assertEqual([line['text'] for line in numbered['description_lines']], [original['description']])
+        self.assertTrue(all(row['required'] == ['E001'] for row in ranked['requirements']['jobs']))
 
     def test_retry_keeps_billed_usage(self):
         client = self.client([{'matches': []}, self.ranking])
@@ -91,6 +107,18 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(single_match(client, 'Python', {}, self.jobs), self.ranking)
         self.assertEqual([c['worker'] for c in client.calls], ['baseline'])
 
+    def test_both_final_workers_use_the_same_five_item_schema(self):
+        schemas = []
+        def transport(payload):
+            schemas.append(payload['response_format']['json_schema']['schema'])
+            return self.response(self.ranking)
+        for worker in ('baseline', 'rank'):
+            Client(self.config, transport).call(worker, {'jobs': self.jobs})
+        self.assertEqual(schemas[0], schemas[1])
+        matches = schemas[0]['properties']['matches']
+        self.assertEqual((matches['minItems'], matches['maxItems']), (5, 5))
+        self.assertEqual(set(matches['items']['properties']['job_id']['enum']), {j['job_id'] for j in self.jobs})
+
     def test_source_evidence_ids_cannot_invent_requirements(self):
         job = self.jobs[0]
         data = {'jobs': [{'job_id': job['job_id'], 'description_lines': [
@@ -98,6 +126,11 @@ class WorkflowTests(unittest.TestCase):
         output = {'jobs': {job['job_id']: {'required': ['E001'], 'preferred': [], 'constraints': []}}}
         decoded = decode_requirements(output, data, [job])
         self.assertEqual(decoded['jobs'][0]['required'], ['Python required.'])
+        output['jobs'][job['job_id']]['required'] = ['E001', 'E001']
+        self.assertEqual(decode_requirements(output, data, [job])['jobs'][0]['required'], ['Python required.'])
+        output['jobs'][job['job_id']]['required'] = ['E001'] * 5
+        with self.assertRaises(ValueError):
+            decode_requirements(output, data, [job])
         output['jobs'][job['job_id']]['required'] = ['E999']
         with self.assertRaises(ValueError):
             decode_requirements(output, data, [job])
@@ -123,6 +156,7 @@ class WorkflowTests(unittest.TestCase):
         schema = requirements_schema(numbered)
         self.assertEqual(set(schema['properties']['jobs']['required']), {job['job_id'] for job in jobs})
         self.assertFalse(schema['properties']['jobs']['additionalProperties'])
+        self.assertEqual(schema['properties']['jobs']['properties']['J001']['properties']['required']['maxItems'], 4)
         hosted = requirements_schema(numbered, provider='openai')
         self.assertEqual(hosted['properties']['jobs']['required'], schema['properties']['jobs']['required'])
         items = hosted['properties']['jobs']['properties']['J001']['properties']['required']['items']
@@ -164,6 +198,10 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(sum(j['in_small_workload'] for j in jobs), 20)
         self.assertEqual(sum(j['source'] == 'lever' for j in jobs), 25)
         self.assertEqual(sum(j['source'] == 'lever' and j['in_small_workload'] for j in jobs), 10)
+        for original, numbered in zip(jobs, number_jobs(jobs)):
+            self.assertEqual(original['description'].split(), ' '.join(line['text'] for line in numbered['description_lines']).split())
+            self.assertEqual({k: v for k, v in original.items() if k != 'description'},
+                             {k: v for k, v in numbered.items() if k != 'description_lines'})
 
 
 if __name__ == '__main__':
