@@ -94,6 +94,8 @@ def main():
     parser.add_argument('--output', type=Path, default=ROOT / 'results/pilot')
     parser.add_argument('--pilot-dir', type=Path, help='Completed pilot directory that freezes model, prompts and workload')
     parser.add_argument('--execute', action='store_true', help='Run inference with the selected provider; default only prints plan')
+    parser.add_argument('--resume', action='store_true',
+                        help='Continue an interrupted run in --output; requires an identical frozen setup')
     args = parser.parse_args()
     if args.repetitions is not None and (args.phase != 'benchmark' or args.repetitions < 1):
         parser.error('--repetitions requires benchmark phase and a positive count')
@@ -127,9 +129,8 @@ def main():
             raise SystemExit('Complete a successful pilot covering the requested architectures before freezing')
         if pilot['config'] != config or pilot['prompts'] != current_prompts or pilot['jobs_sha256'] != digest(jobs):
             raise SystemExit('Config, prompts or workload changed since pilot; run a new pilot')
-    if args.output.exists():
+    if args.output.exists() and not args.resume:
         raise SystemExit('Choose a new output directory; existing results are never overwritten')
-    args.output.mkdir(parents=True)
     prompts = prompt_snapshot()
     freeze = {'config': config, 'prompts': prompts, 'jobs_sha256': digest(jobs),
               'provider_metadata': provider_metadata,
@@ -144,8 +145,24 @@ def main():
                                  for rid in {r['resume_id'] for r in schedule}}}
     if args.phase not in ('pilot', 'benchmark'):
         freeze['labels_sha256'] = digest((ROOT / 'data/labels/reference_labels.csv').read_text(encoding='utf-8'))
-    (args.output / 'manifest.json').write_text(json.dumps(freeze, indent=2))
-    spent = 0.0
+    key = lambda r: (r['resume_id'], r['size'], r['repetition'], r['architecture'])
+    done, spent = set(), 0.0
+    if args.resume and (args.output / 'manifest.json').exists():
+        # Completed runs stay as recorded; only the identical frozen setup may continue.
+        frozen = json.loads((args.output / 'manifest.json').read_text(encoding='utf-8'))
+        fields = ('config', 'prompts', 'jobs_sha256', 'code_sha256', 'schedule', 'phase', 'resumes_sha256', 'labels_sha256')
+        if any(frozen.get(f) != freeze.get(f) for f in fields):
+            raise SystemExit('Config, prompts, code, data or schedule changed; start a new output directory')
+        runs_path = args.output / 'runs.jsonl'
+        previous = [json.loads(line) for line in runs_path.read_text(encoding='utf-8').splitlines()] if runs_path.exists() else []
+        done = {key(r) for r in previous}
+        spent = sum(c['cost_usd'] or 0 for r in previous for c in r['calls'])
+        frozen.setdefault('resumed_at', []).append(datetime.now(timezone.utc).isoformat())
+        (args.output / 'manifest.json').write_text(json.dumps(frozen, indent=2))
+        print(f'Resuming: {len(done)} of {len(schedule)} runs already recorded', flush=True)
+    else:
+        args.output.mkdir(parents=True, exist_ok=True)
+        (args.output / 'manifest.json').write_text(json.dumps(freeze, indent=2))
     requirements = None
     if args.phase == 'reuse':
         client = Client(config)
@@ -161,6 +178,8 @@ def main():
         spent = sum(c['cost_usd'] for c in client.calls)
     batch_start = time.perf_counter()
     for row in schedule:
+        if key(row) in done:
+            continue
         if spent >= config['budget_usd']:
             raise SystemExit('Budget reached; completed runs preserved. A request may cross the budget.')
         subset = [j for j in jobs if row['size'] == 50 or j['in_small_workload']]
@@ -186,7 +205,8 @@ def main():
         print(f"{row['resume_id']} {row['size']} {row['architecture']}: {record['status']}", flush=True)
         if record['cost_usd'] is None:
             raise SystemExit('Unknown billed usage; logs saved. Check provider usage before continuing.')
-    (args.output / 'batch.json').write_text(json.dumps({'seconds': time.perf_counter() - batch_start, 'known_cost_usd': spent}))
+    (args.output / 'batch.json').write_text(json.dumps({'seconds': time.perf_counter() - batch_start, 'known_cost_usd': spent,
+                                                        'resumed': bool(done)}))
 
 
 if __name__ == '__main__':

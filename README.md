@@ -5,7 +5,7 @@ CSCE 585: Machine Learning Systems | Fall 2026
 
 This project compares two ways to match a resume with job postings: a single LLM call and a workflow with specialized workers. We will measure whether splitting up the work improves recommendations enough to justify the additional latency and token cost.
 
-**Status:** The 50-job snapshot and 10 anonymized resumes are in place. Kevin’s orchestration workflow and a separate single-agent baseline are implemented, with 16 offline tests. The baseline was added for the requested measured cost/speed comparison; the team responsibilities below remain the project plan. The eight-run local benchmark is complete: six runs succeeded; both R02 orchestrator runs failed resume-evidence validation. The measured PDF/charts are in [`data/reports/`](data/reports/). Relevance labels for all 400 evaluation pairs are complete; the team labeled them following the labeling rubric (see [Relevance labels](#relevance-labels)). The full evaluation remains pending. The latest progress slides are in [`progress_update_2026-10.pptx`](progress_update_2026-10.pptx). See [Kevin’s workflow and run commands](orchestrator/README.md).
+**Status:** The 50-job snapshot and 10 anonymized resumes are in place. Kevin’s orchestration workflow and a separate single-agent baseline are implemented, with 17 offline tests. The baseline was added for the requested measured cost/speed comparison; the team responsibilities below remain the project plan. The eight-run local benchmark is complete: six runs succeeded; both R02 orchestrator runs failed resume-evidence validation. The measured PDF/charts are in [`data/reports/`](data/reports/). Relevance labels for all 400 evaluation pairs are complete; the team labeled them following the labeling rubric (see [Relevance labels](#relevance-labels)). The full evaluation remains pending. The latest progress slides are in [`progress_update_2026-10.pptx`](progress_update_2026-10.pptx). See [Kevin’s workflow and run commands](orchestrator/README.md).
 
 The runner supports both architectures. Its default remains four orchestrator
 pilot runs, 48 main runs, and six reuse runs. Selecting `--architectures both`
@@ -94,6 +94,12 @@ paired eight-run pilot with the same model, prompts, and workload. Then
 `--phase main --architectures both --pilot-dir <paired-pilot-directory>` runs
 the planned 96 comparisons. Main/reuse retain their label and pilot checks;
 development cost/speed benchmarks can run before labeling is finished.
+
+To run the pilot, the 96-run evaluation and the Precision@5 summary on a Colab
+GPU, open [`colab/run_accuracy_eval.ipynb`](colab/run_accuracy_eval.ipynb) in
+Colab and choose **Run all**. It saves runs to Google Drive and pins the code
+commit; after a disconnect, **Run all** continues because the runner's
+`--resume` flag skips runs already recorded with an identical frozen setup.
 
 ## Team and Responsibilities
 

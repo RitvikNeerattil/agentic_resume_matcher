@@ -7,10 +7,53 @@ from .validation import validate
 PROMPTS = Path(__file__).resolve().parent / 'prompts'
 
 
+def number_resume(resume):
+    """Assign line IDs so the parser selects evidence instead of retyping it."""
+    lines = [line.strip() for line in clean(resume).splitlines() if line.strip()]
+    return [{'line_id': f'L{i:03}', 'text': line} for i, line in enumerate(lines, 1)]
+
+
+def resume_schema(lines, provider='ollama'):
+    """Constrain local output to the resume's line IDs; hosted output uses a pattern."""
+    item = ({'type': 'string', 'enum': [line['line_id'] for line in lines]} if provider == 'ollama'
+            else {'type': 'string', 'pattern': '^L[0-9]{3,}$'})
+    skill = {'type': 'object', 'properties': {'name': {'type': 'string', 'minLength': 1}, 'evidence_id': item},
+             'required': ['name', 'evidence_id'], 'additionalProperties': False}
+    return {'type': 'object',
+            'properties': {'skills': {'type': 'array', 'items': skill},
+                           'education': {'type': 'array', 'items': item},
+                           'experience': {'type': 'array', 'items': item}},
+            'required': ['skills', 'education', 'experience'], 'additionalProperties': False}
+
+
+def decode_resume(value, data, resume):
+    """Resolve selected line IDs to exact resume lines before checking evidence."""
+    if not isinstance(value, dict):
+        raise ValueError('Expected a JSON object')
+    sources = {line['line_id']: line['text'] for line in data['resume_lines']}
+    def quote(line_id):
+        if not isinstance(line_id, str) or line_id not in sources:
+            raise ValueError('Unknown line ID; use only IDs listed in resume_lines')
+        return sources[line_id]
+    for key in ('skills', 'education', 'experience'):
+        if not isinstance(value.get(key), list):
+            raise ValueError('Missing resume field: ' + key)
+    if any(not isinstance(skill, dict) for skill in value['skills']):
+        raise ValueError('Invalid skill')
+    decoded = {'skills': [{'name': skill.get('name'), 'evidence': quote(skill.get('evidence_id'))}
+                          for skill in value['skills']],
+               'education': list(dict.fromkeys(quote(i) for i in value['education'])),
+               'experience': list(dict.fromkeys(quote(i) for i in value['experience']))}
+    return validate('resume', decoded, {'resume': resume})
+
+
 def parse_resume(client, resume):
-    return client.call('resume', {'resume': clean(resume)},
+    resume = clean(resume)
+    lines = number_resume(resume)
+    return client.call('resume', {'resume_lines': lines},
                        prompt=(PROMPTS / 'resume.txt').read_text(encoding='utf-8'),
-                       validator=lambda value, data: validate('resume', value, data))
+                       schema=resume_schema(lines, client.config.get('provider', 'openai')),
+                       validator=lambda value, data: decode_resume(value, data, resume))
 
 
 def number_jobs(jobs):

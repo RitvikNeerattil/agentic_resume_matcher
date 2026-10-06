@@ -24,6 +24,11 @@ Reuse accepts requirements saved by `extract_requirements`. Evidence checks igno
 whitespace differences while preserving the original words. Local requests
 disable input truncation and context shifting.
 
+The resume parser works the same way: it selects numbered `resume_lines` by
+`line_id`, and the controller restores each exact line before evidence checks.
+Asking the local 4B model to retype quotes made both R02 benchmark runs fail
+validation; with line IDs, R02 parses on the first attempt.
+
 Ritvik can call `orchestrator.match(client, resume, preferences, jobs)` from the
 team's evaluation harness. It returns `{"matches": [{"job_id": "J001",
 "explanation": "..."}, ...]}` with exactly five distinct valid job IDs.
@@ -39,7 +44,7 @@ Completed:
 - Added comparison tables, paired resume differences, and the project decision rule.
 - Created 400 primary and 80 independent-review label rows.
 - Prevented unfinished labels from becoming reference labels.
-- Verified the pipelines and runner offline with 16 contract tests.
+- Verified the pipelines and runner offline with 17 contract tests.
 
 Still requires the team:
 
@@ -52,8 +57,9 @@ The local development benchmark completed all eight attempts: six succeeded.
 Both R02 orchestrator runs failed resume-evidence validation after one retry.
 The [measured PDF](../data/reports/pipeline_comparison.pdf) includes successful
 end-to-end times, token usage, actual outputs, and failed-attempt accounting.
-R01 completed both 20- and 50-job orchestrator runs. A fully successful pilot
-still requires resolving the R02 parser failures. Quality claims remain pending. The 400 primary labels are done (by the team);
+R01 completed both 20- and 50-job orchestrator runs. The resume parser now
+selects line IDs (see above), which resolves the R02 failure; those benchmark
+numbers predate the change. Quality claims remain pending. The 400 primary labels are done (by the team);
 the 80-pair second review is still blank.
 Offline fake responses only verify control flow. Full weeks 5–6 quality evaluation
 requires the second label review and a successful pilot.

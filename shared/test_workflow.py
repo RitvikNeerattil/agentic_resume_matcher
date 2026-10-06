@@ -7,7 +7,7 @@ from io import BytesIO
 from shared.common import Client, ROOT, validate_rank
 from orchestrator import match
 from orchestrator.validation import validate
-from orchestrator.workflow import decode_requirements, requirements_schema, number_jobs
+from orchestrator.workflow import decode_requirements, decode_resume, number_jobs, number_resume, requirements_schema, resume_schema
 from shared.run_experiment import plan, prompt_snapshot
 from shared.summarize_results import precision
 from single_agent import match as single_match
@@ -29,7 +29,7 @@ class WorkflowTests(unittest.TestCase):
         return Client(self.config, lambda payload: self.response(next(responses)))
 
     def test_three_calls_and_reuse(self):
-        parsed = {'skills': [{'name': 'Python', 'evidence': 'Python'}], 'education': [], 'experience': []}
+        parsed = {'skills': [{'name': 'Python', 'evidence_id': 'L001'}], 'education': [], 'experience': []}
         extracted = {'jobs': [{**j, 'required': ['Python required.'], 'preferred': [], 'constraints': []} for j in self.jobs]}
         ids = {'jobs': {j['job_id']: {'required': ['E001'], 'preferred': [], 'constraints': []} for j in self.jobs}}
         client = self.client([parsed, ids, self.ranking])
@@ -55,6 +55,22 @@ class WorkflowTests(unittest.TestCase):
             self.assertNotIn('description', numbered)
             self.assertEqual([line['text'] for line in numbered['description_lines']], [original['description']])
         self.assertTrue(all(row['required'] == ['E001'] for row in ranked['requirements']['jobs']))
+
+    def test_resume_line_ids_restore_exact_quotes(self):
+        resume = 'BS Computer Science\n  Built a Python ETL pipeline  \n'
+        lines = number_resume(resume)
+        self.assertEqual(lines, [{'line_id': 'L001', 'text': 'BS Computer Science'},
+                                 {'line_id': 'L002', 'text': 'Built a Python ETL pipeline'}])
+        output = {'skills': [{'name': 'Python', 'evidence_id': 'L002'}], 'education': ['L001', 'L001'], 'experience': ['L002']}
+        decoded = decode_resume(output, {'resume_lines': lines}, resume)
+        self.assertEqual(decoded, {'skills': [{'name': 'Python', 'evidence': 'Built a Python ETL pipeline'}],
+                                   'education': ['BS Computer Science'], 'experience': ['Built a Python ETL pipeline']})
+        for bad in ({**output, 'experience': ['L099']}, {**output, 'skills': [{'name': 'Go', 'evidence_id': 'L999'}]},
+                    {**output, 'education': 'L001'}):
+            with self.assertRaises(ValueError):
+                decode_resume(bad, {'resume_lines': lines}, resume)
+        self.assertEqual(resume_schema(lines)['properties']['education']['items']['enum'], ['L001', 'L002'])
+        self.assertIn('pattern', resume_schema(lines, provider='openai')['properties']['education']['items'])
 
     def test_retry_keeps_billed_usage(self):
         client = self.client([{'matches': []}, self.ranking])
