@@ -3,172 +3,122 @@
 **Orchestrated vs. Single-Agent Resume-to-Job Matching**  
 CSCE 585: Machine Learning Systems | Fall 2026
 
-This project compares two ways to match a resume with job postings: a single LLM call and a workflow with specialized workers. We will measure whether splitting up the work improves recommendations enough to justify the additional latency and token cost.
+This project compares two ways to match a resume with job postings: a single LLM call and a workflow of specialized LLM workers. We measure whether splitting up the work improves recommendations enough to justify the extra latency and token cost. Neither approach is trained or fine-tuned. Both prompt the same frozen model.
 
-**Status:** The 50-job snapshot and 10 anonymized resumes are in place. Kevin’s orchestration workflow and a separate single-agent baseline are implemented, with 17 offline tests. The baseline was added for the requested measured cost/speed comparison; the team responsibilities below remain the project plan. The eight-run local benchmark is complete: six runs succeeded; both R02 orchestrator runs failed resume-evidence validation. The measured PDF/charts are in [`data/reports/`](data/reports/). Relevance labels for all 400 evaluation pairs are complete; the team labeled them following the labeling rubric (see [Relevance labels](#relevance-labels)). The full evaluation remains pending. The latest progress slides are in [`progress_update_2026-10.pptx`](progress_update_2026-10.pptx). See [Kevin’s workflow and run commands](orchestrator/README.md).
+**Status:** Both matchers are implemented and tested offline. We switched from our own hand-labeled workload to the public, already-labeled [rjdfit dataset](#deviation-from-the-original-proposal) (see below). The code, tests and Colab notebook for the new evaluation are ready. The full evaluation on rjdfit has not been run yet, so there are no rjdfit results in this README. The latest progress slides are in [`progress_update_2026-10.pptx`](progress_update_2026-10.pptx).
 
-The runner supports both architectures. Its default remains four orchestrator
-pilot runs, 48 main runs, and six reuse runs. Selecting `--architectures both`
-produces eight paired pilot runs or the planned 96-run main comparison.
+## Deviation from the original proposal
 
-## Repository Layout
+The original plan used 50 job postings (Greenhouse and Lever) and 10 student resumes, with 400 resume-job pairs labeled by the three of us. We replaced that workload with the public [`cnamuangtoun/resume-job-description-fit`](https://huggingface.co/datasets/cnamuangtoun/resume-job-description-fit) dataset ("rjdfit") because it already has labels, which removes the biggest threat to the evaluation (our own judgments) and gives us far more resumes.
 
-| Location | Purpose |
-|---|---|
-| [`orchestrator/`](orchestrator/) | Kevin’s three-worker workflow, extraction validation, worker prompts, and instructions. |
-| [`single_agent/`](single_agent/) | One-call baseline for the measured pipeline comparison. |
-| [`shared/`](shared/) | Common API code, ranking prompt, cloud/local settings, data/labeling tools, experiment runner, report/summary tools, and tests. |
-| [`data/`](data/) | Job snapshots, resumes, relevance labels, and the labeling rubric. |
-| [`progress_update_2026-10.pptx`](progress_update_2026-10.pptx) | October progress update slides for the professor. |
+What changed:
 
-The shared components live together in `shared/`; there are no separate top-level
-`scripts/`, `tests/`, `config/`, `prompts/`, or `labels/` folders.
-Run these commands from the repository root:
+| | Original proposal | Now |
+|---|---|---|
+| Resumes | 10 anonymized student resumes (8 evaluated) | 30 real-world resumes sampled from rjdfit (2 dev, 28 eval) |
+| Jobs | 50 postings we collected, 20 or 50 per run | Each resume's own labeled jobs from rjdfit, 8 to 20 per resume |
+| Labels | 400 pairs labeled by the team | rjdfit's labels: No Fit, Potential Fit, Good Fit |
+| Main metric | Precision@5 | nDCG@5 (also precision@5, top-1 hit rate, and a random baseline) |
+| Workload size (RQ3) | 20 vs 50 jobs | Small, medium and large pools (<=12, 13-16, >12 jobs) |
+| Reuse ablation | 6 runs reusing extracted job requirements | Not part of the new evaluation |
 
-```sh
-python3 -m unittest shared.test_workflow -v
-python3 -m shared.run_experiment --phase pilot
-```
+What did not change: the single-agent and orchestrated matchers, their prompts, the model, the output contract and the cost accounting.
 
-The second command prints the plan and missing inputs. Full execution commands
-are in [the orchestrator instructions](orchestrator/README.md).
+Things to keep in mind when reading rjdfit results:
+- The dataset page has no card, so we cannot tell how the labels were produced (people, rules or an LLM). We should not call them "human labels" in the report unless we confirm that.
+- The text is messy PDF-style text. The resumes cover many fields (IT, data, sales and more), and many postings are recruiter emails, not clean job ads. `shared/rjdfit_eval.py` splits the text into short lines so the orchestrator's evidence selection works.
+- About 58% of the jobs in our pools are Potential or Good Fit, so choosing five jobs at random already gets precision@5 near 0.6. nDCG@5 (which also rewards ranking Good above Potential) is the main number, and the summary prints the random baseline next to precision.
 
-## Measured cost and speed comparison
+### Results from the original workload (superseded)
 
-Both pipelines use the same cleaned data, model, shared client, ranking prompt,
-and final output contract. The development benchmark measures R01/R02 against
-20 and 50 jobs without requiring human relevance labels. One repetition gives
-eight matching runs; the default three repetitions give 24. Each run records
-actual token counters, end-to-end wall time including retries, and its output.
-The benchmark does not establish ranking accuracy or Precision@5.
-
-The local model is `qwen3:4b-instruct-2507-q4_K_M`, already downloaded for Ollama
-0.35.0 at `http://127.0.0.1:11434`. Its native context capacity is 262,144 tokens;
-[`shared/local_experiment.json`](shared/local_experiment.json) configures 131,072.
-No API key is needed. Local inference has **$0 API token charges**; hardware and
-electricity costs are unmeasured.
-
-**Measured results — October 6, 2026:** [PDF and actual output comparison](data/reports/pipeline_comparison.pdf), [latency chart](data/reports/latency_comparison.png), [token chart](data/reports/token_usage.png), and [exact summary CSV](data/reports/comparison.csv).
-
-Completed same-input pairs for R01:
-
-| Jobs | Single time | Multi time | Single total tokens | Multi total tokens | API fees, each |
-|---|---:|---:|---:|---:|---:|
-| 20 | 65.5s | 274.4s | 31,388 | 92,835 | $0 |
-| 50 | 268.0s | 1200.2s | 73,540 | 214,563 | $0 |
-
-R02 completed both single-agent runs. Both R02 orchestrator runs failed during
-resume parsing after one retry because generated quotes were unsupported.
-Their time and tokens remain in the summary and batch totals. All eight runs
-took 39.44 minutes in one local server session; cache/model state was not reset.
-These are development measurements: the 96-run quality evaluation remains
-pending (the 400 relevance labels are done; the second review is not).
-
-**Accuracy evaluation — October 6, 2026:** after the resume-parser fix, the
-paired pilot passed 8/8 and the 96-run main experiment completed with no
-failures (Qwen3 4B through Ollama on a Colab A100, `colab/run_accuracy_eval.ipynb`).
-Precision@5 uses the 400 primary team labels; the 80-pair second review is
-still pending. Summaries are in [`data/reports/accuracy/`](data/reports/accuracy/).
+Before the switch we ran the full 96-run comparison on our own 400 labels (Qwen3 4B through Ollama on a Colab A100). The raw files were removed from the repo and remain in git history. Summary:
 
 | Jobs | Single P@5 | Multi P@5 | Single median time | Multi median time | Single tokens/run | Multi tokens/run |
 |---|---:|---:|---:|---:|---:|---:|
 | 20 | 0.433 | 0.383 | 13.4s | 51.9s | 32,676 | 90,944 |
 | 50 | 0.317 | 0.317 | 33.4s | 197.6s | 76,572 | 214,775 |
 
-Multi-agent was no more accurate at either size and was 4–6x slower with
-about 2.8x the tokens, so the decision rule (+5 points, at most 2x cost and
-time) is not met. At 50 jobs it beat the baseline on 1 of 8 resumes, lost on 2,
-and tied on 5. These timings come from an A100 and are not comparable to the
-Mac benchmark above.
+Multi-agent was no more accurate at either size, was 4 to 6 times slower and used about 2.8 times the tokens, so the decision rule below was not met on that workload. These labels were made by Kevin, Ritvik and Aidan with the rubric, and the planned independent second review was never done.
 
-From the repository root, run the eight-measurement comparison and generate its
-PDF/charts from the completed logs:
+## Repository layout
+
+| Location | Purpose |
+|---|---|
+| [`orchestrator/`](orchestrator/) | Kevin's three-worker workflow, extraction validation and worker prompts. |
+| [`single_agent/`](single_agent/) | The one-call baseline. |
+| [`shared/`](shared/) | Model client and cost logging, the shared ranking prompt, model configs, the rjdfit evaluation (`rjdfit_eval.py`) and tests. |
+| [`colab/rjdfit_eval.ipynb`](colab/rjdfit_eval.ipynb) | Runs the whole rjdfit evaluation on a Colab GPU. |
+| [`data/`](data/) | Where the downloaded dataset and built pools go (git-ignored). See [`data/README.md`](data/README.md). |
+| [`progress_update_2026-10.pptx`](progress_update_2026-10.pptx), [`585 Presentation.pptx`](585%20Presentation.pptx) | Progress update and original proposal slides. |
+
+## Quick start
+
+Run these from the repository root (Python 3.9 or newer).
 
 ```sh
-python3 -m shared.run_experiment --phase benchmark --architectures both --repetitions 1 --config shared/local_experiment.json --output results/new_benchmark --execute
-/opt/anaconda3/bin/python -m shared.make_pipeline_report results/new_benchmark --output data/reports
+python3 -m unittest shared.test_workflow shared.test_rjdfit        # offline tests, no model needed
+pip install datasets
+python3 -m shared.rjdfit_eval download                              # saves data/rjdfit/*.csv
+python3 -m shared.rjdfit_eval build                                 # makes the 30 resume pools
+python3 -m shared.rjdfit_eval run --config shared/local_experiment.json --split dev --output results/dev --execute
+python3 -m shared.rjdfit_eval run --config shared/local_experiment.json --split eval --output results/eval --execute
+python3 -m shared.rjdfit_eval summarize results/eval
 ```
 
-To regenerate the saved comparison without running inference:
+Leave out `--execute` to print the plan without calling a model. `--resume` continues an interrupted run. Output folders are never overwritten.
 
-```sh
-/opt/anaconda3/bin/python -m shared.make_pipeline_report results/local_benchmark --output data/reports
-```
+For a GPU, open [`colab/rjdfit_eval.ipynb`](colab/rjdfit_eval.ipynb) in Colab, push your latest code first (it clones `origin/main`), pick a GPU runtime and choose **Run all**. It does the download, build, dev check, eval and summary, and saves runs to Google Drive.
 
-Use a new results directory for each execution. The report command uses
-Matplotlib, available in this Anaconda environment; the matcher itself uses only
-the Python standard library. The report reads saved provider responses and run timers. It separates completed
-pipeline time from failed-attempt time and preserves all attempt costs/tokens.
+Pick the model with `--config`:
+- `shared/local_experiment.json`: `qwen3:4b-instruct-2507-q4_K_M` through Ollama at `http://127.0.0.1:11434`. No API key. API charges are $0. Hardware and electricity are not measured.
+- `shared/experiment.json`: OpenAI `gpt-4.1-mini-2025-04-14`. Needs `OPENAI_API_KEY` in your shell or a git-ignored `.env`. Prices are dated October 6, 2026: $0.40 input, $0.10 cached input and $1.60 output per million tokens ([source](https://developers.openai.com/api/docs/models/gpt-4.1-mini)). The budget guard is $20 per invocation.
 
-For optional cloud execution, choose `--config shared/experiment.json` and set
-`OPENAI_API_KEY`. That config selects `gpt-4.1-mini-2025-04-14` and prices dated
-October 6, 2026: $0.40 input, $0.10 cached input, and $1.60 output per million
-tokens. [Official model and pricing documentation](https://developers.openai.com/api/docs/models/gpt-4.1-mini).
-Cloud timings and costs must be measured separately from the local benchmark.
-
-Full quality evaluation uses the 400 completed reference labels and requires a successful
-paired eight-run pilot with the same model, prompts, and workload. Then
-`--phase main --architectures both --pilot-dir <paired-pilot-directory>` runs
-the planned 96 comparisons. Main/reuse retain their label and pilot checks;
-development cost/speed benchmarks can run before labeling is finished.
-
-To run the pilot, the 96-run evaluation and the Precision@5 summary on a Colab
-GPU, open [`colab/run_accuracy_eval.ipynb`](colab/run_accuracy_eval.ipynb) in
-Colab and choose **Run all**. It saves runs to Google Drive and pins the code
-commit; after a disconnect, **Run all** continues because the runner's
-`--resume` flag skips runs already recorded with an identical frozen setup.
-
-## Team and Responsibilities
+## Team and responsibilities
 
 | Member | Main responsibility |
 |---|---|
-| Aidan | Build the single-agent baseline and shared input/output format. |
-| Kevin Do | Build the orchestration workflow and worker prompts. |
-| Ritvik | Prepare job data, coordinate labeling, and build the evaluation script. |
+| Aidan | Single-agent baseline and shared input/output format. |
+| Kevin Do | Orchestration workflow and worker prompts. |
+| Ritvik | Data, evaluation script and results. |
 
-We have firsthand experience with the new-grad job search and our own resumes for initial testing. Everyone will review matches and results. We plan to meet weekly and track work through GitHub issues, commits, and short milestone notes.
+## Feedback received and responses
 
-## Feedback Received and Responses
+| Feedback received | Team response | Change |
+|---|---|---|
+| Add additional job datasets. | Accepted | First built a Greenhouse and Lever collection. Now evaluating on the public rjdfit dataset instead (see above). |
+| Look into how Simplify matches candidates to jobs. | Accepted | Added a related-work note on its documented inputs. |
+| Explain how token costs will be calculated. | Accepted | Per-call accounting, described below. |
+| Find a labeled dataset and deviate from the proposal if needed. | Accepted | Switched to rjdfit. |
 
-The following feedback came from the project presentation. The exact discussion date was not recorded in these notes.
+## Problem and motivation
 
-| Feedback received | Source/date | Team response | Change to the proposal |
-|---|---|---|---|
-| Add additional job datasets. | Presentation discussion; date not recorded | Accepted | Build a small, fixed collection from Greenhouse and Lever postings, using SimplifyJobs to help identify relevant employers and roles. |
-| Look into how Simplify matches candidates to jobs. | Presentation discussion; date not recorded | Accepted | Added a related-work comparison covering its documented matching inputs and the limits of what its public description reveals. |
-| Explain how token costs will be calculated. | Presentation discussion; date not recorded | Accepted | Added per-call accounting, measured development results, and a distinction between initial processing and reused job requirements. |
+A useful matcher should recommend relevant jobs and explain the fit without overlooking requirements or inventing qualifications. The **ML component** is LLM-based extraction and ranking. The **systems component** is measuring whether orchestration improves results enough to offset extra requests, latency and inference cost.
 
-## Problem and Motivation
+The data has no demographic labels, and the small sample will not support claims about hiring outcomes or fairness.
 
-In our own new-grad job searches, we repeatedly compare our experience with job requirements. A useful matcher should recommend relevant opportunities and explain the fit without overlooking requirements or inventing qualifications.
-
-The **ML component** is LLM-based extraction and ranking. The **systems component** is measuring whether orchestration improves results enough to offset extra requests, latency, and inference cost. The project explores this systems question through a small prototype.
-
-We will remove identifying details from resumes before API use. Recommendations will depend on documented qualifications and stated preferences. The small sample will not support claims about hiring outcomes or fairness across demographic groups.
-
-## Research Questions and Hypotheses
+## Research questions and hypotheses
 
 | Question | Hypothesis |
 |---|---|
-| **RQ1:** Does orchestration improve the relevance of the top five recommendations? | Separating extraction from ranking will improve Precision@5, especially when a resume covers several kinds of experience. |
-| **RQ2:** What additional latency and token cost does orchestration introduce? | The orchestrated workflow will usually cost more and take longer because it makes additional LLM calls. |
-| **RQ3:** Does the trade-off change with more job postings? | Increasing the candidate set from 20 to 50 postings will increase processing cost and may make specialized extraction more useful. |
+| **RQ1:** Does orchestration improve the relevance of the top five recommendations? | Separating extraction from ranking will improve ranking quality, especially for resumes that cover several kinds of experience. |
+| **RQ2:** What extra latency and token cost does orchestration add? | It will usually cost more and take longer because it makes more LLM calls. |
+| **RQ3:** Does the trade-off change with more jobs to choose from? | Larger pools will raise cost and may make specialized extraction more useful. |
 
-These are hypotheses to test. A result favoring the single-agent approach is still a useful project outcome.
+A result favoring the single-agent approach is still a useful outcome.
 
-## Related Work
+## Related work
 
-- **Simplify:** Its public description says matching considers profiles, skills, experience, preferences, and interview responses, and learns from user interactions. This motivates checking both qualifications and preferences in our matcher. The page does not specify its ranking formula, model, or agent architecture. We will use Simplify as a product reference, while benchmarking our own implementations with identical data. [Simplify AI Job Search](https://simplify.jobs/ai-job-search)
-- **AutoGen:** Wu et al. describe interacting, customizable agents. We draw on the idea of separate worker roles, but study a fixed matching workflow and its overhead. Using the AutoGen framework is not required. [AutoGen paper, version 2](https://arxiv.org/abs/2308.08155v2)
-- **Building effective agents:** Anthropic distinguishes predefined workflows from LLM-directed agents and discusses quality, cost, and latency trade-offs. This informs our choice of a fixed workflow. Our contribution is testing the trade-off on resume matching. [Anthropic engineering article](https://www.anthropic.com/engineering/building-effective-agents)
+- **Simplify:** Its public description says matching considers profiles, skills, experience, preferences and interview responses. It does not describe its model or architecture, so we use it only as a product reference. [Simplify AI Job Search](https://simplify.jobs/ai-job-search)
+- **AutoGen:** Wu et al. describe interacting, customizable agents. We use the idea of separate worker roles but study a fixed workflow and its overhead. [AutoGen paper, version 2](https://arxiv.org/abs/2308.08155v2)
+- **Building effective agents:** Anthropic separates predefined workflows from LLM-directed agents and discusses quality, cost and latency trade-offs. [Anthropic engineering article](https://www.anthropic.com/engineering/building-effective-agents)
 
-## Proposed System or Approach
+## Approach
 
-Both methods will receive the same cleaned resume text, explicit job preferences, and job descriptions. Both will return JSON containing five ranked job IDs and short explanations grounded in the supplied text.
+Both methods get the same cleaned resume text, the same jobs and the same ranking prompt, and both return JSON with five ranked job IDs and short explanations grounded in the supplied text.
 
 ```mermaid
 flowchart TD
-    A["Resume, preferences, and job snapshot"] --> B["Shared text cleanup"]
+    A["Resume and its candidate jobs"] --> B["Shared text cleanup"]
     B --> C["Single LLM call"]
     B --> D["Python orchestrator"]
     D --> E["Resume parser"]
@@ -176,72 +126,41 @@ flowchart TD
     F --> G["Scoring and ranking worker"]
     C --> H["Top five jobs and explanations"]
     G --> H
-    H --> I["Shared evaluation and usage log"]
+    H --> I["Scoring against rjdfit labels and usage log"]
 ```
 
-**Single-agent baseline:** One prompt asks the model to read the resume and all candidate postings, assess fit, and return the ranking.
+**Single agent:** one prompt reads the resume and all candidate jobs and returns the ranking (`single_agent/`).
 
-**Orchestrated workflow:** A Python controller makes three sequential calls: parse the resume, extract requirements from the candidate postings in one batch, and rank jobs using those structured outputs. The controller needs no additional LLM call. Here, “multi-agent” means role-specific LLM workers in a fixed workflow.
+**Orchestrated:** a Python controller makes three sequential calls: parse the resume, extract requirements from all jobs in one batch, then rank using those outputs (`orchestrator/`). "Multi-agent" here means role-specific LLM workers in a fixed workflow.
 
-**Reused components:** A fixed LLM through the shared standard-library HTTP client, job-data endpoints, and Matplotlib for reports. Both methods use the same model in each comparison. The measured development runs use local Ollama; a fixed OpenAI model is configured for optional cloud runs. No model training is planned.
+**Reused components:** a fixed LLM, the standard-library HTTP client in `shared/common.py` and the public rjdfit dataset. No model training is planned. Resume rewriting, automatic applications and a production site are out of scope.
 
-**Team contribution:** The matchers, prompts, output validation, labeled workload, and experiment script. We will use Python scripts and JSON/CSV files. Resume rewriting, automatic applications, a production website, and large-scale scraping are outside scope.
-
-## Evaluation Plan
+## Evaluation plan
 
 ### Data and workload
 
-| Source | Planned use |
-|---|---|
-| [SimplifyJobs New-Grad Positions](https://github.com/SimplifyJobs/New-Grad-Positions) | Identify new-grad roles and employers. Treat the repository as a listings index; obtain complete descriptions from the linked employer sources. |
-| [Greenhouse Job Board API](https://docs.greenhouse.io/job-board.html) | Create one snapshot of roughly 25 relevant postings across several employers. Public GET endpoints provide postings, with full descriptions available through `content=true`. |
-| [Lever Postings API](https://github.com/lever/postings-api) | Create a second snapshot of roughly 25 postings from other employers. Preserve descriptions and requirement lists when converting records to plain text. |
+`python3 -m shared.rjdfit_eval build` groups the dataset by resume. It keeps resumes that have at least 8 labeled jobs, at least 2 of them Potential or Good Fit, drops pairs whose duplicate rows disagree on the label, and samples up to 20 jobs per resume. It then picks 30 resumes (seed 585): the first 2 are dev and the other 28 are eval. Everything is deterministic, so the same inputs always give the same pools. The built pools are in `data/rjdfit_workload/pools.jsonl` (git-ignored, regenerate with the two commands above).
 
-We will select a short list of employers using Greenhouse and Lever and focus on early-career software/data roles. After deduplication, the snapshots will form one approximately 50-job collection, retaining source URLs, IDs, dates, and full text. Both workload sizes will include jobs from both sources.
+Each run gives one matcher one resume plus that resume's pool, in a shuffled order that is paired across the two architectures. Both matchers see the full pool, with no retrieval. Failed or invalid runs score zero.
 
-We use **10 resumes: two for development (R01–R02) and eight held out for evaluation (R03–R10)**. They were selected from a set of 33 student resumes collected in a previous USC course, favoring new-grad computer science, computer engineering and data profiles with a mix of software, data, AI/ML and embedded experience. Names, contact details, links and street addresses were removed before use (`shared/prep_resumes.py`). Resume owners did not state job preferences, so the team assigned simple location preferences in `data/resumes/resumes.csv`. We will freeze prompts after development and identify any supplemental synthetic resumes separately.
-
-The small workload will use 20 postings from the fixed collection; the larger workload will use all 50. Both methods receive the complete set, without retrieval. We will check context/output limits during the pilot and reduce the workload equally for both methods if needed.
-
-### Relevance labels
-
-Before examining predictions, we label each evaluation resume against all 50 jobs: **400 resume-job judgments**. Relevance requires fit with demonstrated core qualifications and stated constraints, such as role level and location. Missing a preferred skill alone will not make a job irrelevant.
-
-**How the labels were made:** The team (Kevin, Ritvik, and Aidan) labeled all 400 pairs by applying [`data/LABELING_RUBRIC.md`](data/LABELING_RUBRIC.md) to each resume and job, recording a reason code for every non-relevant pair and notes on borderline calls. This was done before any matcher predictions existed. The labels are in `data/labels/primary_labels.csv` and `data/labels/reference_labels.csv` (109 of 400 pairs marked relevant).
-
-The planned independent second review of 20% of pairs (`data/labels/second_review.csv`) has not been done yet. Until it is, the labels come from the team's rubric-based judgments only, and a second reviewer would strengthen them.
-
-### Experiments and controls
-
-| Experiment | Research question | Comparison |
-|---|---|---|
-| Main quality comparison | RQ1 | Precision@5 for both architectures on identical resume-job inputs. |
-| Systems comparison | RQ2 | Per-resume latency, token usage, estimated API cost, throughput, and failures. |
-| Workload-size comparison | RQ3 | Repeat the same comparison with 20 and 50 postings. |
-
-The main experiment requires **8 resumes × 2 architectures × 2 sizes × 3 repetitions = 96 matching runs**. Repetitions measure variation, not additional independent resumes. We will fix the model, temperature, final-output limit, preferences, and hardware. Intermediate extraction limits will be documented. Job-order seeds will be paired across architectures, and execution order alternated to reduce timing bias.
-
-One small ablation will reuse saved job requirements for two evaluation resumes at the larger size, with three repetitions each. These six runs isolate repeated extraction overhead. The main experiment will recompute intermediate outputs every time.
-
-### Metrics and interpretation
+### Metrics
 
 | Metric | Definition |
 |---|---|
-| Precision@5 | Number of relevant jobs (per the reference labels) among the five recommendations, divided by five. Missing, duplicate, or invalid job IDs receive no credit. |
-| Latency | Wall-clock seconds from matcher input to validated output, including retries. Report median and range. |
-| Token usage and cost | Total billed tokens and estimated USD across every call used for a resume. |
-| Throughput | Successfully completed resumes divided by total batch execution time in minutes, at one resume at a time. |
-| Failure rate | Percentage of attempted runs that still fail after one allowed retry. Keep their time and cost in the results. |
+| nDCG@5 (main) | Graded ranking quality of the top five: Good Fit counts 3, Potential Fit counts 1, No Fit counts 0, divided by the best possible ordering of that pool. Invalid or duplicate job IDs get no credit. |
+| Precision@5 | Share of the five picks labeled Potential or Good Fit. Shown next to a random-pick baseline (the pool's relevant share). |
+| Top-1 hit rate | Whether the first pick is Potential or Good Fit. |
+| Latency | Wall-clock seconds per resume, including retries. Median is reported. |
+| Tokens and cost | Total tokens and estimated USD across every call and retry. |
+| Failure rate | Share of runs that still fail after one allowed retry. |
 
-We will report mean Precision@5, variation across repetitions, and paired differences by resume. Failed runs score zero. We will inspect sample explanations for unsupported claims and discuss resume length and breadth of experience as an exploratory breakdown.
+We report per-architecture means, paired differences by resume (how many resumes the orchestrated version wins, loses and ties), and a breakdown by pool size (`by_pool_size.csv`).
 
-Our provisional criterion is **at least five percentage points higher mean Precision@5 on the larger workload, with cost and latency each no more than twice the baseline**. This project-specific rule uses mean cost and median latency. Mixed or negative results remain useful, with conclusions limited to this workload.
+Provisional decision rule (unchanged): the orchestrated approach is worth it only if it gains at least 5 points on the main quality metric with mean cost and median latency each at most twice the baseline. Mixed or negative results are still results, and conclusions are limited to this dataset.
 
-### How token costs will be calculated
+### How token costs are calculated
 
-Each request log will contain the model, worker, input/output tokens, time, retry number, and prices. Counts will come from API usage metadata. Prompts and intermediate results count again whenever another call receives them.
-
-With input/cache/output prices in USD per million tokens:
+Each request log records the model, worker, input and output tokens, time, retry number and prices. Counts come from usage metadata, and prompts and intermediate results count again whenever another call receives them.
 
 ```text
 call_cost = ((input_tokens - cached_tokens) × input_price
@@ -250,62 +169,35 @@ call_cost = ((input_tokens - cached_tokens) × input_price
 resume_cost = sum(call_cost for every call and retry used for that resume)
 ```
 
-The completed local benchmark above uses actual token counters. Local API
-token charges are $0 for both architectures; hardware and electricity are
-unmeasured. The PDF distinguishes successful runs from failed attempts.
-Cloud execution uses the dated prices in `shared/experiment.json`; its timings
-and token costs require separate live runs. Each billed category is counted
-once, including any reasoning tokens already included in completion counts.
-Missing usage stays unknown.
+Local Ollama runs have $0 API charges. Hardware and electricity are not measured. Missing usage stays unknown, never free.
 
-For the reuse ablation, we will report initial extraction cost separately and calculate `amortized cost = preparation cost / requests reusing it + mean per-request cost`. A small pilot will estimate the full run against a proposed **$20 budget**. We will reduce scope if needed.
+## Expected deliverables
 
-## Expected Deliverables
+- Source code for both matchers and the rjdfit evaluation, with offline tests.
+- Versioned prompts and configs, and the Colab notebook that reproduces the run.
+- Comparison tables (quality, latency, tokens, failures) and a few example resumes where one approach wins or fails.
+- Final report and presentation.
 
-- Source code for both matchers and a shared experiment runner.
-- Versioned prompts, configuration, a labeling rubric, and permitted sample data with source records.
-- Raw run logs and a comparison table covering quality, latency, token cost, and failures.
-- A quality-versus-cost plot, a latency comparison, and a few examples showing where either method succeeds or fails.
-- Setup/reproduction instructions, a short demo, and the final report and presentation.
+## Risks and mitigations
 
-## Timeline and Milestones
+| Risk | Mitigation |
+|---|---|
+| rjdfit labels may be noisy or machine-made, so scores measure agreement with those labels, not true fit | Say so in the report. Spot-check a sample of pairs by hand before drawing conclusions. |
+| Messy resume and job text may break the orchestrator's line-ID evidence step | `shared/rjdfit_eval.py` splits text into short lines. Run the dev check first and read the failures. |
+| High random baseline (about 0.6 precision@5) makes precision hard to read | Use nDCG@5 as the main metric and always show the random baseline. |
+| Small model or long inputs cause failures or truncation | Dev check before the eval, one logged retry, and failures scored zero but kept in time and cost totals. |
+| API cost | Local model by default. The cloud config has a $20 per-invocation guard. |
 
-These are planning windows relative to implementation start. The final presentation will follow the course's announced date.
+## Reproducibility
 
-| Period | Milestone and evidence of completion | Owner(s) |
-|---|---|---|
-| Weeks 1–2 | Collect both job snapshots, agree on labels, and run one baseline example with a cost log. | Ritvik, Aidan; Kevin reviews interfaces |
-| Weeks 3–4 | Complete the orchestrated workflow and run both methods on development resumes. Freeze the model, prompts, and workload after the pilot. | Kevin, Aidan; Ritvik checks logs |
-| Weeks 5–6 | Finish evaluation labels and run the main experiment and small reuse ablation. Produce the first comparison table. | Ritvik leads; all label and review |
-| Weeks 7–8 | Analyze results, write limitations, and prepare the demo, report, and presentation. | All |
-| Remaining time before the final presentation | Resolve necessary fixes and rehearse, with a recorded demo as backup. | All |
+Each run's `manifest.json` records the config and prices, hashes of the workload and code, every prompt, and the start time. Raw model responses are saved under git-ignored `results/`, because they contain dataset text. Dependencies are the Python standard library for the matchers, plus `datasets` for the download and Ollama for local inference.
 
-## Risks and Mitigations
-
-| Risk | Early warning | Mitigation and fallback |
-|---|---|---|
-| Too few usable job descriptions | Missing or duplicate descriptions during collection | Check both sources early and save snapshots. If needed, use fewer employers/postings and document the resulting coverage. |
-| API cost or context limits | Pilot exceeds the budget estimate or truncates inputs/outputs | Reduce the larger candidate set equally for both methods and keep the paired comparison. |
-| Inconsistent human labels | Reviewers disagree on core requirements | Clarify the rubric on development examples, resolve uncertain labels, and narrow claims if ambiguity remains. |
-| Too few usable resumes | Fewer than eight evaluation resumes available by the pilot | Use clearly identified synthetic examples as a separate supplemental workload if needed. |
-| API errors or unfinished features | Repeated failures in the pilot | Allow one logged retry and prioritize the two scripts and results table. Use saved outputs for the final demo if necessary. |
-
-## Reproducibility Plan
-
-We will record dependencies, model/version, prompts, settings, seeds, hardware/OS, data snapshots, source dates, and prices. Scripts will reproduce a matching comparison and regenerate figures from saved logs. Setup and run commands will be added with the implementation.
-
-We will record external repository commits used for data or code. Shared data will follow source reuse terms. Where redistribution is restricted, we will provide source records and preparation instructions. API keys and identifiable resumes will remain outside GitHub.
-
-Raw outputs and usage logs will accompany results. AI assistance helped draft this proposal and locate references. Later assistance that materially shapes code or analysis will also be documented.
+AI assistance materially contributed to the implementation, prompts, tests and these instructions.
 
 ## References
 
-1. [Simplify: AI Job Search](https://simplify.jobs/ai-job-search) — public description of matching inputs and product behavior.
-2. [Wu et al.: AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation, v2](https://arxiv.org/abs/2308.08155v2) — background on agent roles and interaction patterns.
-3. [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) — workflow design and complexity trade-offs.
-4. [SimplifyJobs: New-Grad Positions](https://github.com/SimplifyJobs/New-Grad-Positions) — index of new-grad opportunities.
-5. [Greenhouse: Job Board API](https://docs.greenhouse.io/job-board.html) — published job data and descriptions.
-6. [Lever: Postings API](https://github.com/lever/postings-api) — company job postings and structured fields.
-7. [Anthropic: API pricing](https://platform.claude.com/docs/en/about-claude/pricing) — example of input, output, and cache billing categories.
-
-Public references reviewed September 10, 2026. Actual experiment prices and data versions will be recorded when the experiments run.
+1. [Simplify: AI Job Search](https://simplify.jobs/ai-job-search) for a public description of matching inputs.
+2. [Wu et al.: AutoGen, v2](https://arxiv.org/abs/2308.08155v2) for background on agent roles.
+3. [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) for workflow design trade-offs.
+4. [cnamuangtoun/resume-job-description-fit](https://huggingface.co/datasets/cnamuangtoun/resume-job-description-fit) is the labeled dataset we evaluate on. License and labeling method are not stated on its page.
+5. [OpenAI: gpt-4.1-mini](https://developers.openai.com/api/docs/models/gpt-4.1-mini) for the cloud model and prices.

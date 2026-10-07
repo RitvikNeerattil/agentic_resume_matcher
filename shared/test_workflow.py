@@ -8,8 +8,7 @@ from shared.common import Client, ROOT, validate_rank
 from orchestrator import match
 from orchestrator.validation import validate
 from orchestrator.workflow import decode_requirements, decode_resume, number_jobs, number_resume, requirements_schema, resume_schema
-from shared.run_experiment import plan, prompt_snapshot
-from shared.summarize_results import precision
+from shared.rjdfit_eval import prompt_snapshot
 from single_agent import match as single_match
 
 
@@ -99,24 +98,12 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(set(prompt_snapshot()), {'shared/rank.txt',
                          'orchestrator/prompts/resume.txt', 'orchestrator/prompts/requirements.txt'})
 
-    def test_orchestrator_schedule(self):
-        self.assertEqual(len(plan('pilot', 585)), 4)
-        self.assertEqual(len(plan('main', 585)), 48)
-        self.assertEqual(len(plan('reuse', 585)), 6)
-        schedule = plan('main', 585)
-        self.assertTrue(all(r['architecture'] == 'orchestrated' for r in schedule))
-        self.assertEqual(schedule, plan('main', 585))
-        self.assertEqual(len({(r['resume_id'], r['size'], r['repetition']) for r in schedule}), 48)
-
-    def test_paired_benchmark_schedule(self):
-        schedule = plan('benchmark', 585, 'both', 1)
-        self.assertEqual(len(schedule), 8)
-        self.assertTrue(all(r['resume_id'] in ('R01', 'R02') for r in schedule))
-        for a, b in zip(schedule[::2], schedule[1::2]):
-            self.assertEqual(a['order_seed'], b['order_seed'])
-            self.assertEqual(a['size'], b['size'])
-            self.assertNotEqual(a['architecture'], b['architecture'])
-        self.assertEqual(len(plan('main', 585, 'both')), 96)
+    def test_numbering_keeps_every_posting_word_and_field(self):
+        jobs = [{'job_id': 'D001', 'company': 'X', 'description': 'Python required.\n\nSQL a plus.  '}]
+        numbered = number_jobs(jobs)
+        self.assertEqual([l['text'] for l in numbered[0]['description_lines']], ['Python required.', 'SQL a plus.'])
+        self.assertEqual({k: v for k, v in numbered[0].items() if k != 'description_lines'},
+                         {'job_id': 'D001', 'company': 'X'})
 
     def test_single_agent_one_call(self):
         client = self.client([self.ranking])
@@ -199,25 +186,6 @@ class WorkflowTests(unittest.TestCase):
         with patch('shared.common.urllib.request.urlopen', return_value=BytesIO(json.dumps(raw).encode())) as opener:
             Client(config).call('rank', {'jobs': self.jobs}, schema=schema)
         self.assertEqual(json.loads(opener.call_args[0][0].data)['format'], schema)
-
-    def test_precision_penalties(self):
-        labels = {('R03', j['job_id']): 1 for j in self.jobs}
-        run = {'resume_id': 'R03', 'status': 'ok', 'job_order': [j['job_id'] for j in self.jobs],
-               'output': {'matches': [{'job_id': 'J001'}, {'job_id': 'J001'}, {'job_id': 'INVALID'}]}}
-        self.assertEqual(precision(run, labels), .2)
-        run['status'] = 'failed'
-        self.assertEqual(precision(run, labels), 0)
-
-    def test_frozen_data(self):
-        jobs = [json.loads(line) for line in (ROOT / 'data/jobs/jobs_50.jsonl').read_text(encoding='utf-8').splitlines()]
-        self.assertEqual(len(jobs), 50)
-        self.assertEqual(sum(j['in_small_workload'] for j in jobs), 20)
-        self.assertEqual(sum(j['source'] == 'lever' for j in jobs), 25)
-        self.assertEqual(sum(j['source'] == 'lever' and j['in_small_workload'] for j in jobs), 10)
-        for original, numbered in zip(jobs, number_jobs(jobs)):
-            self.assertEqual(original['description'].split(), ' '.join(line['text'] for line in numbered['description_lines']).split())
-            self.assertEqual({k: v for k, v in original.items() if k != 'description'},
-                             {k: v for k, v in numbered.items() if k != 'description_lines'})
 
 
 if __name__ == '__main__':

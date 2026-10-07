@@ -1,18 +1,15 @@
-# large external dataset, kept locally only
-rjdfit_*.csv
-# original resumes stay off GitHub; anonymized R01-R10.txt are committed
-data/resumes/*.pdf
-data/resumes/*.docx
-data/resumes/raw/
+# public dataset and pools built from it (re-create with: python3 -m shared.rjdfit_eval download / build)
+data/rjdfit/
+data/rjdfit_workload/
+# old local-only resume files from the first workload
+data/raw/
+# API key
 .env
 __pycache__/
-# Raw model responses and extracted resume facts can identify resume owners.
+# raw model responses contain dataset text
 results/
-# original resumes (names, contact info); commit anonymized text instead
-data/raw/*.pdf
-data/raw/*.docx
-# maps R01-R10 to source files and names
-data/raw/resume_id_map.csv
-# OS / filesystem junk
+# Office lock files and OS junk
+~$*
 .DS_Store
 .fuse_hidden*
+.mypy_cache/

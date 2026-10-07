@@ -1,5 +1,0 @@
-architecture,size,runs,precision_at_5,precision_sd,failure_rate,median_seconds,min_seconds,max_seconds,input_tokens_known,output_tokens_known
-orchestrated,20,24,0.383,0.258,0.0,51.9,43.1,58.8,2136230,46433
-orchestrated,50,24,0.317,0.251,0.0,197.6,132.1,204.8,5061785,92817
-single,20,24,0.433,0.249,0.0,13.4,12.1,26.7,774347,9881
-single,50,24,0.317,0.251,0.0,33.4,29.8,68.2,1827527,10213
