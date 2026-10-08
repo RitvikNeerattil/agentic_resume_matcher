@@ -5,7 +5,7 @@ CSCE 585: Machine Learning Systems | Fall 2026
 
 This project compares two ways to match a resume with job postings: a single LLM call and a workflow of specialized LLM workers. We measure whether splitting up the work improves recommendations enough to justify the extra latency and token cost. Neither approach is trained or fine-tuned. Both prompt the same frozen model.
 
-**Status:** Both matchers are implemented and tested offline. We switched from our own hand-labeled workload to the public, already-labeled [rjdfit dataset](#deviation-from-the-original-proposal) (see below). The code, tests and Colab notebook for the new evaluation are ready. The full evaluation on rjdfit has not been run yet, so there are no rjdfit results in this README. The latest progress slides are in [`progress_update_2026-10.pptx`](progress_update_2026-10.pptx).
+**Status:** Both matchers are implemented, tested offline and evaluated on the public [rjdfit dataset](#deviation-from-the-original-proposal) (28 held-out resumes, Qwen3 4B and Qwen3 14B on a Colab A100). Single-agent scored higher on nDCG@5 at both model sizes, but the gap is within noise, and multi-agent costs about 4x the time and 3x the tokens. See [Results on rjdfit](#results-on-rjdfit). The latest progress slides are in `progress_update_2026-10.pptx`.
 
 ## Deviation from the original proposal
 
@@ -19,7 +19,7 @@ What changed:
 | Jobs | 50 postings we collected, 20 or 50 per run | Each resume's own labeled jobs from rjdfit, 8 to 20 per resume |
 | Labels | 400 pairs labeled by the team | rjdfit's labels: No Fit, Potential Fit, Good Fit |
 | Main metric | Precision@5 | nDCG@5 (also precision@5, top-1 hit rate, and a random baseline) |
-| Workload size (RQ3) | 20 vs 50 jobs | Small, medium and large pools (<=12, 13-16, >12 jobs) |
+| Workload size (RQ3) | 20 vs 50 jobs | Small, medium and large pools (<=12, 13-16, >16 jobs) |
 | Reuse ablation | 6 runs reusing extracted job requirements | Not part of the new evaluation |
 
 What did not change: the single-agent and orchestrated matchers, their prompts, the model, the output contract and the cost accounting.
@@ -28,6 +28,28 @@ Things to keep in mind when reading rjdfit results:
 - The dataset page has no card, so we cannot tell how the labels were produced (people, rules or an LLM). We should not call them "human labels" in the report unless we confirm that.
 - The text is messy PDF-style text. The resumes cover many fields (IT, data, sales and more), and many postings are recruiter emails, not clean job ads. `shared/rjdfit_eval.py` splits the text into short lines so the orchestrator's evidence selection works.
 - About 58% of the jobs in our pools are Potential or Good Fit, so choosing five jobs at random already gets precision@5 near 0.6. nDCG@5 (which also rewards ranking Good above Potential) is the main number, and the summary prints the random baseline next to precision.
+
+## Results on rjdfit
+
+28 held-out resumes (pools of 8 to 20 jobs), one run per resume per architecture, temperature 0, Colab A100. Failed runs would score 0. nDCG@5 is the main metric; random Precision@5 is 0.583. Summary files are in [`results_summary/`](results_summary/) (raw model responses stay on Drive because they contain dataset text).
+
+| Model | Architecture | nDCG@5 | Precision@5 | Top-1 hit | Failed runs | Median time | Median tokens |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Qwen3 4B | Single | 0.568 | 0.679 | 0.643 | 0 of 28 | 5.5s | 9.9k |
+| Qwen3 4B | Orchestrated | 0.512 | 0.629 | 0.607 | 2 of 28 | 20.9s | 32.2k |
+| Qwen3 14B (q4_K_M) | Single | 0.533 | 0.700 | 0.714 | 0 of 28 | 10.6s | 9.9k |
+| Qwen3 14B (q4_K_M) | Orchestrated | 0.486 | 0.664 | 0.429 | 0 of 28 | 40.8s | 32.0k |
+
+What the numbers say:
+- **No evidence that splitting the work helps.** On the 14B run, single was better on 15 resumes, orchestrated on 12 and 1 tied. The mean nDCG@5 gap is -0.047 (bootstrap 95% interval about -0.14 to +0.02). On the 4B run it was -0.056, and the two failed runs (below) were the whole gap.
+- **A bigger model did not raise nDCG@5.** Both architectures dropped about 0.03 from 4B to 14B; Precision@5 rose slightly. Both are only modestly above the 0.58 random baseline.
+- **Cost.** Orchestrated used about 3.9x the time and 3.2x the tokens at both sizes. The 14B eval took about 24 minutes of model time (4.7 single, 19.1 orchestrated) versus about 14 for 4B.
+- **One resume drives much of the 14B gap.** On P06 (a software-engineering resume) the orchestrated ranker said the resume "highlights skills in accounting" and picked five accounting jobs (nDCG@5 0.00; single got 0.97). Its resume parser had correctly listed C#, ASP.NET and SQL, so the error is in the ranking step. Without P06 the mean gap is about -0.01.
+- **Pool size (14B, hints only, 9 / 7 / 12 resumes):** orchestrated is behind on pools of 12 or fewer jobs (0.41 vs 0.56) and level on larger pools (13-16: 0.54 vs 0.52; over 16: 0.51 vs 0.52). See `results_summary/rjdfit_14b/by_pool_size.csv`.
+
+Why the 4B orchestrated runs failed: on P03 and P17 the resume parser listed about 60 skills and hit its 2,000-token output cap, twice. The fix (in `shared/local_14b_experiment.json` and `orchestrator/prompts/resume.txt`) raises the cap to 4,000 tokens and asks for at most 15 skills. The 4B numbers above were produced before that fix; the 14B run used it and had no failures. Because the parser limits and the model both changed between the two runs, 4B versus 14B is not a clean model-size comparison.
+
+Caveats: one run per resume (no run-to-run variance), the dataset's labels are of unknown origin, and the ranker in the orchestrated pipeline sees the parsed resume facts, not the full resume (an untested idea is to give it the full resume).
 
 ### Results from the original workload (superseded)
 
@@ -48,6 +70,7 @@ Multi-agent was no more accurate at either size, was 4 to 6 times slower and use
 | [`single_agent/`](single_agent/) | The one-call baseline. |
 | [`shared/`](shared/) | Model client and cost logging, the shared ranking prompt, model configs, the rjdfit evaluation (`rjdfit_eval.py`) and tests. |
 | [`colab/rjdfit_eval.ipynb`](colab/rjdfit_eval.ipynb) | Runs the whole rjdfit evaluation on a Colab GPU. |
+| [`results_summary/`](results_summary/) | Summary tables (comparison, per-resume, pool size, manifest) for the 4B and 14B runs. |
 | [`data/`](data/) | Where the downloaded dataset and built pools go (git-ignored). See [`data/README.md`](data/README.md). |
 | [`progress_update_2026-10.pptx`](progress_update_2026-10.pptx), [`585 Presentation.pptx`](585%20Presentation.pptx) | Progress update and original proposal slides. |
 
