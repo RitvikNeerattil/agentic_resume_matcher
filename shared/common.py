@@ -72,6 +72,7 @@ class Client:
                     'format': payload['response_format'].get('json_schema', {}).get('schema', 'json'),
                     'stream': False, 'keep_alive': '30m',
                     'truncate': False, 'shift': False,
+                    **({'think': self.config['think']} if 'think' in self.config else {}),
                     'options': {'temperature': payload['temperature'],
                                 'num_ctx': self.config['context_tokens'],
                                 'num_predict': payload['max_completion_tokens'],

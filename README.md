@@ -71,6 +71,7 @@ For a GPU, open [`colab/rjdfit_eval.ipynb`](colab/rjdfit_eval.ipynb) in Colab, p
 
 Pick the model with `--config`:
 - `shared/local_experiment.json`: `qwen3:4b-instruct-2507-q4_K_M` through Ollama at `http://127.0.0.1:11434`. No API key. API charges are $0. Hardware and electricity are not measured.
+- `shared/local_14b_experiment.json`: `qwen3:14b-q4_K_M` (4-bit, thinking off, 40,960-token context) through Ollama, with the resume parser output cap raised to 4,000 tokens. Used for the 14B rerun; results go to a separate Drive folder.
 - `shared/experiment.json`: OpenAI `gpt-4.1-mini-2025-04-14`. Needs `OPENAI_API_KEY` in your shell or a git-ignored `.env`. Prices are dated October 6, 2026: $0.40 input, $0.10 cached input and $1.60 output per million tokens ([source](https://developers.openai.com/api/docs/models/gpt-4.1-mini)). The budget guard is $20 per invocation.
 
 ## Team and responsibilities
